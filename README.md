@@ -26,9 +26,10 @@ O aplicativo o qual estamos construindo está sendo desenvolvido em React Native
 Dentro do aplicativo terá uma seção inicial onde os clientes terão acesso as informações da empresa, como horário de funcionamento, telefone, localização, tipos de serviço que empresa oferece, etc. Além disso terá também uma opção de cadastro e login, onde quando registrado e efetuado o login o usuário terá acesso ao gerenciamento de seus animais, podendo cadastrar ou remover, e também acesso ao agendamento do serviço, ficando disponível um calendário o qual o usuário poderá consultar as datas e horários disponíveis e realizar a solicitação. 
 
 </p>
-...
 
-## <a name=“prototipo”><a/> Protótipo do projeto :iphone:
+## <a id="prototipo"></a>Protótipo do projeto :iphone:
+
+
 O prototipo do projeto foi desenvolvido no Figma, tendo como destaque as seguintes telas: 
 |Tela Principal|Login| Cadastro| Perfil| Adição de Pet|Agendar Serviço|
 |:---:|:---: |:---: |:---: |:---: |:---:
