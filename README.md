@@ -42,11 +42,19 @@ a visualização com as devidas funcionalidades de botões encontra-se no seguin
 -[Protótipo-Figma](https://www.figma.com/proto/ZwgPTUtIF1Z2n4z0UZIxMU/Ally-(Community)?type=design&scaling=scale-down&page-id=0%3A1&node-id=6-172&starting-point-node-id=6%3A172)
 
 
-## <a name=“linguagens”><a/> Linguagens, dependencias e libs utilizadas :books:
+<a id="linguagens">
+  
+  ##  Linguagens, dependencias e libs utilizadas :books:
+</a>
 
 - [React Native](https://reactnative.dev/docs/getting-started)
 
-## <a name=“desenvolvedores”><a/> Desenvolvedores :octocat:
+
+<a id="desenvolvedores">
+  
+  ##   Desenvolvedores :octocat:
+</a>
+
 
 | [<img src="https://avatars.githubusercontent.com/u/112500673?v=4" width=115><br><sub>Aniara Zwarg</sub>](https://github.com/aniarazwarg) |  [<img src="https://avatars.githubusercontent.com/u/142364436?v=4" width=115><br><sub>Eduardo Elias</sub>](https://github.com/Eduardo-112) |  [<img src="https://avatars.githubusercontent.com/u/83922338?v=4" width=115><br><sub>Luca Barata</sub>](https://github.com/lucabarata) |[<img src="https://avatars.githubusercontent.com/u/113396028?v=4" width=115><br><sub>Luis Felipe</sub>](https://github.com/devluisfpaixao) |[<img src="https://avatars.githubusercontent.com/u/142733967?v=4" width=115><br><sub>Yan Barboza</sub>](https://github.com/YanBarboza) |
 | :---: | :---: | :---: | :---: | :---: 
