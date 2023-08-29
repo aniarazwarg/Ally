@@ -41,7 +41,7 @@ Dentro do aplicativo terá uma seção inicial onde os clientes terão acesso as
 
 |- Diagrama de caso de uso:|- Diagrama de classes|
 |:---: |:---: 
-|<img src="\assets\Doc\case.png">|<img src="\assets\Doc\classes.png">|
+|<img src="\assets\Doc\case.png" height=320 >|<img src="\assets\Doc\classes.png" height=320>|
 
 </p>
 <a id="prototipo">
@@ -52,7 +52,7 @@ Dentro do aplicativo terá uma seção inicial onde os clientes terão acesso as
 O prototipo do projeto foi desenvolvido no Figma, tendo como destaque as seguintes telas: 
 |Tela Principal|Login| Cadastro| Perfil| Adição de Pet|Agendar Serviço|
 |:---:|:---: |:---: |:---: |:---: |:---:
-|<img src="\assets\prototipo\Ally_page (6).jpg" width=200>|<img src="\assets\prototipo\Ally_page (8).jpg" width=200>|<img src="\assets\prototipo\Ally_page (2).jpg" width=200>|<img src="\assets\prototipo\Ally_page (3).jpg" width=200>|<img src="\assets\prototipo\Ally_page (5).jpg" width=200>|<img src="\assets\prototipo\Ally_page (15).jpg" width=200>
+|<img src="\assets\prototipo\Ally_page (6).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (8).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (2).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (3).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (5).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (15).jpg" width=200 height=320>
 
 a visualização com as devidas funcionalidades de botões encontra-se no seguinte link do figma: 
 - [<img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">](https://www.figma.com/proto/ZwgPTUtIF1Z2n4z0UZIxMU/Ally-(Community)?type=design&scaling=scale-down&page-id=0%3A1&node-id=6-172&starting-point-node-id=6%3A172)
@@ -82,17 +82,17 @@ Todos os integrantes do grupo tem autonomia em realizar suas adiçoes de código
 - Estilo de Codificação<br>
 
 Cada função é identificada com o nome que vai de acordo à sua usabilidade, tal como: <br>
-<img src="\assets\Doc\login.png">
+<img src="\assets\Doc\login.png" height=200>
 
 - Estilo de identação<br>
-A cada View mantemos uma linha de Espaço:<br>
-<img src="\assets\Doc\identacao.jpg">
-Para os Estilos não há linha extra de espaço:<br>
-<img src="\assets\Doc\estiloidenta.jpg">
+
+|A cada View mantemos uma linha de Espaço|Para os Estilos não há linha extra de espaço|
+|:---: |:---: 
+|<img src="\assets\Doc\identacao.jpg" width=420 height=200>|<img src="\assets\Doc\estiloidenta.jpg"  width=420 height=200>|
 
 - Comentários<br>
 Cada Imagem e função é identificada com comentarios:<br>
-<img src="\assets\Doc\identificaimagem.jpg">
+<img src="\assets\Doc\identificaimagem.jpg" width=890>
 
 
 
