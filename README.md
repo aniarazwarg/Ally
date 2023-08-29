@@ -45,6 +45,9 @@ Dentro do aplicativo terá uma seção inicial onde os clientes terão acesso as
 
 </p>
 <a id="prototipo">
+
+- Banco de Dados:<br>
+  <img src="\assets\Doc\banco.png" height=320 >
   
   ## Protótipo do projeto :iphone:
 </a>
