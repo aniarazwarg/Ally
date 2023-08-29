@@ -13,6 +13,7 @@
 :small_blue_diamond: [Descrição do projeto](#descrição-do-projeto)
 :small_blue_diamond: [Protótipo](#prototipo)
 :small_blue_diamond: [Linguagens, dependencias e libs utilizadas](#linguagens)
+:small_blue_diamond: [Desenvolvedores](#desenvolvedores)
 
 
 ## Descrição do projeto 
@@ -29,26 +30,19 @@ Dentro do aplicativo terá uma seção inicial onde os clientes terão acesso as
 
 ## <a name=“prototipo”><a/> Protótipo do projeto :iphone:
 O prototipo do projeto foi desenvolvido no Figma, tendo como destaque as seguintes telas: 
-
-
-
 |Tela Principal|Login| Cadastro| Perfil| Adição de Pet|Agendar Serviço|
-| :---: |:---: |:---: |:---: |:---: |:---: |
-|<img src="\assets\prototipo\Ally_page (6).jpg" width=200>|<img src="\assets\prototipo\Ally_page (8).jpg" width=200>|<img src="\assets\prototipo\Ally_page (2).jpg" width=200>|<img src="\assets\prototipo\Ally_page (3).jpg" width=200>|<img src="\assets\prototipo\Ally_page (5).jpg" width=200>|<img src="\assets\prototipo\Ally_page (15).jpg" width=200>|
+|:---:|:---: |:---: |:---: |:---: |:---:
+|<img src="\assets\prototipo\Ally_page (6).jpg" width=200>|<img src="\assets\prototipo\Ally_page (8).jpg" width=200>|<img src="\assets\prototipo\Ally_page (2).jpg" width=200>|<img src="\assets\prototipo\Ally_page (3).jpg" width=200>|<img src="\assets\prototipo\Ally_page (5).jpg" width=200>|<img src="\assets\prototipo\Ally_page (15).jpg" width=200>
 
-
-
-
+a visualização com as devidas funcionalidades de botões encontra-se no seguinte link do figma: 
+-[Protótipo-Figma](https://www.figma.com/proto/ZwgPTUtIF1Z2n4z0UZIxMU/Ally-(Community)?type=design&scaling=scale-down&page-id=0%3A1&node-id=6-172&starting-point-node-id=6%3A172)
 
 
 ## <a name=“linguagens”><a/> Linguagens, dependencias e libs utilizadas :books:
 
 - [React Native](https://reactnative.dev/docs/getting-started)
-...
 
-
-## Desenvolvedores :octocat:
-
+## <a name=“desenvolvedores”><a/> Desenvolvedores :octocat:
 
 | [<img src="https://avatars.githubusercontent.com/u/112500673?v=4" width=115><br><sub>Aniara Zwarg</sub>](https://github.com/aniarazwarg) |  [<img src="https://avatars.githubusercontent.com/u/142364436?v=4" width=115><br><sub>Eduardo Elias</sub>](https://github.com/Eduardo-112) |  [<img src="https://avatars.githubusercontent.com/u/83922338?v=4" width=115><br><sub>Luca Barata</sub>](https://github.com/lucabarata) |[<img src="https://avatars.githubusercontent.com/u/113396028?v=4" width=115><br><sub>Luis Felipe</sub>](https://github.com/devluisfpaixao) |[<img src="https://avatars.githubusercontent.com/u/142733967?v=4" width=115><br><sub>Yan Barboza</sub>](https://github.com/YanBarboza) |
 | :---: | :---: | :---: | :---: | :---: 
