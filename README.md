@@ -36,7 +36,7 @@ Dentro do aplicativo terá uma seção inicial onde os clientes terão acesso as
 O prototipo do projeto foi desenvolvido no Figma, tendo como destaque as seguintes telas: 
 |Tela Principal|Login| Cadastro| Perfil| Adição de Pet|Agendar Serviço|
 |:---:|:---: |:---: |:---: |:---: |:---:
-|<img src="\assets\prototipo\Ally_page (6).jpg" width=200>|<img src="\assets\prototipo\Ally_page (8).jpg" width=200>|<img src="\assets\prototipo\Ally_page (2).jpg" width=200>|<img src="\assets\prototipo\Ally_page (3).jpg" width=200>|<img src="\assets\prototipo\Ally_page (5).jpg" width=200>|<img src="\assets\prototipo\Ally_page (15).jpg" width=200>
+|<img src="\assets\prototipo\Ally_page (6).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (8).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (2).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (3).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (5).jpg" width=200 height=320>|<img src="\assets\prototipo\Ally_page (15).jpg" width=200 height=320>
 
 a visualização com as devidas funcionalidades de botões encontra-se no seguinte link do figma: 
 -[Protótipo-Figma](https://www.figma.com/proto/ZwgPTUtIF1Z2n4z0UZIxMU/Ally-(Community)?type=design&scaling=scale-down&page-id=0%3A1&node-id=6-172&starting-point-node-id=6%3A172)
