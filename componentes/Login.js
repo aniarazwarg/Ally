@@ -1,35 +1,35 @@
 import React, {Component} from 'react';
-import { StyleSheet, TextInput, Image, Text, View , Button } from 'react-native';
-
+import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity } from 'react-native';
 
 
 export function Login({navigation}){
   return (
     // estrutura login
     <View style={styles.container}>
-
-      <Image style={styles.logo} source={require('/assets/Logo_Brothers.png')} />
-            
-      <TextInput 
-       style={styles.input}
-       placeholder="Login"
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-      />
-
-      <View 
-        style={styles.button}>
-
-      <Button onPress={() => navigation.navigate('Cadastro')} title="  Entrar  " color="#273A73"/>
+      <View>
+        <Image style={styles.logo} source={require('/assets/Logo_Brothers.png')} />
       </View>
-
-
+      <View style={{marginTop: 20, alignItems:'center'}}>
+        <TextInput 
+          style={styles.input}
+          placeholder="Login"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+        />
+      </View>            
+      <View style={{alignItems:'center', marginTop: 20}}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.textButton}>Entrar</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.link}>
-        <div>Esqueceu sua senha?</div>
-        <div>Clique aqui!</div>
+        <TouchableOpacity style={{alignItems:'center'}} onPress={() => navigation.navigate('RecuperacaoSenha')}>
+          <Text style={styles.texto}>Esqueceu a senha?</Text>
+          <Text style={styles.texto}>CLique aqui!</Text>
+
+        </TouchableOpacity>
 
       </View>
 
@@ -44,10 +44,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor:'#F2EAD0',
+    justifyContent:'center'
   },
   link:{
-    backgroundColor:'#F2EAD0',
-    marginTop:'50px',
+    alignItems:'center',
+    marginTop:'100px',
     textAlign:'center',
     fontSize:'20px',
     fontFamily:'arial',
@@ -55,29 +56,42 @@ const styles = StyleSheet.create({
   input:{
     textAlign:'center',
     fontSize:'20px',
-    marginTop:'50px',
+    marginVertical: 10,
     backgroundColor:'#273A73',
     color:'#fff',
     padding:'10px',
     borderRadius:'20px',
+    width: '90%'
   },
   logo:{
-    backgroundColor:'#F2EAD0',
     alignSelf:'center',
-    height:'20%',
-    width:'100%',
+  height:'200px',
+  width:'400px',
   },
   logo2:{
-    backgroundColor:'#F2EAD0',
+
     alignSelf:'end',
-    height:'15%',
-    width:'15%',
+  height:'90px',
+  width:'90px',
   },
 
   button:{
-    backgroundColor:'#F2EAD0',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop:'50px',
+    backgroundColor: '#273A73',
+    width: '30%',
+    padding: 10,
+    borderRadius: 20,
+    
+  },
+
+  texto:{
+    textDecorationLine: 'underline',
+    color: 'blue',
+    fontSize:20,
+  },
+  textButton:{
+    color: 'white',
+    fontSize: 20
   }
 });
