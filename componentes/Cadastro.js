@@ -7,73 +7,57 @@ export function Cadastro({navigation}){
     return (
     // estrutura de cadastro
     <View style={styles.container}>
-
-      
-            
-        <TextInput 
-            style={styles.text1}
-            placeholder="Nome"
-        />
-
-        <TextInput 
-            style={styles.text1}
-            placeholder="Email"
-        />
-
-        <TextInput 
-            style={styles.text1}
-            placeholder="Senha"
-        />
-
-        <TextInput 
-            style={styles.text1}
-            placeholder="CPF"
-        />
-
-        <TextInput 
-            style={styles.text1}
-            placeholder="Data de Nascimento"
-        />   
-
-        <TextInput
-            style={styles.text0}
-            placeholder="Pet"
-        />
-
+      <View>
         <TextInput 
           style={styles.text1}
           placeholder="Nome"
         />
-
+        <TextInput 
+          style={styles.text1}
+          placeholder="Email"
+        />
+        <TextInput 
+          style={styles.text1}
+          placeholder="Senha"
+        />
+        <TextInput 
+          style={styles.text1}
+          placeholder="CPF"
+        />
+        <TextInput 
+          style={styles.text1}
+          placeholder="Data de Nascimento"
+        />   
+        </View>
+        <View>
+        <Text>Pet</Text>
+        <TextInput 
+          style={styles.text1}
+          placeholder="Nome"
+        />
         <TextInput 
           style={styles.text1}
           placeholder="Porte"
         />
-
         <TextInput 
           style={styles.text1}
           placeholder="Cor"
         />
-
         <TextInput 
           style={styles.text1}
           placeholder="Peso"
         />
-
         <TextInput 
           style={styles.text2}
           placeholder="Vacinas"
         />
-
         <TextInput 
-          style={styles.text2}
+          style={styles.text3}
           placeholder="Foto"
         />
-
-      <View 
-        style={styles.button}>
-
-      <Button onPress={() => navigation.navigate('Login')} title="  Entrar  " color="#273A73"/>
+      </View>
+      <View style={styles.button}>
+      <Button  title="  Enviar  " color="#273A73" borderRadius="20px"/>
       </View>
 
 
@@ -86,7 +70,7 @@ export function Cadastro({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor:'#F2EAD0',
+      backgroundColor:'#ffff',
     },
     link:{
       marginTop:'100px',
@@ -110,14 +94,15 @@ const styles = StyleSheet.create({
     },
     logo2:{
         alignSelf:'end',
-        height:'15%',
-        width:'15%',
+        height:'90px',
+        width:'90px',
     },
   
     button:{
       flexDirection: 'row',
       justifyContent: 'center',
       marginTop:'90px',
+      borderRadius:'20px',
     },
 
     text1:{
@@ -128,6 +113,7 @@ const styles = StyleSheet.create({
       color:'#fff',
       padding:'10px',
       borderRadius:'20px',
+      // width:'100',
     },
 
     text0:{
@@ -137,13 +123,36 @@ const styles = StyleSheet.create({
     },
 
     text2:{
+      ...StyleSheet.absoluteFillObject,
+      top: 590,
+      left: 40,
+      width: 110,
+      height: 45,
       flexDirection: 'row',
       textAlign:'center',
       fontSize:'15px',
       backgroundColor:'#273A73',
       marginTop:'20px',
       color:'#fff',
-      padding:'10px',
+      padding:'5px',
       borderRadius:'20px',
+    
+    },
+
+    text3:{
+      ...StyleSheet.absoluteFillObject,
+      top: 590,
+      left: 200,
+      width: 110,
+      height: 45,
+      flexDirection: 'row',
+      textAlign:'center',
+      fontSize:'15px',
+      backgroundColor:'#273A73',
+      marginTop:'20px',
+      color:'#fff',
+      padding:'5px',
+      borderRadius:'20px',
+
     }
   });
