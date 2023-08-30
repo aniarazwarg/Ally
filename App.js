@@ -11,12 +11,11 @@ import { Feed } from './componentes/Feed';
 const Stack = createNativeStackNavigator();
 
 export default class App extends Component{
-  EDU
   render(){
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
+      <Stack.Navigator initialRouteName='Cadastro'>
         <Stack.Screen name='Login' component={Login}/>
         <Stack.Screen name='Cadastro' component={Cadastro}/>
         <Stack.Screen name='Passeio' component={Passeio}/>

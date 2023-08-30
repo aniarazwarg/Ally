@@ -9,7 +9,7 @@ export function Passeio({navigation}){
                 placeholder="Passeio"
             />
 
-            <Image style={styles.logo} source={require('/assets/Img_Passeio.png')} />
+            <Image style={styles.logo} source={require('../assets/Img_Passeio.png')} />
 
             <TextInput
                 style={styles.input}
@@ -35,7 +35,7 @@ export function Passeio({navigation}){
                 <View style={{backgroundColor: 'red', flex: 0.5}} />
                 <Text>Hello World!</Text>
             </View> */}
-            <Image style={styles.logo2} source={require('/assets/ally.png')} />
+            <Image style={styles.logo2} source={require('../assets/ally.png')} />
         </View>
     );
 }

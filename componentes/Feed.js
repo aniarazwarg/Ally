@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native-web";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export function Feed({navigation}) {
     return (
         <View style={styles.container}>
             <View>
-                <Image source={require('/assets/Logo_Brothers.png')}
+                <Image source={require('../assets/Logo_Brothers.png')}
                 style={styles.logo}/>
             </View>
         </View>

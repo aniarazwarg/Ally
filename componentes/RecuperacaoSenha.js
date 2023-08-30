@@ -6,7 +6,7 @@ export function RecuperacaoSenha({navigation}){
       // estrutura login
       <View style={styles.container}>
   
-        <Image style={styles.logo} source={require('/assets/Logo_Brothers.png')} />
+        <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
               
         <TextInput
             style={styles.text}
@@ -23,7 +23,7 @@ export function RecuperacaoSenha({navigation}){
           placeholder="Enviar"
         />  
   
-        <Image style={styles.logo2} source={require('/assets/ally.png')} />
+        <Image style={styles.logo2} source={require('../assets/ally.png')} />
       </View>
     );
   }

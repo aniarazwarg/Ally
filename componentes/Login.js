@@ -6,9 +6,11 @@ export function Login({navigation}){
   return (
     // estrutura login
     <View style={styles.container}>
+      {/* Imagem */}
       <View>
-        <Image style={styles.logo} source={require('/assets/Logo_Brothers.png')} />
+        <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
       </View>
+      {/* Formulário de login */}
       <View style={{marginTop: 20, alignItems:'center'}}>
         <TextInput 
           style={styles.input}
@@ -18,22 +20,26 @@ export function Login({navigation}){
           style={styles.input}
           placeholder="Senha"
         />
-      </View>            
+      </View>   
+      {/* Botão entrar/cadastrar*/}
       <View style={{alignItems:'center', marginTop: 20}}>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.button2} onPress={() =>navigation.navigate('Cadastro')}>
+          <Text style={styles.textButton}>Cadastrar</Text>
+        </TouchableOpacity>
       </View>
+      {/* Esqueceu a senha */}
       <View style={styles.link}>
         <TouchableOpacity style={{alignItems:'center'}} onPress={() => navigation.navigate('RecuperacaoSenha')}>
           <Text style={styles.texto}>Esqueceu a senha?</Text>
           <Text style={styles.texto}>CLique aqui!</Text>
-
         </TouchableOpacity>
 
       </View>
 
-      <Image style={styles.logo2} source={require('/assets/ally.png')} />
+      <Image style={styles.logo2} source={require('../assets/ally.png')} />
     </View>
   );
 }
@@ -82,9 +88,16 @@ const styles = StyleSheet.create({
     width: '30%',
     padding: 10,
     borderRadius: 20,
-    
   },
-
+  button2:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#6FAA9C',
+    width: '30%',
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 20,
+  },
   texto:{
     textDecorationLine: 'underline',
     color: 'blue',
