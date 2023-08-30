@@ -11,10 +11,7 @@ import { Feed } from './componentes/Feed';
 const Stack = createNativeStackNavigator();
 
 export default class App extends Component{
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
+  EDU
   render(){
   return (
     // estrutura do app
