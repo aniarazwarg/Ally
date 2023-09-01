@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity } from 'react-native';
 
 
@@ -15,15 +15,17 @@ export function Login({navigation}){
         <TextInput 
           style={styles.input}
           placeholder="Login"
+          placeholderTextColor={'#fff'}
         />
         <TextInput
           style={styles.input}
           placeholder="Senha"
+          placeholderTextColor={'#fff'}
         />
       </View>   
       {/* Botão entrar/cadastrar*/}
       <View style={{alignItems:'center', marginTop: 20}}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button2} onPress={() =>navigation.navigate('Cadastro')}>
@@ -34,7 +36,7 @@ export function Login({navigation}){
       <View style={styles.link}>
         <TouchableOpacity style={{alignItems:'center'}} onPress={() => navigation.navigate('RecuperacaoSenha')}>
           <Text style={styles.texto}>Esqueceu a senha?</Text>
-          <Text style={styles.texto}>CLique aqui!</Text>
+          <Text style={styles.texto}>Clique aqui!</Text>
         </TouchableOpacity>
 
       </View>
@@ -54,31 +56,27 @@ const styles = StyleSheet.create({
   },
   link:{
     alignItems:'center',
-    marginTop:'100px',
+    marginTop:100,
     textAlign:'center',
-    fontSize:'20px',
-    fontFamily:'arial',
+    fontSize:20,
   },
   input:{
     textAlign:'center',
-    fontSize:'20px',
+    fontSize:20,
     marginVertical: 10,
     backgroundColor:'#273A73',
-    color:'#fff',
-    padding:'10px',
-    borderRadius:'20px',
+    color:'white',
+    padding:10,
+    borderRadius:20,
     width: '90%'
   },
   logo:{
-    alignSelf:'center',
-  height:'200px',
-  width:'400px',
+    height:200,
+    width:400,
   },
   logo2:{
-
-    alignSelf:'end',
-  height:'90px',
-  width:'90px',
+  height:90,
+  width:90,
   },
 
   button:{

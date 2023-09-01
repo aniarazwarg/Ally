@@ -19,14 +19,12 @@ const styles = StyleSheet.create({
         backgroundColor:'#F2EAD0',
       },
     logo:{
-        alignSelf:'center',
-      height:'200px',
-      width:'400px',
+      height:200,
+      width:400,
       },
       logo2:{
     
-        alignSelf:'end',
-      height:'90px',
-      width:'90px',
+      height:90,
+      width:90,
       },
 });

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { StyleSheet, TextInput, Image, Text, View , Button } from 'react-native';
 
 export function Passeio({navigation}){
@@ -43,40 +43,38 @@ export function Passeio({navigation}){
 const styles = StyleSheet.create({
     text:{
         textAlign:'center',
-        fontSize:'25px',
-        marginTop:'30px',
+        fontSize:25,
+        marginTop:30,
     },
 
     text1:{
         flexDirection:'row',
         textAlign:'center',
-        fontSize:'15px',
-        marginTop:'30px',
+        fontSize:15,
+        marginTop:30,
     },
 
     input:{
         flexDirection:'row',
         textAlign:'center',
-        fontSize:'15px',
-        marginTop:'40px',
+        fontSize:15,
+        marginTop:40,
         backgroundColor:'grey',
-        color:'#black',
-        padding:'40px',
-        marginLeft:'20px',
-        marginRight:'20px',
+        color:'black',
+        padding:40,
+        marginLeft:20,
+        marginRight:20,
       },
 
       logo:{
-        alignSelf:'center',
-      height:'200px',
-      width:'400px',
-      marginTop:'40px',
+      height:200,
+      width:400,
+      marginTop:40,
       },
       
       logo2:{
-        alignSelf:'end',
-        height:'90px',
-        width:'90px',
-        marginTop:'300px',
+        height:90,
+        width:90,
+        marginTop:300,
         },
 });
