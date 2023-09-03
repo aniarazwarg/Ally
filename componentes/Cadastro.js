@@ -1,21 +1,40 @@
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity, Pressable, Platform } from 'react-native';
+import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity, Pressable, Platform, KeyboardAvoidingView } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 
 export function Cadastro({navigation}){
     
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [senhaNaoCoincideMsg, setsenhaNaoCoincideMsg] = useState('');
+
+//Confirmação de senha
+  
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
+  
+  const handleConfirmPasswordChange = (text) => {
+    setConfirmPassword(text);
+  }
+
   const handleSubmit = () => {
-    console.log('Senha enviada:', password);
-  };
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+    if(password === confirmPassword) {
+      console.log('Senhas coincidem:', password);
+      setsenhaNaoCoincideMsg('')
+    } else {
+      setPasswordsMatch(false);
+      setsenhaNaoCoincideMsg('*Senhas não coincidem.')
+    }
+  }
+
+
 
 
 // DatePicker
@@ -51,97 +70,93 @@ export function Cadastro({navigation}){
 
 
   return (
-
-   
-    // estrutura de cadastro
-    <View style={styles.container}>
+    <KeyboardAwareScrollView 
+      contentContainerStyle={styles.container}
+      extraScrollHeight={0} >
       <View>
-      <View>
-        <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
-      </View>
-      <View style={{alignItems:'center'}}>
-        <Text style={styles.text0}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
-      </View>
-      </View>
-      <View style={{alignItems:'center'}}>
-        <TextInput 
-          style={styles.text1}
-          placeholder="Nome"
-          placeholderTextColor={'#fff'}
-        />
-        <TextInput 
-          style={styles.text1}
-          placeholder="Email"
-          placeholderTextColor={'#fff'}
-        />
-        <TextInput 
-          style={styles.text1}
-          placeholder="Senha"
-          placeholderTextColor={'#fff'}
-          secureTextEntry={true}
-          value={password}
-          onChangeText={handlePasswordChange}
-        />
-        <TextInput 
-          style={styles.text1}
-          placeholder="Confirme a senha"
-          placeholderTextColor={'#fff'}
-          secureTextEntry={true}
-          value={password}
-          onChangeText={handlePasswordChange}
-        />
-        <TextInput 
-          style={styles.text1}
-          placeholder="CPF"
-          placeholderTextColor={'#fff'}
-        />
-        {!showPicker && (
-          <Pressable
-          onPress={toggleDatepicker}
-          style={{width:'100%', alignItems:'center'}}
-        >
+        <View>
+          <View>
+            <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
+          </View>
+          <View style={{alignItems:'center'}}>
+            <Text style={styles.text0}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
+          </View>
+        </View>
+        <View style={{alignItems:'center'}}>
           <TextInput 
             style={styles.text1}
-            placeholder="Data de Nascimento"
-            placeholderTextColor={"#fff"}
-            value={dateOfBirth}
-            onChange={setDateOfBirth}
-            editable={false}
+            placeholder="Nome"
+            placeholderTextColor={'#fff'}
           />
-        </Pressable>
-        )}
-        
-        {showPicker && (
-          <DateTimePicker
-          mode='date'
-          display='spinner'
-          value={date}
-          onChange={onChange}
-          maximumDate={new Date(2006, 0, 0)}
-        />
+          <TextInput 
+            style={styles.text1}
+            placeholder="Email"
+            placeholderTextColor={'#fff'}
+          />
+          <TextInput 
+            style={styles.text1}
+            placeholder="Senha"
+            placeholderTextColor={'#fff'}
+            secureTextEntry={true}
+            value={password}
+            onChangeText={handlePasswordChange}
+          />
+          <TextInput 
+            style={styles.text1}
+            placeholder="Confirme a senha"
+            placeholderTextColor={'#fff'}
+            secureTextEntry={true}
+            value={confirmPassword}
+            onChangeText={handleConfirmPasswordChange}
+          />
+          <TextInput 
+            style={styles.text1}
+            placeholder="CPF"
+            placeholderTextColor={'#fff'}
+          />
+          {!showPicker && (
+            <Pressable
+            onPress={toggleDatepicker}
+            style={{width:'100%', alignItems:'center'}}
+          >
+            <TextInput 
+              style={styles.text1}
+              placeholder="Data de Nascimento"
+              placeholderTextColor={"#fff"}
+              value={dateOfBirth}
+              onChange={setDateOfBirth}
+              editable={false}
+            />
+          </Pressable>
+          )}
+          {!passwordsMatch && <Text style={{color:'red'}}>{senhaNaoCoincideMsg}</Text>}
 
-)}
-        
+          {showPicker && (
+            <DateTimePicker
+            mode='date'
+            display='spinner'
+            value={date}
+            onChange={onChange}
+            maximumDate={new Date(2006, 0, 0)}
+          />
+          )}
+        </View>
+        <View style={{alignItems:'center'}}>
+          <TouchableOpacity  style={styles.button} onPress={handleSubmit}>
+            <Text style={{color:'white'}}>Enviar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={{alignItems:'center'}}>
-        <TouchableOpacity  style={styles.button} onPress={handleSubmit}>
-          <Text style={{color:'white'}}>Enviar</Text>
-        </TouchableOpacity>
-      </View>
-
-
-
-      <Image style={styles.logo2} source={require('../assets/ally.png')} />
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor:'#ffff',
       backgroundColor:'#F2EAD0',
-
+      justifyContent:'center',
+      alignItems:'center'
     },
     link:{
       marginTop:100,

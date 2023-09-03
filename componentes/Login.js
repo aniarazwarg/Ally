@@ -24,7 +24,7 @@ export function Login({navigation}){
         />
       </View>   
       {/* Botão entrar/cadastrar*/}
-      <View style={{alignItems:'center', marginTop: 20}}>
+      <View style={{alignItems:'center', marginTop: 30}}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#273A73',
-    width: '30%',
+    width: '90%',
     padding: 10,
     borderRadius: 20,
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#6FAA9C',
-    width: '30%',
+    width: '90%',
     padding: 10,
     borderRadius: 20,
     marginTop: 20,
