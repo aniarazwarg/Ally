@@ -8,6 +8,7 @@ export function Feed({navigation}) {
             <View>
                 <Image source={require('../assets/Logo_Brothers.png')}
                 style={styles.logo}/>
+                <Text>Av.Conselheiro Rodrigues Alves, 198 - Macuco,npm install --save moment</Text>
             </View>
         </View>
     );
