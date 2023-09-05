@@ -14,6 +14,14 @@ export default function App(){
  
   return (
 
- <Calendario></Calendario>
+<NavigationContainer>
+      <Stack.Navigator initialRouteName='Login'>
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Cadastro' component={Cadastro}/>
+        <Stack.Screen name='Passeio' component={Passeio}/>
+        <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha}/>
+        <Stack.Screen name='Feed' component={Feed}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
