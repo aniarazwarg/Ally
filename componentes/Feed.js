@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image,Button, AlertButton, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export function Feed({navigation}) {
-    return (
+        return (
         <View style={styles.container}>
             {/* Logo Brothers */}
             <View>
@@ -12,27 +12,27 @@ export function Feed({navigation}) {
             </View>
             {/* Logo serviços */}
             <View style={{flexDirection:'row', justifyContent:'space-around', marginHorizontal: 20}}>
-                <TouchableOpacity style={{borderWidth:0.5}}>
-                    <Image source={require('../assets/Img_Passeio.png')}
-                    style={{width: 80, height: 80}}
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/hotel.png')}
+                    style={{width: 80, height: 80,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Hotel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{borderWidth:0.5}}>
-                    <Image source={require('../assets/Img_Passeio.png')}
-                    style={{width: 80, height: 80}}
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/passeio.png')}
+                    style={{width: 80, height: 80,borderRadius: 30}}
                     />
                     <Text style={styles.text4}>Passeio</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{borderWidth:0.5}}>
-                    <Image source={require('../assets/Img_Passeio.png')}
-                    style={{width: 80, height: 80}}
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/adestrar.png')}
+                    style={{width: 80, height: 80,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Adestramento</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{borderWidth:0.5}}>
-                    <Image source={require('../assets/Img_Passeio.png')}
-                    style={{width: 80, height: 80}}
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/agility.png')}
+                    style={{width: 80, height: 80,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Agility</Text>
                 </TouchableOpacity>
@@ -69,7 +69,7 @@ export function Feed({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection:'row', justifyContent:'space-around', marginTop: 10}}>
-                    <View style={{ backgroundColor: '#CCFFFF', width:'40%', padding:10, borderRadius: 10}}>
+                    <View style={{ backgroundColor: '#fffff0', width:'40%', padding:10, borderRadius: 10}}>
                         <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
                             <Image 
                                 source={require('../assets/Img_Passeio.png')}
@@ -79,7 +79,7 @@ export function Feed({navigation}) {
                                 source={require('../assets/avaliacao.png')}
                                 style={{width: 50, height: 30}}/>
                         </View>
-                        <View style={{alignItems:'center', margin: 10, height:80}}>
+                        <View style={{alignItems:'center', margin: 10, height:80 }}>
                             <Text>Adorei a experiência que o Bob Marley teve com vocês!</Text>
                         </View>
                         <View style={{flexDirection:'row', justifyContent:'space-around'}}>
@@ -95,7 +95,7 @@ export function Feed({navigation}) {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ backgroundColor: '#CCFFFF', width:'40%', padding:10, borderRadius: 10}}>
+                    <View style={{ backgroundColor: '#f5fffa', width:'40%', padding:10, borderRadius: 10}}>
                         <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
                             <Image 
                                 source={require('../assets/Img_Passeio.png')}
@@ -130,13 +130,16 @@ export function Feed({navigation}) {
                     <TextInput
                         placeholder="Informe seu email ou whatsapp"/>
                 </View>
-            </View>
+                            </View>
 
         </View>
     );
-}
+    }
 
-const styles = StyleSheet.create({
+
+
+
+    const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:'#F2EAD0',
@@ -144,6 +147,7 @@ const styles = StyleSheet.create({
     logo:{
       height:200,
       width:400,
+      backgroundColor:'#F2EAD0'
       },
       logo2:{
     
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
       },
       text: {
         color: '#60452F',
-        fontWeight: 'bold'        
+        fontWeight: 'bold'
       },
       text2: {
         color: "#273A73",
