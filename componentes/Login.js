@@ -1,52 +1,44 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity } from 'react-native';
 
 export function Login({navigation}){
   return (
-    // estrutura login
     <View style={styles.container}>
       {/* Imagem */}
-      <View>
-        <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
+      <View style={styles.imagem}>
+        <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
       </View>
       {/* Formulário de login */}
-      <View style={{marginTop: 20, alignItems:'center'}}>
+      <View style={styles.form}>
         <TextInput 
           style={styles.input}
           placeholder="Login"
-          placeholderTextColor={'#fff'}
+          placeholderTextColor={'#596AA1'}
         />
         <TextInput
           style={styles.input}
           placeholder="Senha"
-          placeholderTextColor={'#fff'}
+          placeholderTextColor={'#596AA1'}
         />
       </View>   
       {/* Botão entrar/cadastrar*/}
-      <View style={{alignItems:'center', marginTop: 30}}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.buttonEntrar} onPress={() => navigation.navigate('Feed')}>
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={() =>navigation.navigate('Cadastro')}>
+        <TouchableOpacity style={styles.buttonCadastrar} onPress={() =>navigation.navigate('Cadastro')}>
           <Text style={styles.textButton}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
       {/* Esqueceu a senha */}
       <View style={styles.link}>
-        <TouchableOpacity style={{alignItems:'center'}} onPress={() => navigation.navigate('RecuperacaoSenha')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('RecuperacaoSenha')}>
           <Text style={styles.texto}>Esqueceu a senha?</Text>
-          <Text style={styles.texto}>Clique aqui!</Text>
         </TouchableOpacity>
-
       </View>
-
-      <Image style={styles.logo2} source={require('../assets/ally.png')} />
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -54,44 +46,44 @@ const styles = StyleSheet.create({
     backgroundColor:'#F2EAD0',
     justifyContent:'center'
   },
-  link:{
+  imagem: {
     alignItems:'center',
-    marginTop:100,
-    textAlign:'center',
-    fontSize:20,
+  },
+  logoBrothers:{
+    height:150,
+    width:'90%',
+  },
+  form: {
+    marginTop: 20,
+    alignItems:'center',
   },
   input:{
     textAlign:'center',
     fontSize:20,
+    backgroundColor:'#F3EEDB',
     marginVertical: 10,
-    backgroundColor:'#273A73',
-    color:'white',
+    borderColor:'#273A73',
+    borderWidth:2,
+    color:'#273A73',
     padding:10,
     borderRadius:20,
     width: '90%'
   },
-  logo:{
-    height:200,
-    width:400,
+  buttons:{
+    alignItems:'center',
+    marginTop: 30
   },
-  logo2:{
-  height:90,
-  width:90,
-  },
-
-  button:{
-    flexDirection: 'row',
-    justifyContent: 'center',
+  buttonEntrar:{
+    alignItems:'center',
     backgroundColor: '#273A73',
-    width: '90%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
   },
-  button2:{
-    flexDirection: 'row',
-    justifyContent: 'center',
+  buttonCadastrar:{
+    alignItems:'center',
     backgroundColor: '#6FAA9C',
-    width: '90%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
     marginTop: 20,
@@ -104,5 +96,10 @@ const styles = StyleSheet.create({
   textButton:{
     color: 'white',
     fontSize: 20
-  }
+  },
+  link:{
+    alignItems:'center',
+    marginTop:20,
+    fontSize:20,
+  },
 });

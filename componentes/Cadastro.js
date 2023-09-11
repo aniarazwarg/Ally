@@ -72,47 +72,47 @@ export function Cadastro({navigation}){
   return (
     <KeyboardAwareScrollView 
       contentContainerStyle={styles.container}
-      extraScrollHeight={0} >
+      extraScrollHeight={100}>
       <View>
         <View>
-          <View>
-            <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
+          <View style={styles.image}>
+            <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
           </View>
-          <View style={{alignItems:'center'}}>
-            <Text style={styles.text0}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
+          <View style={styles.welcome}>
+            <Text style={styles.welcomeText}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
           </View>
         </View>
-        <View style={{alignItems:'center'}}>
+        <View style={styles.formulario}>
           <TextInput 
-            style={styles.text1}
+            style={styles.input}
             placeholder="Nome"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
           />
           <TextInput 
-            style={styles.text1}
+            style={styles.input}
             placeholder="Email"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
           />
           <TextInput 
-            style={styles.text1}
+            style={styles.input}
             placeholder="Senha"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
             secureTextEntry={true}
             value={password}
             onChangeText={handlePasswordChange}
           />
           <TextInput 
-            style={styles.text1}
+            style={styles.input}
             placeholder="Confirme a senha"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
             secureTextEntry={true}
             value={confirmPassword}
             onChangeText={handleConfirmPasswordChange}
           />
           <TextInput 
-            style={styles.text1}
+            style={styles.input}
             placeholder="CPF"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
           />
           {!showPicker && (
             <Pressable
@@ -120,9 +120,9 @@ export function Cadastro({navigation}){
             style={{width:'100%', alignItems:'center'}}
           >
             <TextInput 
-              style={styles.text1}
+              style={styles.input}
               placeholder="Data de Nascimento"
-              placeholderTextColor={"#fff"}
+              placeholderTextColor={"#273A73"}
               value={dateOfBirth}
               onChange={setDateOfBirth}
               editable={false}
@@ -143,7 +143,7 @@ export function Cadastro({navigation}){
         </View>
         <View style={{alignItems:'center'}}>
           <TouchableOpacity  style={styles.button} onPress={handleSubmit}>
-            <Text style={{color:'white'}}>Enviar</Text>
+            <Text style={styles.textButton}>Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -155,92 +155,51 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor:'#F2EAD0',
-      justifyContent:'center',
+      alignItems:'center',
+      justifyContent:'center'
+    },
+    image: {
       alignItems:'center'
     },
-    link:{
-      marginTop:100,
-      textAlign:'center',
-      fontSize:20,
-      fontFamily:'arial',
+    logoBrothers:{
+        height:100,
+        width:'70%',
     },
-    input:{
-      textAlign:'center',
-      fontSize:20,
-      marginTop:90,
-      backgroundColor:'#273A73',
-      color:'#fff',
-      padding:10,
-      borderRadius:20,
+    welcome: {
+      alignItems:'center',
     },
-    logo:{
-        height:200,
-        width:400,
-    },
-    logo2:{
-        height:90,
-        width:90,
-    },
-  
-    button:{
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginTop: 40,
-      borderRadius:20,
-      backgroundColor: '#6FAA9C',
-      padding:10,
-      width: '80%',
-    },
-
-    text1:{
-      textAlign:'center',
-      fontSize:15,
-      backgroundColor:'#273A73',
-      marginTop:20,
-      color:'#fff',
-      padding:10,
-      borderRadius:20,
-      width:'80%'
-      // width:'100',
-    },
-
-    text0:{
+    welcomeText:{
       textAlign:'center',
       fontSize:15,
       marginHorizontal: 55,
     },
-
-    text2:{
-      ...StyleSheet.absoluteFillObject,
-      top: 590,
-      left: 40,
-      width: 110,
-      height: 45,
-      flexDirection: 'row',
-      textAlign:'center',
-      fontSize:15,
-      backgroundColor:'#273A73',
-      marginTop:20,
-      color:'#fff',
-      padding:5,
-      borderRadius:20,
-    
+    formulario: {
+      alignItems:'center',
     },
-
-    text3:{
-      ...StyleSheet.absoluteFillObject,
-      top: 590,
-      left: 200,
-      width: 110,
-      height: 45,
-      flexDirection: 'row',
+    input:{
       textAlign:'center',
       fontSize:15,
-      backgroundColor:'#273A73',
-      marginTop:20,
-      color:'#fff',
-      padding:5,
+      borderWidth: 2,
+      borderColor: '#273A73',
+      color:'#273A73',
+      marginTop:15,
+      padding:10,
       borderRadius:20,
-
-    }
+      width:'85%',
+      backgroundColor:'#F3EEDB'
+    },
+    button:{
+      marginTop: 25,
+      borderRadius:20,
+      alignItems:'center',
+      backgroundColor: '#6FAA9C',
+      padding:12,
+      width: '50%',
+    },
+    textButton: {
+      color:'white',
+      fontSize:15,
+    },
+    
+   
   });

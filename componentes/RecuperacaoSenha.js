@@ -5,25 +5,21 @@ export function RecuperacaoSenha({navigation}){
     return (
       // estrutura login
       <View style={styles.container}>
-        <View>
-          <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
+        <View style={styles.imagem}>
+          <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
         </View>
         <View style={{alignItems:'center'}}>
-          <Text>Enviaremos sua senha no Email cadastrado:</Text>  
+          <Text style={styles.text}>Enviaremos sua senha no Email cadastrado:</Text>  
         </View>              
         <View style={{alignItems:'center'}}>
           <TextInput 
           style={styles.input}
           placeholder="Digite seu Email"
           />
-          <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.textButton}>Enviar</Text>
           </TouchableOpacity>
-       
         </View>
-        
-  
-        <Image style={styles.logo2} source={require('../assets/ally.png')} />
       </View>
     );
   }
@@ -34,66 +30,41 @@ export function RecuperacaoSenha({navigation}){
     container: {
       flex: 1,
       backgroundColor:'#F2EAD0',
+      justifyContent:'center'
     },
-    link:{
-      marginTop:100,
-      textAlign:'center',
-      fontSize:20,
-      fontFamily:'arial',
+    imagem: {
+      alignItems:'center',
+    },
+    logoBrothers:{
+      height:150,
+      width:'90%',
+    },
+    text: {
+      fontSize: 15
     },
     input:{
       textAlign:'center',
       fontSize:20,
-      marginTop:60,
-      backgroundColor:'#273A73',
-      color:'#fff',
+      marginVertical: 10,
+      borderColor:'#273A73',
+      borderWidth:2,
+      color:'#273A73',
       padding:10,
       borderRadius:20,
-      width:'80%'
+      width: '90%',
+      backgroundColor:'#F3EEDB'
     },
-    input1:{
-    //   flex:'1',   (tentativa de diminuir o tam. do balão)
-      textAlign:'center',
-      fontSize:20,
-      marginTop:60,
-      backgroundColor:'#273A73',
-      color:'#fff',
-      padding:10,
-      borderRadius:20,
-    //   width:'30',   (tentativa de diminuir o tam. do balão)
-    },
-    logo:{
-    height:150,
-    width:300,
-    },
-    logo2:{
-    height:90,
-    width:90,
-    marginTop:130,
-    },
-  
     button:{
-      flexDirection: 'row',
-      justifyContent: 'center',
-    marginTop:90,
-    },
-
-    text:{
-        textAlign:'center',
-        fontSize:15,
-        marginTop:30,
-    },
-    button2:{
-      flexDirection: 'row',
-      justifyContent: 'center',
+      alignItems:'center',
       backgroundColor: '#6FAA9C',
-      width: '30%',
+      width: '40%',
       padding: 10,
       borderRadius: 20,
-      marginTop: 20,
+      marginTop: 10,
     },
     textButton:{
       color: 'white',
       fontSize: 20
     }
+   
   });
