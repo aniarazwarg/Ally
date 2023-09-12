@@ -86,17 +86,17 @@ export function Cadastro({navigation}){
           <TextInput 
             style={styles.text1}
             placeholder="Nome"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
           />
           <TextInput 
             style={styles.text1}
             placeholder="Email"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
           />
           <TextInput 
             style={styles.text1}
             placeholder="Senha"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
             secureTextEntry={true}
             value={password}
             onChangeText={handlePasswordChange}
@@ -104,7 +104,7 @@ export function Cadastro({navigation}){
           <TextInput 
             style={styles.text1}
             placeholder="Confirme a senha"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
             secureTextEntry={true}
             value={confirmPassword}
             onChangeText={handleConfirmPasswordChange}
@@ -112,7 +112,7 @@ export function Cadastro({navigation}){
           <TextInput 
             style={styles.text1}
             placeholder="CPF"
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={'#273A73'}
           />
           {!showPicker && (
             <Pressable
@@ -122,7 +122,7 @@ export function Cadastro({navigation}){
             <TextInput 
               style={styles.text1}
               placeholder="Data de Nascimento"
-              placeholderTextColor={"#fff"}
+              placeholderTextColor={"#273A73"}
               value={dateOfBirth}
               onChange={setDateOfBirth}
               editable={false}
@@ -194,14 +194,16 @@ const styles = StyleSheet.create({
 
     text1:{
       textAlign:'center',
-      fontSize:15,
-      backgroundColor:'#273A73',
-      marginTop:20,
-      color:'#fff',
+      color:'#273A73',
+      fontSize:20,
+      marginVertical: 10,
+      backgroundColor:'#f5fffa',
+      borderWidth:1,
+      borderColor:'#273A73',
       padding:10,
       borderRadius:20,
-      width:'80%'
-      // width:'100',
+      width: '90%'
+      
     },
 
     text0:{
