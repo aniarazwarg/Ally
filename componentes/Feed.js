@@ -37,34 +37,35 @@ export function Feed({navigation}) {
                     <Text style={styles.text4}>Agility</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.comentarios}>
-              <View style={styles.comentarioCard}>
-                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
-                    <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Image 
-                            source={require('../assets/icon_usuario.png')}
-                            style={{width: 30, height: 30}}
-                        />
-                        <Text style={styles.nomeUsuario}>Maria</Text>
-                    </View>
-                    <Image 
-                        source={require('../assets/avaliacao.png')}
-                        style={{width: 50, height: 20}}
-                    />
-                </View>
-                <View style={{alignItems:'center'}}>
-                    <Text style={styles.textoComentario}>Adorei a experiência que o Bob Marley teve com vocês!</Text>
-                </View>
-                <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
-                    <TouchableOpacity>
-                        <Image
-                          source={require('../assets/like.png')}
-                          style={{width: 20, height: 20}}/>
+            {/* Noticias */}
+            <View style={{marginLeft: 20, marginTop: 20}}>
+                <Text style={styles.text}>Notícias:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', marginTop: 10}}>
+                    <TouchableOpacity style={{}}>
+                        <Image source={require('../assets/Img_Passeio.png')}
+                    style={styles.logo3}/>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image
-                          source={require('../assets/dislike.png')}
-                          style={{width: 20, height: 20}}/>
+                    
+                    <Text style={styles.text2}>Vagas para o feriado!</Text>
+                </View>
+                <View style={{flexDirection:'row', alignItems:'center', marginTop: 10}}>
+                    <TouchableOpacity style={{}}>
+                        <Image source={require('../assets/Img_Passeio.png')}
+                    style={styles.logo3}/>
+                    </TouchableOpacity>
+                    <View>
+                        <Text style={styles.text2}>Live no Instagram</Text>
+                        <Text style={styles.text3}>Novidades pra vocês!</Text>
+                    </View>
+                    
+                </View>
+            </View>
+            {/* Comentários */}
+            <View>
+                <View  style={{marginLeft: 20, marginTop: 20, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                    <Text style={styles.text}>Comentários</Text>
+                    <TouchableOpacity style={{marginRight: 20, borderWidth: 1, padding: 3}}>
+                        <Text>Leia mais {'>'}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection:'row', justifyContent:'space-around', marginTop: 10}}>
@@ -121,39 +122,17 @@ export function Feed({navigation}) {
                         </View>
                     </View>
                 </View>
-                <View style={{alignItems:'center'}}>
-                    <Text style={styles.textoComentario}>Adestradores nota 10!!!</Text>
+                <View style={{marginLeft:20, marginTop: 10}}>
+                    <Text style={styles.text}>Envie sua mensagem!</Text>
+                    <TextInput
+                        placeholder="Digite o comentário"
+                    />
+                    <TextInput
+                        placeholder="Informe seu email ou whatsapp"/>
                 </View>
-                <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
-                  <TouchableOpacity>
-                      <Image
-                      source={require('../assets/like.png')}
-                      style={{width: 20, height: 20}}/>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                      <Image
-                      source={require('../assets/dislike.png')}
-                      style={{width: 20, height: 20}}/>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
+                            </View>
+
         </View>
-        </View>
-        
-          // digita comentario:
-          <View style={styles.digiteComentario}>
-            <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
-            <TextInput
-                placeholder="Digite o comentário"
-                style={styles.inputComentario}
-            />
-            <TextInput
-                placeholder="Informe seu email ou whatsapp"
-                style={styles.inputComentario}
-            />
-          </View>
-              
     );
     }
 
@@ -170,47 +149,15 @@ export function Feed({navigation}) {
       width:400,
       backgroundColor:'#F2EAD0'
       },
-      logoBrothers:{
-        height:150,
-        width:'90%',
-      },
-      servicos:{
-        flexDirection:'row',
-        justifyContent:'space-around',
-        marginHorizontal: 20,
-      },
-      servico: {
-        borderWidth: 1,
-        borderRadius: 10,
-        padding: 3,
-        borderColor: '#C0C0C0',
-      },
-      logoServicos:{
-        height:80,
-        width:80,
-      },
-      textServicos: {
-        fontSize: 10,
-        textAlign:'center',
-      },
-      
-      //Noticias
-      noticias: {
-        marginLeft: 20,
-        marginTop: 15,
-      },
-      noticia: {
-        flexDirection:'row',
-        alignItems:'center',
-        marginTop: 10,
-        backgroundColor: '#FCF6D7',
-        padding: 6,
-        borderRadius: 10,
-        marginRight: 20
+      logo2:{
+    
+      height:90,
+      width:90,
       },
       logo3: {
         height: 50,
         width: 50,
+
       },
       text: {
         color: '#60452F',
@@ -220,60 +167,13 @@ export function Feed({navigation}) {
         color: "#273A73",
         marginLeft: 20
       },
-
-      //Comentários
-      comentariosHeader: {
+      text3: {
+        color: "grey",
         marginLeft: 20,
-        marginTop: 20,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
+        fontSize: 10
       },
-      leiaMais: {
-        marginRight: 20,
-        borderWidth: 1,
-        padding: 3,
-        paddingHorizontal: 15,
-        borderRadius: 10
-      },
-      comentarios: {
-        flexDirection:'row',
-        justifyContent:'space-between',
-        marginTop: 10,
-        marginHorizontal: 20
-      },
-      comentarioCard: {
-        backgroundColor: '#FCF6D7',
-        width:'45%',
-        padding:10,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#C0C0C0',
-        height: 150,
-        justifyContent:'space-between'
-      },
-      nomeUsuario: {
-        marginLeft: 10,
-      },
-      textoComentario: {
-        fontSize: 13
-      },
-
-      //Cria comentários
-      digiteComentario: {
-        marginLeft:20,
-        marginTop: 10
-      },
-      textTopicos: {
-        color: '#60452F',
-        fontWeight: 'bold'        
-      },
-      inputComentario: {
-        backgroundColor:'#FCF6D7',
-        height: 40,
-        marginRight: 30,
-        borderRadius: 20,
-        paddingLeft: 30,
-        marginTop: 10
+      text4: {
+        fontSize: 10,
+        textAlign:'center',
       }
 });
