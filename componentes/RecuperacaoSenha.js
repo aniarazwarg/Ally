@@ -4,7 +4,7 @@ import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity } f
 export function RecuperacaoSenha({navigation}){
     return (
       // estrutura login
-      <View style={styles.container}>
+      <View style={styles.container}> 
         <View style={styles.imagem}>
           <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
         </View>
@@ -38,6 +38,8 @@ export function RecuperacaoSenha({navigation}){
     logoBrothers:{
       height:150,
       width:'90%',
+    
+      alignSelf:'center',
     },
     text: {
       fontSize: 15
