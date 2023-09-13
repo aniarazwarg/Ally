@@ -1,64 +1,40 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image,Button, AlertButton, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export function Feed({navigation}) {
-    return (
+        return (
         <View style={styles.container}>
-          {/* Logo Brothers */}
-          <View style={styles.imagem}>
-              <Image source={require('../assets/Logo_Brothers.png')}
-              style={styles.logoBrothers}/>
-          </View>
-          {/* Logo serviços */}
-          <View style={styles.servicos}>
-              <TouchableOpacity style={styles.servico}>
-                  <Image source={require('../assets/Img_Passeio.png')}
-                  style={styles.logoServicos}
-                  />
-                  <Text style={styles.textServicos}>Hotel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.servico}>
-                  <Image source={require('../assets/Img_Passeio.png')}
-                  style={styles.logoServicos}
-                  />
-                  <Text style={styles.textServicos}>Passeio</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.servico}>
-                  <Image source={require('../assets/Img_Passeio.png')}
-                  style={styles.logoServicos}
-                  />
-                  <Text style={styles.textServicos}>Adestramento</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.servico}>
-                  <Image source={require('../assets/Img_Passeio.png')}
-                  style={styles.logoServicos}
-                  />
-                  <Text style={styles.textServicos}>Agility</Text>
-              </TouchableOpacity>
-          </View>
-          {/* Noticias */}
-          <View style={styles.noticias}>
-              <Text style={styles.textTopicos}>Notícias:</Text>
-              <View style={styles.noticia}>
-                  <Image source={require('../assets/Img_Passeio.png')}
-                  style={styles.logo3}/>
-                  <Text style={styles.text2}>Vagas para o feriado!</Text>
-              </View>
-              <View style={styles.noticia}>
-                  <Image source={require('../assets/Img_Passeio.png')}
-                  style={styles.logo3}/>
-                  <View>
-                      <Text style={styles.text2}>Live no Instagram</Text>
-                      <Text style={styles.text3}>Novidades pra vocês!</Text>
-                  </View>
-              </View>
-          </View>
-          {/* Comentários */}
-          <View>
-            <View  style={styles.comentariosHeader}>
-                <Text style={styles.textTopicos}>Comentários:</Text>
-                <TouchableOpacity style={styles.leiaMais}>
-                    <Text>Leia mais {'>'}</Text>
+            {/* Logo Brothers */}
+            <View>
+                <Image source={require('../assets/Logo_Brothers.png')}
+                style={styles.logo}/>
+            </View>
+            {/* Logo serviços */}
+            <View style={{flexDirection:'row', justifyContent:'space-around', marginHorizontal: 20}}>
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/hotel.png')}
+                    style={{width: 80, height: 80,borderRadius:30}}
+                    />
+                    <Text style={styles.text4}>Hotel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/passeio.png')}
+                    style={{width: 80, height: 80,borderRadius: 30}}
+                    />
+                    <Text style={styles.text4}>Passeio</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/adestrar.png')}
+                    style={{width: 80, height: 80,borderRadius:30}}
+                    />
+                    <Text style={styles.text4}>Adestramento</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                    <Image source={require('../assets/agility.png')}
+                    style={{width: 80, height: 80,borderRadius:30}}
+                    />
+                    <Text style={styles.text4}>Agility</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.comentarios}>
@@ -91,20 +67,59 @@ export function Feed({navigation}) {
                           style={{width: 20, height: 20}}/>
                     </TouchableOpacity>
                 </View>
-              </View>
-              <View style={styles.comentarioCard}>
-                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
-                  <View style={{flexDirection:'row', alignItems:'center'}}>
-                      <Image 
-                          source={require('../assets/icon_usuario.png')}
-                          style={{width: 30, height: 30}}
-                      />
-                      <Text style={styles.nomeUsuario}>José</Text>
-                  </View>
-                  <Image 
-                      source={require('../assets/avaliacao.png')}
-                      style={{width: 50, height: 20}}
-                  />
+                <View style={{flexDirection:'row', justifyContent:'space-around', marginTop: 10}}>
+                    <View style={{ backgroundColor: '#fffff0', width:'40%', padding:10, borderRadius: 10}}>
+                        <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
+                            <Image 
+                                source={require('../assets/Img_Passeio.png')}
+                                style={{width: 30, height: 30}}/>
+                            <Text style={styles.text3}>Maria</Text>
+                            <Image 
+                                source={require('../assets/avaliacao.png')}
+                                style={{width: 50, height: 30}}/>
+                        </View>
+                        <View style={{alignItems:'center', margin: 10, height:80 }}>
+                            <Text>Adorei a experiência que o Bob Marley teve com vocês!</Text>
+                        </View>
+                        <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                            <TouchableOpacity>
+                                <Image
+                                 source={require('../assets/like.png')}
+                                 style={{width: 20, height: 20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image
+                                 source={require('../assets/dislike.png')}
+                                 style={{width: 20, height: 20}}/>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={{ backgroundColor: '#f5fffa', width:'40%', padding:10, borderRadius: 10}}>
+                        <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
+                            <Image 
+                                source={require('../assets/Img_Passeio.png')}
+                                style={{width: 30, height: 30}}/>
+                            <Text style={styles.text3}>Jorge</Text>
+                            <Image 
+                                source={require('../assets/avaliacao.png')}
+                                style={{width: 50, height: 30}}/>
+                        </View>
+                        <View style={{alignItems:'center', margin: 10, height: 80}}>
+                            <Text>Adestradores nota 10!!!</Text>
+                        </View>
+                        <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                            <TouchableOpacity>
+                                <Image
+                                 source={require('../assets/like.png')}
+                                 style={{width: 20, height: 20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image
+                                 source={require('../assets/dislike.png')}
+                                 style={{width: 20, height: 20}}/>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
                 <View style={{alignItems:'center'}}>
                     <Text style={styles.textoComentario}>Adestradores nota 10!!!</Text>
@@ -123,8 +138,10 @@ export function Feed({navigation}) {
                 </View>
               </View>
             </View>
-          </View>
-          {/* Digita comentário */}
+        </View>
+        </View>
+        
+          // digita comentario:
           <View style={styles.digiteComentario}>
             <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
             <TextInput
@@ -136,17 +153,22 @@ export function Feed({navigation}) {
                 style={styles.inputComentario}
             />
           </View>
-        </View>
+              
     );
-}
+    }
 
-const styles = StyleSheet.create({
+
+
+
+    const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:'#F2EAD0',
       },
-      imagem: {
-        alignItems:'center',
+    logo:{
+      height:200,
+      width:400,
+      backgroundColor:'#F2EAD0'
       },
       logoBrothers:{
         height:150,
@@ -190,9 +212,9 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50,
       },
-      text3: {
-        fontSize: 10,
-        marginLeft: 20
+      text: {
+        color: '#60452F',
+        fontWeight: 'bold'
       },
       text2: {
         color: "#273A73",

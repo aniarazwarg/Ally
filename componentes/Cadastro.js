@@ -168,7 +168,40 @@ const styles = StyleSheet.create({
     welcome: {
       alignItems:'center',
     },
-    welcomeText:{
+    logo:{
+        height:200,
+        width:400,
+    },
+    logo2:{
+        height:90,
+        width:90,
+    },
+  
+    button:{
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop: 40,
+      borderRadius:20,
+      backgroundColor: '#6FAA9C',
+      padding:10,
+      width: '80%',
+    },
+
+    text1:{
+      textAlign:'center',
+      color:'#273A73',
+      fontSize:20,
+      marginVertical: 10,
+      backgroundColor:'#f5fffa',
+      borderWidth:1,
+      borderColor:'#273A73',
+      padding:10,
+      borderRadius:20,
+      width: '90%'
+      
+    },
+
+    text0:{
       textAlign:'center',
       fontSize:15,
       marginHorizontal: 55,

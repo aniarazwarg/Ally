@@ -1,7 +1,12 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity } from 'react-native';
+
 
 export function Login({navigation}){
+  
+   const [text, onChangeText] = React.useState('Useless Text');
+  const [number, onChangeNumber] = React.useState('');
+
   return (
     <View style={styles.container}>
       {/* Imagem */}
@@ -9,17 +14,21 @@ export function Login({navigation}){
         <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
       </View>
       {/* Formulário de login */}
-      <View style={styles.form}>
+      
+      <View style={{marginTop: 20, alignItems:'center'}}>
+     
+  
         <TextInput 
           style={styles.input}
           placeholder="Login"
-          placeholderTextColor={'#596AA1'}
+          // placeholderTextColor={'#fff'}
         />
         <TextInput
           style={styles.input}
           placeholder="Senha"
-          placeholderTextColor={'#596AA1'}
+          // placeholderTextColor={'#fff'}
         />
+       
       </View>   
       {/* Botão entrar/cadastrar*/}
       <View style={styles.buttons}>
@@ -59,38 +68,47 @@ const styles = StyleSheet.create({
   },
   input:{
     textAlign:'center',
+    color:'#273A73',
     fontSize:20,
     backgroundColor:'#F3EEDB',
     marginVertical: 10,
+    backgroundColor:'#f5fffa',
+    borderWidth:1,
     borderColor:'#273A73',
-    borderWidth:2,
-    color:'#273A73',
     padding:10,
     borderRadius:20,
     width: '90%'
+    
   },
-  buttons:{
-    alignItems:'center',
-    marginTop: 30
+
+  // input:focus {
+  //   bordercolor: #FF0000; 
+  // },
+
+  logo:{
+    height:200,
+    width:400,
   },
   buttonEntrar:{
     alignItems:'center',
     backgroundColor: '#273A73',
-    width: '50%',
+    width: '40%',
     padding: 10,
     borderRadius: 20,
+    shadowRadius:10,
   },
   buttonCadastrar:{
     alignItems:'center',
     backgroundColor: '#6FAA9C',
-    width: '50%',
+    width: '40%',
     padding: 10,
     borderRadius: 20,
     marginTop: 20,
+    shadowRadius:10,
   },
   texto:{
     textDecorationLine: 'underline',
-    color: 'blue',
+    color: '#273A73',
     fontSize:20,
   },
   textButton:{
