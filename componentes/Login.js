@@ -8,10 +8,11 @@ export function Login({navigation}){
   const [number, onChangeNumber] = React.useState('');
 
   return (
+    // estrutura login
     <View style={styles.container}>
       {/* Imagem */}
-      <View style={styles.imagem}>
-        <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
+      <View>
+        <Image style={styles.logo} source={require('../assets/Logo_Brothers.png')} />
       </View>
       {/* Formulário de login */}
       
@@ -31,23 +32,29 @@ export function Login({navigation}){
        
       </View>   
       {/* Botão entrar/cadastrar*/}
-      <View style={styles.buttons}>
-        <TouchableOpacity style={styles.buttonEntrar} onPress={() => navigation.navigate('Feed')}>
+      <View style={{alignItems:'center', marginTop: 30}}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonCadastrar} onPress={() =>navigation.navigate('Cadastro')}>
+        <TouchableOpacity style={styles.button2} onPress={() =>navigation.navigate('Cadastro')}>
           <Text style={styles.textButton}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
       {/* Esqueceu a senha */}
       <View style={styles.link}>
-        <TouchableOpacity  onPress={() => navigation.navigate('RecuperacaoSenha')}>
+        <TouchableOpacity style={{alignItems:'center'}} onPress={() => navigation.navigate('RecuperacaoSenha')}>
           <Text style={styles.texto}>Esqueceu a senha?</Text>
+          <Text style={styles.texto}>Clique aqui!</Text>
         </TouchableOpacity>
+
       </View>
+
+      <Image style={styles.logo2} source={require('../assets/ally.png')} />
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -55,22 +62,16 @@ const styles = StyleSheet.create({
     backgroundColor:'#F2EAD0',
     justifyContent:'center'
   },
-  imagem: {
+  link:{
     alignItems:'center',
-  },
-  logoBrothers:{
-    height:150,
-    width:'90%',
-  },
-  form: {
-    marginTop: 20,
-    alignItems:'center',
+    marginTop:100,
+    textAlign:'center',
+    fontSize:20,
   },
   input:{
     textAlign:'center',
     color:'#273A73',
     fontSize:20,
-    backgroundColor:'#F3EEDB',
     marginVertical: 10,
     backgroundColor:'#f5fffa',
     borderWidth:1,
@@ -89,16 +90,23 @@ const styles = StyleSheet.create({
     height:200,
     width:400,
   },
-  buttonEntrar:{
-    alignItems:'center',
+  logo2:{
+  height:90,
+  width:90,
+  },
+
+  button:{
+    flexDirection: 'row',
+    justifyContent: 'center',
     backgroundColor: '#273A73',
     width: '40%',
     padding: 10,
     borderRadius: 20,
     shadowRadius:10,
   },
-  buttonCadastrar:{
-    alignItems:'center',
+  button2:{
+    flexDirection: 'row',
+    justifyContent: 'center',
     backgroundColor: '#6FAA9C',
     width: '40%',
     padding: 10,
@@ -114,10 +122,5 @@ const styles = StyleSheet.create({
   textButton:{
     color: 'white',
     fontSize: 20
-  },
-  link:{
-    alignItems:'center',
-    marginTop:20,
-    fontSize:20,
-  },
+  }
 });
