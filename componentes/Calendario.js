@@ -34,100 +34,133 @@ export function Calendario({navigation}){
     const [selected, setSelected] = useState('');
     
     return (
-    
-        <Calendar
+      <View style={styles.container}> 
+
+        <Calendar style={styles.calendario}
         onDayPress={day => {
           setSelected(day.dateString);
         }}
+        onDayLongPress={day => {
+          console.log(day.dateString);
+        }}
         markedDates={{ 
           [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
-        }}
+        }} 
       />
+
+      <TextInput
+        style={styles.input}   
+        placeholder="Check in:"$selected
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.input}   
+        placeholder="Check out:"
+        keyboardType="numeric"
+      />
+       
+
+       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
+          <Text style={styles.textButton}>Agendar</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.texto}>
+        xx/xx horário especial de funcionamento.<br />
+         ( 10 às 16h ) para check in
+        </Text>
+
+      </View>
     );
   }
 
-const styles = StyleSheet.create({
+
+  const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor:'#F2EAD0',
-      alignItems:'center',
       justifyContent:'center'
     },
-    image: {
-      alignItems:'center'
-    },
-    logoBrothers:{
-        height:100,
-        width:'70%',
-    },
-    welcome: {
-      alignItems:'center',
-    },
-    logo:{
-        height:200,
-        width:400,
-    },
-    logo2:{
-        height:90,
-        width:90,
+
+    calendario:{
+      margin:'5.5vw',
+      padding: 10,
+      borderWidth:1,
+      borderColor:'#273A73',
+      borderRadius: 20,
     },
   
-    button:{
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginTop: 40,
-      borderRadius:20,
-      backgroundColor: '#6FAA9C',
-      padding:10,
-      width: '80%',
+    link:{
+      alignItems:'center',
+      marginTop:100,
+      textAlign:'center',
+      fontSize:20,
     },
-
-    text1:{
+    input:{
+      alignSelf:'center',
       textAlign:'center',
       color:'#273A73',
       fontSize:20,
       marginVertical: 10,
-      backgroundColor:'#f5fffa',
+      backgroundColor:'#fff',
       borderWidth:1,
       borderColor:'#273A73',
       padding:10,
-      borderRadius:20,
+      borderRadius:10,
       width: '90%'
       
     },
-
-    text0:{
-      textAlign:'center',
-      fontSize:15,
-      marginHorizontal: 55,
+  
+    // input:focus {
+    //   bordercolor: #FF0000; 
+    // },
+  
+    logo:{
+      alignSelf:'center',
+      height:"40vw",
+      width:'90vw',
     },
-    formulario: {
-      alignItems:'center',
+    logo2:{
+    height:90,
+    width:90,
     },
-    input:{
-      textAlign:'center',
-      fontSize:15,
-      borderWidth: 2,
-      borderColor: '#273A73',
-      color:'#273A73',
-      marginTop:15,
-      padding:10,
-      borderRadius:20,
-      width:'85%',
-      backgroundColor:'#F3EEDB'
-    },
+  
     button:{
-      marginTop: 25,
-      borderRadius:20,
-      alignItems:'center',
+      margin:'2.5vw',
+      alignSelf:'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      backgroundColor: '#273A73',
+      width: '40%',
+      padding: 10,
+      borderRadius: 20,
+      shadowRadius:10,
+    },
+    button2:{
+      flexDirection: 'row',
+      justifyContent: 'center',
       backgroundColor: '#6FAA9C',
-      padding:12,
-      width: '50%',
+      width: '40%',
+      padding: 10,
+      borderRadius: 20,
+      marginTop: 20,
+      shadowRadius:10,
     },
-    textButton: {
-      color:'white',
-      fontSize:15,
+    texto:{ 
+      textAlign:'center', 
+      margin:'2vw',
+      alignSelf:'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      backgroundColor: 'white',
+      borderRadius: 20,
+      shadowRadius:3,
+      padding: '3vw',
+  
+      color: '#273A73',
+      fontSize:20,
     },
-    
-   
+    textButton:{
+      color: 'white',
+      fontSize: 20
+    }
   });

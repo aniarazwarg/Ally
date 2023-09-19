@@ -12,27 +12,27 @@ export function Feed({navigation}) {
             </View>
             {/* Logo serviços */}
             <View style={{flexDirection:'row', justifyContent:'space-around', marginHorizontal: 20}}>
-                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                <TouchableOpacity onPress={() => navigation.navigate('Calendario')} style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/hotel.png')}
-                    style={{width: 80, height: 80,borderRadius:30}}
+                    style={{width: '20vw', height:'20vw',borderRadius:30}}
                     />
                     <Text style={styles.text4}>Hotel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/passeio.png')}
-                    style={{width: 80, height: 80,borderRadius: 30}}
+                    style={{width: '20vw', height:'20vw',borderRadius:30}}
                     />
                     <Text style={styles.text4}>Passeio</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/adestrar.png')}
-                    style={{width: 80, height: 80,borderRadius:30}}
+                    style={{width: '20vw', height:'20vw',borderRadius:30}}
                     />
                     <Text style={styles.text4}>Adestramento</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/agility.png')}
-                    style={{width: 80, height: 80,borderRadius:30}}
+                    style={{width: '20vw', height:'20vw',borderRadius:30}}
                     />
                     <Text style={styles.text4}>Agility</Text>
                 </TouchableOpacity>
@@ -145,8 +145,9 @@ export function Feed({navigation}) {
         backgroundColor:'#F2EAD0',
       },
     logo:{
-      height:200,
-      width:400,
+      alignSelf:'center',
+      height:"40vw",
+      width:'90vw',
       backgroundColor:'#F2EAD0'
       },
       logo2:{
@@ -173,7 +174,7 @@ export function Feed({navigation}) {
         fontSize: 10
       },
       text4: {
-        fontSize: 10,
+        fontSize: "3vw",
         textAlign:'center',
       }
 });
