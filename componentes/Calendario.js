@@ -31,31 +31,53 @@ LocaleConfig.locales['fr'] = {
 
 export function Calendario({navigation}){
 
-    const [selected, setSelected] = useState('');
-    
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [markedDates, setMarkedDates] = useState({});
+
+  const onDayPress = (day) => {
+    if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+      // Selecionando data de início
+      setSelectedStartDate(day.dateString);
+      setSelectedEndDate(null);
+      setMarkedDates({ [day.dateString]: { selected: true, color: 'green' } });
+    } else {
+      // Selecionando data de saída
+      const start = new Date(selectedStartDate);
+      const end = new Date(day.dateString);
+      const dateRange = {};
+
+      let currentDate = new Date(start);
+      while (currentDate <= end) {
+        const dateString = currentDate.toISOString().split('T')[0];
+        dateRange[dateString] = { selected: true, color: 'green' };
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      setSelectedEndDate(day.dateString);
+      setMarkedDates(dateRange);
+    }
+  };
     return (
       <View style={styles.container}> 
-
-        <Calendar style={styles.calendario}
-        onDayPress={day => {
-          setSelected(day.dateString);
-        }}
-        onDayLongPress={day => {
-          console.log(day.dateString);
-        }}
-        markedDates={{ 
-          [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
-        }} 
+ <Calendar
+        onDayPress={onDayPress}
+        markedDates={markedDates}
+        enableSwipeMonths={true}
       />
-
+    
+         
       <TextInput
+      placeholder='Check in'
         style={styles.input}   
-        placeholder="Check in:"$selected
+       value={selectedStartDate}
+       
         keyboardType="numeric"
       />
       <TextInput
+      placeholder='Check out'
         style={styles.input}   
-        placeholder="Check out:"
+        value={selectedEndDate}
         keyboardType="numeric"
       />
        
