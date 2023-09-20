@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 
+
+
+
 export function Login({ navigation }) {
   return (
     <View style={styles.container}>
@@ -32,6 +35,7 @@ export function Login({ navigation }) {
             <Text style={styles.textButton}>Cadastrar</Text>
           </TouchableOpacity>
         </View>
+    
         {/* Esqueceu a senha */}
         <View style={styles.link}>
           <TouchableOpacity onPress={() => navigation.navigate('RecuperacaoSenha')}>
