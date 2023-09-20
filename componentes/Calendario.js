@@ -60,6 +60,8 @@ export function Calendario({navigation}){
   };
     return (
       <View style={styles.container}> 
+    <Text style={styles.header}>Agendamento no Hotel</Text>
+
  <Calendar
         onDayPress={onDayPress}
         markedDates={markedDates}
@@ -100,7 +102,7 @@ export function Calendario({navigation}){
     container: {
       flex: 1,
       backgroundColor:'#F2EAD0',
-      justifyContent:'center'
+     
     },
 
     calendario:{
@@ -180,6 +182,12 @@ export function Calendario({navigation}){
   
       color: '#273A73',
       fontSize:20,
+    },
+    header:{
+      textAlign:'center',
+      fontSize:'4.7vw', 
+      flex: 0,
+      padding: '5%',
     },
     textButton:{
       color: 'white',
