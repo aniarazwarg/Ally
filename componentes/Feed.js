@@ -31,7 +31,8 @@ export function Feed({ navigation }) {
         </View>
         {/* Logo serviços */}
         <View style={styles.servicos}>
-          <TouchableOpacity style={styles.servico}>
+          <TouchableOpacity style={styles.servico}
+          onPress={() => navigation.navigate('Calendario')}>
             <Image source={require('../assets/hotel.png')}
               style={styles.logoServicos}
             />

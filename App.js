@@ -8,6 +8,7 @@ import { Passeio } from './componentes/Passeio';
 import { Feed } from './componentes/Feed';
 import { AdicionarPet } from './componentes/AdicionarPet';
 import { Perfil } from './componentes/Perfil';
+import { Calendario } from './componentes/Calendario';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name='Feed' component={Feed} />
         <Stack.Screen name='AdicionarPet' component={AdicionarPet} />
         <Stack.Screen name='Perfil' component={Perfil} />
+        <Stack.Screen name='Calendario' component={Calendario} />
       </Stack.Navigator>
     </NavigationContainer>
   );
