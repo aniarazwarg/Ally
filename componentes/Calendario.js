@@ -89,7 +89,7 @@ export function Calendario({navigation}){
         </TouchableOpacity>
 
         <Text style={styles.texto}>
-        xx/xx horário especial de funcionamento.<br />
+        xx/xx horário especial de funcionamento.
          ( 10 às 16h ) para check in
         </Text>
 
@@ -106,7 +106,6 @@ export function Calendario({navigation}){
     },
 
     calendario:{
-      margin:'5.5vw',
       padding: 10,
       borderWidth:1,
       borderColor:'#273A73',
@@ -140,8 +139,6 @@ export function Calendario({navigation}){
   
     logo:{
       alignSelf:'center',
-      height:"40vw",
-      width:'90vw',
     },
     logo2:{
     height:90,
@@ -149,7 +146,6 @@ export function Calendario({navigation}){
     },
   
     button:{
-      margin:'2.5vw',
       alignSelf:'center',
       flexDirection: 'row',
       justifyContent: 'center',
@@ -171,21 +167,18 @@ export function Calendario({navigation}){
     },
     texto:{ 
       textAlign:'center', 
-      margin:'2vw',
       alignSelf:'center',
       flexDirection: 'row',
       justifyContent: 'center',
       backgroundColor: 'white',
       borderRadius: 20,
       shadowRadius:3,
-      padding: '3vw',
   
       color: '#273A73',
       fontSize:20,
     },
     header:{
       textAlign:'center',
-      fontSize:'4.7vw', 
       flex: 0,
       padding: '5%',
     },
