@@ -87,9 +87,8 @@ const styles = StyleSheet.create({
   // },
 
   logo:{
-    alignSelf:'center',
-    height:"40vw",
-    width:'90vw',
+    height:200,
+    width:400,
   },
   logo2:{
   height:90,

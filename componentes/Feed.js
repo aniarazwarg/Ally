@@ -11,54 +11,54 @@ export function Feed({navigation}) {
                 style={styles.logo}/>
             </View>
             {/* Logo serviços */}
-            <View style={{flexDirection:'row', justifyContent:'space-around', marginHorizontal: 20}}>
+            <View style={{flexDirection:'row', justifyContent:'space-around', marginHorizontal: 10}}>
                 <TouchableOpacity onPress={() => navigation.navigate('Calendario')} style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/hotel.png')}
-                    style={{width: '20vw', height:'20vw',borderRadius:30}}
+                 style={{width: 90, height:90,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Hotel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/passeio.png')}
-                    style={{width: '20vw', height:'20vw',borderRadius:30}}
+                    style={{width: 90, height:90,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Passeio</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/adestrar.png')}
-                    style={{width: '20vw', height:'20vw',borderRadius:30}}
+                       style={{width: 90, height:90,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Adestramento</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/agility.png')}
-                    style={{width: '20vw', height:'20vw',borderRadius:30}}
+                      style={{width: 90, height:90,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Agility</Text>
                 </TouchableOpacity>
             </View>
             {/* Noticias */}
-            <View style={{marginLeft: 20, marginTop: 20}}>
-                <Text style={styles.text}>Notícias:</Text>
-                <View style={{flexDirection:'row', alignItems:'center', marginTop: 10}}>
-                    <TouchableOpacity style={{}}>
+            <View style={{marginTop: 20}}>
+                <Text style={{marginLeft: 20, marginTop: 20, flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginBottom: 10,   color: '#60452F',fontWeight: 'bold'}}>Notícias</Text>
+                <TouchableOpacity style={{backgroundColor: '#fffff0', margin:5, borderRadius: 10}}>
+                <View style={{flexDirection:'row', alignItems:'center', margin: 10}}>
+                    
                         <Image source={require('../assets/Img_Passeio.png')}
                     style={styles.logo3}/>
-                    </TouchableOpacity>
                     
                     <Text style={styles.text2}>Vagas para o feriado!</Text>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', marginTop: 10}}>
-                    <TouchableOpacity style={{}}>
-                        <Image source={require('../assets/Img_Passeio.png')}
+                </TouchableOpacity>
+                 <TouchableOpacity style={{backgroundColor: '#fffff0', margin:5, borderRadius: 10}}>
+                <View style={{flexDirection:'row', alignItems:'center', margin: 10}}>  
+                    <Image source={require('../assets/Img_Passeio.png')}
                     style={styles.logo3}/>
-                    </TouchableOpacity>
                     <View>
                         <Text style={styles.text2}>Live no Instagram</Text>
                         <Text style={styles.text3}>Novidades pra vocês!</Text>
                     </View>
-                    
                 </View>
+                </TouchableOpacity>
             </View>
             {/* Comentários */}
             <View>
@@ -174,7 +174,7 @@ export function Feed({navigation}) {
         fontSize: 10
       },
       text4: {
-        fontSize: "3vw",
+        fontSize: 12,
         textAlign:'center',
       }
 });

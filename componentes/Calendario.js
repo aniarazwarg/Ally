@@ -179,7 +179,6 @@ export function Calendario({navigation}){
       borderRadius: 20,
       shadowRadius:3,
       padding: '3vw',
-  
       color: '#273A73',
       fontSize:20,
     },
