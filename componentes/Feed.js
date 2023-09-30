@@ -1,9 +1,27 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image,Button, AlertButton, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
+ import * as React from 'react';
+ import { View } from 'react-native';
+ import { StyleSheet } from 'react-native';
+ import { TouchableOpacity, TextInput, Image } from 'react-native';
+  import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
+
+  
 export function Feed({navigation}) {
-        return (
+       
+      const [visible, setVisible] = React.useState(false);
+    
+      const showModal = () => setVisible(true);
+      const hideModal = () => setVisible(false);
+      const containerStyle = {backgroundColor: 'white', padding: 20};
+    
+      return (
+        <PaperProvider>
+          <Portal>
+            <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+              <Text>Tela não imprementada</Text>
+            </Modal>
+          </Portal>
+      
         <View style={styles.container}>
             {/* Logo Brothers */}
             <View>
@@ -18,19 +36,19 @@ export function Feed({navigation}) {
                     />
                     <Text style={styles.text4}>Hotel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                <TouchableOpacity  onPress={showModal} style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/passeio.png')}
                     style={{width: 90, height:90,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Passeio</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                <TouchableOpacity  onPress={showModal} style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/adestrar.png')}
                        style={{width: 90, height:90,borderRadius:30}}
                     />
                     <Text style={styles.text4}>Adestramento</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{borderWidth:0.5,borderRadius: 10}}>
+                <TouchableOpacity  onPress={showModal} style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/agility.png')}
                       style={{width: 90, height:90,borderRadius:30}}
                     />
@@ -38,7 +56,7 @@ export function Feed({navigation}) {
                 </TouchableOpacity>
             </View>
             {/* Noticias */}
-            <View style={{marginTop: 20}}>
+            <View style={{marginTop: 10}}>
                 <Text style={{marginLeft: 20, marginTop: 20, flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginBottom: 10,   color: '#60452F',fontWeight: 'bold'}}>Notícias</Text>
                 <TouchableOpacity style={{backgroundColor: '#fffff0', margin:5, borderRadius: 10}}>
                 <View style={{flexDirection:'row', alignItems:'center', margin: 10}}>
@@ -133,48 +151,49 @@ export function Feed({navigation}) {
                             </View>
 
         </View>
-    );
-    }
-
-
-
-
-    const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor:'#F2EAD0',
-      },
-    logo:{
-      alignSelf:'center',
-      height:"40vw",
-      width:'90vw',
-      backgroundColor:'#F2EAD0'
-      },
-      logo2:{
+        </PaperProvider>
+      
+      
+      
+      );
+    };
     
-      height:90,
-      width:90,
-      },
-      logo3: {
-        height: 50,
-        width: 50,
-
-      },
-      text: {
-        color: '#60452F',
-        fontWeight: 'bold'
-      },
-      text2: {
-        color: "#273A73",
-        marginLeft: 20
-      },
-      text3: {
-        color: "grey",
-        marginLeft: 20,
-        fontSize: 10
-      },
-      text4: {
-        fontSize: 12,
-        textAlign:'center',
-      }
-});
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor:'#F2EAD0',
+          },
+        logo:{
+          alignSelf:'center',
+          height:"40vw",
+          width:'90vw',
+          backgroundColor:'#F2EAD0'
+          },
+          logo2:{
+        
+          height:90,
+          width:90,
+          },
+          logo3: {
+            height: 50,
+            width: 50,
+    
+          },
+          text: {
+            color: '#60452F',
+            fontWeight: 'bold'
+          },
+          text2: {
+            color: "#273A73",
+            marginLeft: 20
+          },
+          text3: {
+            color: "grey",
+            marginLeft: 20,
+            fontSize: 10
+          },
+          text4: {
+            fontSize: 12,
+            textAlign:'center',
+          }
+    });
