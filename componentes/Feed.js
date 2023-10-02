@@ -9,7 +9,7 @@ export function Feed({ navigation }) {
         stickyHeaderHiddenOnScroll>
         {/* Header */}
         <View style={styles.header}>
-          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+          <View style={styles.headerConteudo}>
             <View>
               <TouchableOpacity>
                 <Image source={require('../assets/menu-bar.png')}
@@ -32,7 +32,7 @@ export function Feed({ navigation }) {
         {/* Logo serviços */}
         <View style={styles.servicos}>
           <TouchableOpacity style={styles.servico}
-          onPress={() => navigation.navigate('Calendario')}>
+            onPress={() => navigation.navigate('Calendario')}>
             <Image source={require('../assets/hotel.png')}
               style={styles.logoServicos}
             />
@@ -172,12 +172,15 @@ const styles = StyleSheet.create({
 
   },
   header: {
-    marginTop: 10,
-    marginHorizontal: 25,
+    zIndex: 1,
+    backgroundColor: '#F2EAD0',
+    width: '100%'
+  },
+  headerConteudo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    zIndex: 1,
-    backgroundColor:'#F2EAD0',
+    marginHorizontal: 20,
+    paddingVertical: 5
   },
   logosHeader: {
     width: 40,
