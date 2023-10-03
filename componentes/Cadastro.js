@@ -79,7 +79,7 @@ export function Cadastro({navigation}){
             <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
           </View>
           <View style={styles.welcome}>
-            <Text style={styles.welcomeText}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
+            <Text style={styles.welcome}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
           </View>
         </View>
         <View style={styles.formulario}>
@@ -142,7 +142,7 @@ export function Cadastro({navigation}){
           )}
         </View>
         <View style={{alignItems:'center'}}>
-          <TouchableOpacity  style={styles.button} onPress={handleSubmit}>
+          <TouchableOpacity  style={styles.button} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.textButton}>Enviar</Text>
           </TouchableOpacity>
         </View>
@@ -162,11 +162,13 @@ const styles = StyleSheet.create({
       alignItems:'center'
     },
     logoBrothers:{
-        height:100,
-        width:'70%',
+        height:160,
+        width:'75%',
     },
     welcome: {
       alignItems:'center',
+      fontSize:15,
+     
     },
     logo:{
         height:200,

@@ -30,7 +30,7 @@ export function Feed({navigation}) {
             </View>
             {/* Logo serviços */}
             <View style={{flexDirection:'row', justifyContent:'space-around', marginHorizontal: 10}}>
-                <TouchableOpacity onPress={() => navigation.navigate('Calendario')} style={{borderWidth:0.5,borderRadius: 10}}>
+                <TouchableOpacity onPress={() => navigation.navigate('Hotel')} style={{borderWidth:0.5,borderRadius: 10}}>
                     <Image source={require('../assets/hotel.png')}
                  style={{width: 90, height:90,borderRadius:30}}
                     />
