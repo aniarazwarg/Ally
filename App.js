@@ -16,26 +16,27 @@ import { Calendario } from './componentes/Calendario';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function MyDrawer() {
-  return (
-    <Drawer.Navigator screenOptions={{
-      headerShown: false
-    }
-    }>
-      <Drawer.Screen name="Login" component={Login} />
-      <Drawer.Screen name="Cadastro" component={Cadastro} />
-    </Drawer.Navigator>
-  )
-}
+// function MyDrawer() {
+//   return (
+//     <Drawer.Navigator screenOptions={{
+//       headerShown: false
+//     }
+//     }>
+//       <Drawer.Screen name="Login" component={Login} />
+//       <Drawer.Screen name="Cadastro" component={Cadastro} />
+//     </Drawer.Navigator>
+//   )
+// }
 
 export default function App() {
 
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Alo'>
+      <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
+        <Stack.Screen name='Feed' component={Feed} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Cadastro' component={Cadastro} />
         <Stack.Screen name='AdicionarPet' component={AdicionarPet} />
