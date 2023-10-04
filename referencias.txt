@@ -1,3 +1,4 @@
 datePicker > https://www.youtube.com/watch?v=UEfFjfW7Zes 01.09.23
 carousel > https://www.youtube.com/watch?v=QaPnegWiq-A 03.09.23
 keyboard aware scroll view > https://www.youtube.com/watch?v=JTpZ81k2wiE 03.09.23
+side menu > https://tiegoaraujo.medium.com/react-native-menu-lateral-68d00a22770b
