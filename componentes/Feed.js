@@ -1,166 +1,194 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar } from "react-native";
+import * as React from "react";
+import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar } from "react-native";
+import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export function Feed({ navigation }) {
+
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = { backgroundColor: 'white', padding: 20 };
+
+
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollView}
-        stickyHeaderIndices={[0]}
-        stickyHeaderHiddenOnScroll>
-        {/* Header */}
-        <View style={styles.header}>
-          <View style={styles.headerConteudo}>
-            <View>
-              <TouchableOpacity>
-                <Image source={require('../assets/menu-bar.png')}
-                  style={styles.logosHeader} />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
-                <Image source={require('../assets/icon_usuario.png')}
-                  style={styles.logosHeader} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        {/* Logo Brothers */}
-        <View style={styles.imagem}>
-          <Image source={require('../assets/Logo_Brothers.png')}
-            style={styles.logoBrothers} />
-        </View>
-        {/* Logo serviços */}
-        <View style={styles.servicos}>
-          <TouchableOpacity style={styles.servico}
-            onPress={() => navigation.navigate('Calendario')}>
-            <Image source={require('../assets/hotel.png')}
-              style={styles.logoServicos}
-            />
-            <Text style={styles.textServicos}>Hotel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.servico}>
-            <Image source={require('../assets/passeio.png')}
-              style={styles.logoServicos}
-            />
-            <Text style={styles.textServicos}>Passeio</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.servico}>
-            <Image source={require('../assets/adestrar.png')}
-              style={styles.logoServicos}
-            />
-            <Text style={styles.textServicos}>Adestramento</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.servico}>
-            <Image source={require('../assets/agility.png')}
-              style={styles.logoServicos}
-            />
-            <Text style={styles.textServicos}>Agility</Text>
-          </TouchableOpacity>
-        </View>
-        {/* Noticias */}
-        <View style={styles.noticias}>
-          <Text style={styles.textTopicos}>Notícias:</Text>
-          <View style={styles.noticia}>
-            <Image source={require('../assets/Img_Passeio.png')}
-              style={styles.logo3} />
-            <Text style={styles.text2}>Vagas para o feriado!</Text>
-          </View>
-          <View style={styles.noticia}>
-            <Image source={require('../assets/Img_Passeio.png')}
-              style={styles.logo3} />
-            <View>
-              <Text style={styles.text2}>Live no Instagram</Text>
-              <Text style={styles.text3}>Novidades pra vocês!</Text>
+
+    <PaperProvider>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <Text>Tela não imprementada</Text>
+        </Modal>
+      </Portal>
+
+
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollView}
+          stickyHeaderIndices={[0]}
+          stickyHeaderHiddenOnScroll>
+          {/* Header */}
+          <View style={styles.header}>
+            <View style={styles.headerConteudo}>
+              <View>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                  <Image source={require('../assets/menu-bar.png')}
+                    style={styles.logosHeader}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
+                  <Image source={require('../assets/icon_usuario.png')}
+                    style={styles.logosHeader} />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-        {/* Comentários */}
-        <View>
-          <View style={styles.comentariosHeader}>
-            <Text style={styles.textTopicos}>Comentários:</Text>
-            <TouchableOpacity style={styles.leiaMais}>
-              <Text>Leia mais {'>'}</Text>
+          {/* Logo Brothers */}
+          <View style={styles.imagem}>
+            <Image source={require('../assets/Logo_Brothers.png')}
+              style={styles.logoBrothers} />
+          </View>
+          {/* Logo serviços */}
+          <View style={styles.servicos}>
+            <TouchableOpacity style={styles.servico}
+              onPress={() => navigation.navigate('Calendario')}>
+              <Image source={require('../assets/hotel.png')}
+                style={styles.logoServicos}
+              />
+              <Text style={styles.textServicos}>Hotel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.servico}
+              onPress={showModal}>
+              <Image source={require('../assets/passeio.png')}
+                style={styles.logoServicos}
+              />
+              <Text style={styles.textServicos}>Passeio</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.servico}
+              onPress={showModal}>
+              <Image source={require('../assets/adestrar.png')}
+                style={styles.logoServicos}
+              />
+              <Text style={styles.textServicos}>Adestramento</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.servico}
+              onPress={showModal}>
+              <Image source={require('../assets/agility.png')}
+                style={styles.logoServicos}
+              />
+              <Text style={styles.textServicos}>Agility</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.comentarios}>
-            <View style={styles.comentarioCard}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={require('../assets/icon_usuario.png')}
-                    style={{ width: 30, height: 30 }}
-                  />
-                  <Text style={styles.nomeUsuario}>Maria</Text>
-                </View>
-                <Image
-                  source={require('../assets/avaliacao.png')}
-                  style={{ width: 50, height: 20 }}
-                />
-              </View>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={styles.textoComentario}>Adorei a experiência que o Bob Marley teve com vocês!</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../assets/like.png')}
-                    style={{ width: 20, height: 20 }} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../assets/dislike.png')}
-                    style={{ width: 20, height: 20 }} />
-                </TouchableOpacity>
-              </View>
+          {/* Noticias */}
+          <View style={styles.noticias}>
+            <Text style={styles.textTopicos}>Notícias:</Text>
+            <View style={styles.noticia}>
+              <Image source={require('../assets/Img_Passeio.png')}
+                style={styles.logo3} />
+              <Text style={styles.text2}>Vagas para o feriado!</Text>
             </View>
-            <View style={styles.comentarioCard}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={require('../assets/icon_usuario.png')}
-                    style={{ width: 30, height: 30 }}
-                  />
-                  <Text style={styles.nomeUsuario}>José</Text>
-                </View>
-                <Image
-                  source={require('../assets/avaliacao.png')}
-                  style={{ width: 50, height: 20 }}
-                />
-              </View>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={styles.textoComentario}>Adestradores nota 10!!!</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../assets/like.png')}
-                    style={{ width: 20, height: 20 }} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../assets/dislike.png')}
-                    style={{ width: 20, height: 20 }} />
-                </TouchableOpacity>
+            <View style={styles.noticia}>
+              <Image source={require('../assets/Img_Passeio.png')}
+                style={styles.logo3} />
+              <View>
+                <Text style={styles.text2}>Live no Instagram</Text>
+                <Text style={styles.text3}>Novidades pra vocês!</Text>
               </View>
             </View>
           </View>
-        </View>
-        {/* Digita comentário */}
-        <View style={styles.digiteComentario}>
-          <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
-          <TextInput
-            placeholder="Digite o comentário"
-            style={styles.inputComentario}
-          />
-          <TextInput
-            placeholder="Informe seu email ou whatsapp"
-            style={styles.inputComentario}
-          />
-        </View>
-      </ScrollView>
-    </View>
+          {/* Comentários */}
+          <View>
+            <View style={styles.comentariosHeader}>
+              <Text style={styles.textTopicos}>Comentários:</Text>
+              <TouchableOpacity style={styles.leiaMais}>
+                <Text>Leia mais {'>'}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.comentarios}>
+              <View style={styles.comentarioCard}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Image
+                      source={require('../assets/icon_usuario.png')}
+                      style={{ width: 30, height: 30 }}
+                    />
+                    <Text style={styles.nomeUsuario}>Maria</Text>
+                  </View>
+                  <Image
+                    source={require('../assets/avaliacao.png')}
+                    style={{ width: 50, height: 20 }}
+                  />
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                  <Text style={styles.textoComentario}>Adorei a experiência que o Bob Marley teve com vocês!</Text>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../assets/like.png')}
+                      style={{ width: 20, height: 20 }} />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../assets/dislike.png')}
+                      style={{ width: 20, height: 20 }} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.comentarioCard}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Image
+                      source={require('../assets/icon_usuario.png')}
+                      style={{ width: 30, height: 30 }}
+                    />
+                    <Text style={styles.nomeUsuario}>José</Text>
+                  </View>
+                  <Image
+                    source={require('../assets/avaliacao.png')}
+                    style={{ width: 50, height: 20 }}
+                  />
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                  <Text style={styles.textoComentario}>Adestradores nota 10!!!</Text>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../assets/like.png')}
+                      style={{ width: 20, height: 20 }} />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../assets/dislike.png')}
+                      style={{ width: 20, height: 20 }} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+          {/* Digita comentário */}
+          <View style={styles.digiteComentario}>
+            <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
+            <TextInput
+              placeholder="Digite o comentário"
+              style={styles.inputComentario}
+            />
+            <TextInput
+              placeholder="Informe seu email ou whatsapp"
+              style={styles.inputComentario}
+            />
+          </View>
+        </ScrollView>
+      </View>
+
+
+    </PaperProvider>
+
+
+
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

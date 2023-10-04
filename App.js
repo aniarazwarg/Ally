@@ -16,29 +16,43 @@ import { Calendario } from './componentes/Calendario';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-// function MyDrawer() {
-//   return (
-//     <Drawer.Navigator screenOptions={{
-//       headerShown: false
-//     }
-//     }>
-//       <Drawer.Screen name="Login" component={Login} />
-//       <Drawer.Screen name="Cadastro" component={Cadastro} />
-//     </Drawer.Navigator>
-//   )
-// }
+function MyDrawer() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerShown: false,
+        swipeEnabled: false,
+        drawerHideStatusBarOnOpen: true,
+        drawerStyle: {
+          backgroundColor: "#F2EAD0",
+        }
+      }}
+      backBehavior='none'
+    >
+      <Drawer.Screen name="Feed" component={Feed} options={{
+        drawerItemStyle: {
+          backgroundColor: "#F2EAD0",
+        },
+        sceneContainerStyle: {
+          backgroundColor:"red",
+        }
+      }}
+     />
+      <Drawer.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Cadastro" component={Cadastro} />
+    </Drawer.Navigator>
+  )
+}
 
 export default function App() {
 
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
+      <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
-        <Stack.Screen name='Feed' component={Feed} />
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='Cadastro' component={Cadastro} />
+        <Stack.Screen name='Home' component={MyDrawer} />
         <Stack.Screen name='AdicionarPet' component={AdicionarPet} />
         <Stack.Screen name='Perfil' component={Perfil} />
         <Stack.Screen name='Calendario' component={Calendario} />

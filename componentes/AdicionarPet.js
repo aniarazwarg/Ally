@@ -45,7 +45,7 @@ export function AdicionarPet({navigation}) {
                         placeholderTextColor={'#273A73'}
                     />
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perfil')}>
                     <Text style={styles.textButton}>Enviar</Text>
                 </TouchableOpacity>
             </View>
