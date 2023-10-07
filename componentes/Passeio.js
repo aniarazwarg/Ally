@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar } from "react-native";
-import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
+
+import { Modal, Portal, Text, Button, PaperProvider, Card, Avatar} from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export function Passeio({ navigation }) {
@@ -10,7 +11,7 @@ export function Passeio({ navigation }) {
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
 
-
+  const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
   return (
 
     <PaperProvider>
@@ -27,44 +28,43 @@ export function Passeio({ navigation }) {
           stickyHeaderHiddenOnScroll>
           {/* Header */}
           <View style={styles.header}>
-            <View style={styles.headerConteudo}>
-              <View>
-                <Text>
+  
+                <Text style={styles.headerConteudo}>
                     Agility
                 </Text>
-              </View>
-              
-            </View>
+          
           </View>
           {/* Logo Agility */}
           <View style={styles.imagem}>
             <Image source={require('../assets/agility.png')}
               style={styles.logoBrothers} />
           </View>
+          <br />
          {/* Card de Texto */}
-        <Text>
-            Sobre: O agility é um esporte para cães, o qual
+         <Card>
+     
+  
+    <Card.Content>
+   <Text variant="titleLarge">Sobre:</Text>
+      <Text variant="bodyLarge">  O agility é um esporte para cães, o qual
             eles percorrem um circuito desafiador e que exige
             habilidade dos bichos. Este tipo de atividade visa
-            buscar melhorar a saúde do animal.
-        </Text>
+            buscar melhorar a saúde do animal.</Text>
+    </Card.Content>
+    
+  </Card>
 
-         {/* Card de Texto */}
-        <Text>
+         {/* Texto  de Contato*/}
+        <Text style={styles.texto}>
         Para realizar o agendamento deste serviço
         entre em contato com o Whatsapp:
         (13)999999999
         </Text>
 
           {/* Botão Voltar */}
-          <TouchableOpacity>
-          <View style={styles.noticias}>  
-             
-            <View style={styles.noticia}>           
-              <Text style={styles.text2}>Voltar</Text>
-            </View>
-          </View>
-       </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonCadastrar} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.textButton}>Voltar</Text>
+          </TouchableOpacity>
          
         </ScrollView>
       </View>
@@ -82,7 +82,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F2EAD0',
     paddingTop: StatusBar.currentHeight,
+    
   },
+texto:{
+  padding:10,
+  fontSize:16,
+textAlign: 'center',
+},
+buttonCadastrar: {
+  alignSelf: 'center',
+  backgroundColor: '#6FAA9C',
+  width: '50%',
+  padding: 10,
+  borderRadius: 20,
+  marginTop: 20,
+   
+},
+textButton: {
+  color: 'white',
+  fontSize: 20,
+  textAlign:'center',
+},
   scrollView: {
 
   },
@@ -92,11 +112,13 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   headerConteudo: {
+    
     flexDirection: 'row',
-    justifyContent: 'center',
+textAlign:"center",
     marginHorizontal: 20,
-    paddingVertical: 5,
-    fontSize: 340,
+    padding: 10,
+    fontSize: 30,
+    
 
   },
   logosHeader: {
@@ -121,90 +143,7 @@ const styles = StyleSheet.create({
     padding: 3,
     borderColor: '#C0C0C0',
   },
-  logoServicos: {
-    height: 80,
-    width: 80,
-  },
-  textServicos: {
-    fontSize: 10,
-    textAlign: 'center',
-  },
 
-  //Noticias
-  noticias: {
-    marginLeft: 20,
-    marginTop: 15,
-  },
-  noticia: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-    backgroundColor: '#FCF6D7',
-    padding: 6,
-    borderRadius: 10,
-    marginRight: 20
-  },
-  logo3: {
-    height: 50,
-    width: 50,
-  },
 
-  text2: {
-    color: "#273A73",
-    marginLeft: 20
-  },
 
-  //Comentários
-  comentariosHeader: {
-    marginLeft: 20,
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  leiaMais: {
-    marginRight: 20,
-    borderWidth: 1,
-    padding: 3,
-    paddingHorizontal: 15,
-    borderRadius: 10
-  },
-  comentarios: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-    marginHorizontal: 20
-  },
-  comentarioCard: {
-    backgroundColor: '#FCF6D7',
-    width: '45%',
-    padding: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#C0C0C0',
-    height: 150,
-    justifyContent: 'space-between'
-  },
-  nomeUsuario: {
-    marginLeft: 10,
-  },
-
-  //Cria comentários
-  digiteComentario: {
-    marginLeft: 20,
-    marginTop: 10,
-    marginBottom: 300,
-  },
-  textTopicos: {
-    color: '#60452F',
-    fontWeight: 'bold'
-  },
-  inputComentario: {
-    backgroundColor: '#FCF6D7',
-    height: 40,
-    marginRight: 30,
-    borderRadius: 20,
-    paddingLeft: 30,
-    marginTop: 10,
-  }
 });
