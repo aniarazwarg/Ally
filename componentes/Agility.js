@@ -4,7 +4,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider, Card, Avatar} from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export function Passeio({ navigation }) {
+export function Agility({ navigation }) {
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
@@ -29,7 +29,7 @@ export function Passeio({ navigation }) {
           <View style={styles.header}>
   
                 <Text style={styles.headerConteudo}>
-                    Passeio
+                    Agility
                 </Text>
           
           </View>
