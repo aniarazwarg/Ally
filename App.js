@@ -11,6 +11,7 @@ import { Feed } from './componentes/Feed';
 import { AdicionarPet } from './componentes/AdicionarPet';
 import { Perfil } from './componentes/Perfil';
 import { Calendario } from './componentes/Calendario';
+import { ConexaoBanco } from './componentes/ConexaoBanco';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +41,7 @@ function MyDrawer() {
      />
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="Cadastro" component={Cadastro} />
+      <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} />
     </Drawer.Navigator>
   )
 }
