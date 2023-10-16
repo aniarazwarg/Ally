@@ -4,6 +4,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput, Button, Tou
 export function ConexaoBanco({ navigation }) {
     const [produtos, setProdutos] = useState([]);
     const [valor1, setValor1] = useState('');
+    const [altera, setAltera] =useState('Chocolate');
 
     const handleInsertData = () => {
         fetch('http://localhost/api/inserir', {
@@ -43,6 +44,26 @@ export function ConexaoBanco({ navigation }) {
         }
     };
 
+    const updateRecord = async (id, newData) => {
+        try {
+            const response = await fetch(`http://localhost/api/alterar/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newData), // Os dados de atualização
+            });
+    
+            if (response.status === 200) {
+                console.log('Registro atualizado com sucesso.');
+            } else {
+                console.error('Erro ao atualizar registro.');
+            }
+        } catch (error) {
+            console.error('Erro de rede:', error);
+        }
+    };
+
 
     function data() {
         fetch('http://localhost/api/produtos')
@@ -50,8 +71,9 @@ export function ConexaoBanco({ navigation }) {
             .then((json) => setProdutos(json))
     }
 
+    
     data();
-
+    
     useEffect(() => {
     }, []);
 
@@ -62,9 +84,14 @@ export function ConexaoBanco({ navigation }) {
                     {produtos.map((produto) => (
                         <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 5, alignItems: 'center', marginTop: 20}} key={produto.ID}>
                             <TextInput
-                            value={produto.NOME} />
+                            value={produto.NOME}
+                            onChangeText={(text)=> setAltera(text)}
+                            editable={true}/>
                             <TouchableOpacity onPress={() =>deleteRecord(produto.ID)} style={{backgroundColor: 'blue', borderRadius: 20, padding: 10}}>
                                 <Text style={{color:'white'}}>Deletar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() =>updateRecord(produto.ID, {nome: altera})} style={{backgroundColor: 'blue', borderRadius: 20, padding: 10}}>
+                                <Text style={{color:'white'}}>Alterar</Text>
                             </TouchableOpacity>
                         </View>
                     ))}
