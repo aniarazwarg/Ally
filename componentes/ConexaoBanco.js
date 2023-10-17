@@ -4,7 +4,8 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput, Button, Tou
 export function ConexaoBanco({ navigation }) {
     const [produtos, setProdutos] = useState([]);
     const [valor1, setValor1] = useState('');
-    const [altera, setAltera] =useState('Chocolate');
+    const [saveId, setSaveId] = useState('');
+    const [nome, setNome] = useState('');
 
     const handleInsertData = () => {
         fetch('http://localhost/api/inserir', {
@@ -53,7 +54,7 @@ export function ConexaoBanco({ navigation }) {
                 },
                 body: JSON.stringify(newData), // Os dados de atualização
             });
-    
+
             if (response.status === 200) {
                 console.log('Registro atualizado com sucesso.');
             } else {
@@ -64,52 +65,45 @@ export function ConexaoBanco({ navigation }) {
         }
     };
 
-
     function data() {
         fetch('http://localhost/api/produtos')
             .then((response) => response.json())
             .then((json) => setProdutos(json))
     }
 
-    
     data();
     
     useEffect(() => {
     }, []);
 
     return (
-        <View>
             <View>
                 <View>
-                    {produtos.map((produto) => (
-                        <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 5, alignItems: 'center', marginTop: 20}} key={produto.ID}>
-                            <TextInput
-                            value={produto.NOME}
-                            onChangeText={(text)=> setAltera(text)}
-                            editable={true}/>
-                            <TouchableOpacity onPress={() =>deleteRecord(produto.ID)} style={{backgroundColor: 'blue', borderRadius: 20, padding: 10}}>
-                                <Text style={{color:'white'}}>Deletar</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() =>updateRecord(produto.ID, {nome: altera})} style={{backgroundColor: 'blue', borderRadius: 20, padding: 10}}>
-                                <Text style={{color:'white'}}>Alterar</Text>
-                            </TouchableOpacity>
-                        </View>
-                    ))}
+                    <View>
+                        {produtos.map((produto) => (
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 5, alignItems: 'center', marginTop: 20 }} key={produto.ID}>
+                                <Text>{produto.NOME}</Text>
+                                <TouchableOpacity onPress={() => deleteRecord(produto.ID)} style={{ backgroundColor: 'blue', borderRadius: 20, padding: 10 }}>
+                                    <Text style={{ color: 'white' }}>Deletar</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => {setSaveId(produto.ID); setNome(produto.NOME)}} style={{ backgroundColor: 'blue', borderRadius: 20, padding: 10 }}>
+                                    <Text style={{ color: 'white' }}>Alterar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                    </View>
+                    <TextInput
+                        placeholder="Digite o valor 1"
+                        value={valor1}
+                        onChangeText={(text) => setValor1(text)}
+                    />
+                    <Button title="Inserir Dados" onPress={handleInsertData} />
+                    <TextInput value={nome} onChangeText={(text) => setNome(text)}/>
+                    <TouchableOpacity onPress={()=> updateRecord(saveId, {nome})}>
+                        <Text>Alterar</Text>
+                    </TouchableOpacity>
                 </View>
-                <TextInput
-                    placeholder="Digite o valor 1"
-                    value={valor1}
-                    onChangeText={(text) => setValor1(text)}
-                />
-                <Button title="Inserir Dados" onPress={handleInsertData} />
+
             </View>
-            {/* <View>
-                <View>
-                    {produtos.map((produto) => {
-                        <Button key={produto.ID} onPress={deleteRecord(produto.ID)}>{produto.ID}</Button>
-                    })}
-                </View>
-            </View> */}
-        </View>
     )
 }

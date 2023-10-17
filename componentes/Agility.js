@@ -4,7 +4,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider, Card, Avatar} from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export function Passeio({ navigation }) {
+export function Agility({ navigation }) {
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
@@ -29,13 +29,13 @@ export function Passeio({ navigation }) {
           <View style={styles.header}>
   
                 <Text style={styles.headerConteudo}>
-                    Passeio
+                    Agility
                 </Text>
           
           </View>
           {/* Logo Agility */}
           <View style={styles.imagem}>
-            <Image source={require('../assets/Passeio.png')}
+            <Image source={require('../assets/agility.png')}
               style={styles.logoBrothers} />
           </View>
           <br />
@@ -45,10 +45,13 @@ export function Passeio({ navigation }) {
   
     <Card.Content style={styles.card}>
    <Text variant="titleLarge">Sobre:</Text>
-      <Text variant="bodyLarge">  Contrate passeadores para levar seus cães para dar um volta.</Text>
+      <Text variant="bodyLarge">  O agility é um esporte para cães, o qual
+            eles percorrem um circuito desafiador e que exige
+            habilidade dos bichos. Este tipo de atividade visa
+            buscar melhorar a saúde do animal.</Text>
     </Card.Content>
     
-  </Card> 
+  </Card>
 
          {/* Texto  de Contato*/}
         <Text style={styles.texto}>

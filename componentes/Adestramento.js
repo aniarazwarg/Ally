@@ -4,12 +4,13 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider, Card, Avatar} from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export function Passeio({ navigation }) {
+export function Adestramento({ navigation }) {
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
+
 
   return (
 
@@ -29,13 +30,13 @@ export function Passeio({ navigation }) {
           <View style={styles.header}>
   
                 <Text style={styles.headerConteudo}>
-                    Passeio
+                    Adestramento
                 </Text>
           
           </View>
           {/* Logo Agility */}
           <View style={styles.imagem}>
-            <Image source={require('../assets/Passeio.png')}
+            <Image source={require('../assets/adestrar.png')}
               style={styles.logoBrothers} />
           </View>
           <br />
@@ -45,10 +46,11 @@ export function Passeio({ navigation }) {
   
     <Card.Content style={styles.card}>
    <Text variant="titleLarge">Sobre:</Text>
-      <Text variant="bodyLarge">  Contrate passeadores para levar seus cães para dar um volta.</Text>
+      <Text variant="bodyLarge">  Contrate um adestrador para melhorar o 
+comportamento do seu cão.</Text>
     </Card.Content>
     
-  </Card> 
+  </Card>
 
          {/* Texto  de Contato*/}
         <Text style={styles.texto}>

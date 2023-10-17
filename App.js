@@ -12,6 +12,9 @@ import { AdicionarPet } from './componentes/AdicionarPet';
 import { Perfil } from './componentes/Perfil';
 import { Calendario } from './componentes/Calendario';
 import { ConexaoBanco } from './componentes/ConexaoBanco';
+import { Adestramento } from './componentes/Adestramento';
+import {Agility} from './componentes/Agility';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -32,14 +35,21 @@ function MyDrawer() {
     >
       <Drawer.Screen name="Feed" component={Feed} options={{
         drawerItemStyle: {
-          backgroundColor: "#F2EAD0",
+          backgroundColor: "#C1BBA6",
+          width:'100%',
+          margin: 0
+                    
+        },
+        drawerLabelStyle:{
+          color: '#C1BBA6'
         },
         sceneContainerStyle: {
           backgroundColor:"red",
+          
         }
       }}
      />
-      <Drawer.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Login" component={Login}/>
       <Drawer.Screen name="Cadastro" component={Cadastro} />
       <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} />
     </Drawer.Navigator>
@@ -58,6 +68,8 @@ export default function App() {
         <Stack.Screen name='AdicionarPet' component={AdicionarPet} />
         <Stack.Screen name='Perfil' component={Perfil} />
         <Stack.Screen name='Calendario' component={Calendario} />
+        <Stack.Screen name='Adestramento' component={Adestramento} />
+        <Stack.Screen name='Agility' component={Agility} />
       </Stack.Navigator>
     </NavigationContainer>
   );
