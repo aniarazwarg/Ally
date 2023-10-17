@@ -79,7 +79,7 @@ export function Cadastro({navigation}){
             <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
           </View>
           <View style={styles.welcome}>
-            <Text style={styles.welcome}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
+            <Text style={styles.welcomeText}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
           </View>
         </View>
         <View style={styles.formulario}>
@@ -162,48 +162,13 @@ const styles = StyleSheet.create({
       alignItems:'center'
     },
     logoBrothers:{
-        height:160,
-        width:'75%',
+        height:100,
+        width:'70%',
     },
     welcome: {
       alignItems:'center',
-      fontSize:15,
-     
     },
-    logo:{
-        height:200,
-        width:400,
-    },
-    logo2:{
-        height:90,
-        width:90,
-    },
-  
-    button:{
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginTop: 40,
-      borderRadius:20,
-      backgroundColor: '#6FAA9C',
-      padding:10,
-      width: '80%',
-    },
-
-    text1:{
-      textAlign:'center',
-      color:'#273A73',
-      fontSize:20,
-      marginVertical: 10,
-      backgroundColor:'#f5fffa',
-      borderWidth:1,
-      borderColor:'#273A73',
-      padding:10,
-      borderRadius:20,
-      width: '90%'
-      
-    },
-
-    text0:{
+    welcomeText:{
       textAlign:'center',
       fontSize:15,
       marginHorizontal: 55,
