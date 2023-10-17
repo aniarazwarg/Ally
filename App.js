@@ -51,12 +51,12 @@ export default function App() {
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName='Passeio' screenOptions={{ headerShown: false }}>
+       <Stack.Screen name='Home' component={MyDrawer} />
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='Adestramento' component={Adestramento} />
         <Stack.Screen name='Agility' component={Agility} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
-        <Stack.Screen name='Home' component={MyDrawer} />
         <Stack.Screen name='AdicionarPet' component={AdicionarPet} />
         <Stack.Screen name='Perfil' component={Perfil} />
         <Stack.Screen name='Calendario' component={Calendario} />

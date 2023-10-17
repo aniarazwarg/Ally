@@ -43,7 +43,7 @@ export function Agility({ navigation }) {
          <Card>
      
   
-    <Card.Content>
+    <Card.Content style={styles.card}>
    <Text variant="titleLarge">Sobre:</Text>
       <Text variant="bodyLarge">  O agility é um esporte para cães, o qual
             eles percorrem um circuito desafiador e que exige
@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2EAD0',
     paddingTop: StatusBar.currentHeight,
     
+  },
+  card:{
+    backgroundColor:'#FCF6D7',
   },
 texto:{
   padding:10,

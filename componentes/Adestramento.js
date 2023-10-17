@@ -44,7 +44,7 @@ export function Adestramento({ navigation }) {
          <Card>
      
   
-    <Card.Content>
+    <Card.Content style={styles.card}>
    <Text variant="titleLarge">Sobre:</Text>
       <Text variant="bodyLarge">  Contrate um adestrador para melhorar o 
 comportamento do seu cão.</Text>
@@ -81,6 +81,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2EAD0',
     paddingTop: StatusBar.currentHeight,
     
+  },
+  card:{
+    backgroundColor:'#FCF6D7',
   },
 texto:{
   padding:10,

@@ -43,7 +43,7 @@ export function Passeio({ navigation }) {
          <Card>
      
   
-    <Card.Content>
+    <Card.Content style={styles.card}>
    <Text variant="titleLarge">Sobre:</Text>
       <Text variant="bodyLarge">  Contrate passeadores para levar seus cães para dar um volta.</Text>
     </Card.Content>
@@ -79,6 +79,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2EAD0',
     paddingTop: StatusBar.currentHeight,
     
+  },
+  card:{
+    backgroundColor:'#FCF6D7',
   },
 texto:{
   padding:10,
