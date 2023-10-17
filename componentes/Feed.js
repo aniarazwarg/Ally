@@ -50,6 +50,7 @@ export function Feed({ navigation }) {
           </View>
           {/* Logo serviços */}
           <View style={styles.servicos}>
+
             <TouchableOpacity style={styles.servico}
               onPress={() => navigation.navigate('Calendario')}>
               <Image source={require('../assets/hotel.png')}
@@ -57,6 +58,7 @@ export function Feed({ navigation }) {
               />
               <Text style={styles.textServicos}>Hotel</Text>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.servico}
              onPress={() => navigation.navigate('Passeio')}>
               <Image source={require('../assets/passeio.png')}
@@ -64,20 +66,23 @@ export function Feed({ navigation }) {
               />
               <Text style={styles.textServicos}>Passeio</Text>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.servico}
-              onPress={showModal}>
+             onPress={() => navigation.navigate('Adestramento')}>
               <Image source={require('../assets/adestrar.png')}
                 style={styles.logoServicos}
               />
               <Text style={styles.textServicos}>Adestramento</Text>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.servico}
-              onPress={showModal}>
+               onPress={() => navigation.navigate('Agility')}>
               <Image source={require('../assets/agility.png')}
                 style={styles.logoServicos}
               />
               <Text style={styles.textServicos}>Agility</Text>
             </TouchableOpacity>
+            
           </View>
           {/* Noticias */}
           <View style={styles.noticias}>

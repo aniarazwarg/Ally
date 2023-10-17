@@ -35,7 +35,7 @@ export function Passeio({ navigation }) {
           </View>
           {/* Logo Agility */}
           <View style={styles.imagem}>
-            <Image source={require('../assets/agility.png')}
+            <Image source={require('../assets/Passeio.png')}
               style={styles.logoBrothers} />
           </View>
           <br />
@@ -45,13 +45,10 @@ export function Passeio({ navigation }) {
   
     <Card.Content>
    <Text variant="titleLarge">Sobre:</Text>
-      <Text variant="bodyLarge">  O agility é um esporte para cães, o qual
-            eles percorrem um circuito desafiador e que exige
-            habilidade dos bichos. Este tipo de atividade visa
-            buscar melhorar a saúde do animal.</Text>
+      <Text variant="bodyLarge">  Contrate passeadores para levar seus cães para dar um volta.</Text>
     </Card.Content>
     
-  </Card>
+  </Card> 
 
          {/* Texto  de Contato*/}
         <Text style={styles.texto}>

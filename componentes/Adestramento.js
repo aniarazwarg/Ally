@@ -36,7 +36,7 @@ export function Adestramento({ navigation }) {
           </View>
           {/* Logo Agility */}
           <View style={styles.imagem}>
-            <Image source={require('../assets/agility.png')}
+            <Image source={require('../assets/adestrar.png')}
               style={styles.logoBrothers} />
           </View>
           <br />
