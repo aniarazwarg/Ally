@@ -24,6 +24,7 @@ export function ConexaoBanco({ navigation }) {
             .catch((error) => {
                 console.error('Erro:', error);
             });
+        setValor1('');
     };
 
     const deleteRecord = async (id) => {
@@ -77,41 +78,43 @@ export function ConexaoBanco({ navigation }) {
     }, []);
 
     return (
-        <View>
+        <View style={{ margin: 20, height: '100%', flexDirection: 'column' }}>
             <View>
-                <View>
-                    {produtos.map((produto) => (
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5, alignItems: 'center', marginTop: 20, marginHorizontal: 40 }} key={produto.ID}>
-                            <Text>{produto.NOME}</Text>
-                            <View style={{flexDirection:'row'}}>
-                                <TouchableOpacity onPress={() => deleteRecord(produto.ID)} style={{ backgroundColor: 'blue', borderRadius: 20, padding: 10 }}>
-                                    <Text style={{ color: 'white' }}>Deletar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => { setSaveId(produto.ID); setNome(produto.NOME) }} style={{ backgroundColor: 'blue', borderRadius: 20, padding: 10 }}>
-                                    <Text style={{ color: 'white' }}>Alterar</Text>
-                                </TouchableOpacity>
-                            </View>
+                {produtos.map((produto) => (
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5, alignItems: 'center', marginTop: 20, marginHorizontal: 40 }} key={produto.ID}>
+                        <Text>{produto.NOME}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => deleteRecord(produto.ID)} style={{ backgroundColor: 'blue', borderRadius: 20, padding: 10 }}>
+                                <Text style={{ color: 'white' }}>Deletar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => { setSaveId(produto.ID); setNome(produto.NOME) }} style={{ backgroundColor: 'blue', borderRadius: 20, padding: 10 }}>
+                                <Text style={{ color: 'white' }}>Alterar</Text>
+                            </TouchableOpacity>
                         </View>
-                    ))}
-                </View>
-                <View style={{ margin: 20 }}>
+                    </View>
+                ))}
+            </View>
+            <View style={{marginTop: 40}}>
+                <View style={{marginBottom: 20}}>
                     <TextInput
                         placeholder="Digite o nome do produto"
                         value={valor1}
                         onChangeText={(text) => setValor1(text)}
-                        style={{marginBottom: 15, textAlign:'center', borderWidth: 1, padding: 8}}
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 8 }}
                     />
                     <Button title="Inserir Dados" onPress={handleInsertData} />
                 </View>
-                <View style={{ margin: 20 }}>
-                    <TextInput 
-                    placeholder="Altere o nome do produto" 
-                    value={nome} onChangeText={(text) => setNome(text)} 
-                    style={{marginBottom: 15, textAlign:'center', borderWidth: 1, padding: 8}}/>
-                    <Button title="Alterar" onPress={() => updateRecord(saveId, { nome })} />
+                <View style={{marginBottom: 20}}>
+                    <TextInput
+                        placeholder="Altere o nome do produto"
+                        value={nome} onChangeText={(text) => setNome(text)}
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 8 }} />
+                    <Button title="Alterar" onPress={() => { updateRecord(saveId, { nome }); setNome('') }} />
+                </View>
+                <View>
+                    <Button title="Voltar" onPress={() => navigation.navigate('Feed')} />
                 </View>
             </View>
-
         </View>
     )
 }
