@@ -13,7 +13,7 @@ import { Perfil } from './componentes/Perfil';
 import { Calendario } from './componentes/Calendario';
 import { ConexaoBanco } from './componentes/ConexaoBanco';
 import { Adestramento } from './componentes/Adestramento';
-import {Agility} from './componentes/Agility';
+import { Agility } from './componentes/Agility';
 
 
 
@@ -23,6 +23,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
+      initialRouteName="Feed"
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,
@@ -36,20 +37,20 @@ function MyDrawer() {
       <Drawer.Screen name="Feed" component={Feed} options={{
         drawerItemStyle: {
           backgroundColor: "#C1BBA6",
-          width:'100%',
+          width: '100%',
           margin: 0
-                    
+
         },
-        drawerLabelStyle:{
+        drawerLabelStyle: {
           color: '#C1BBA6'
         },
         sceneContainerStyle: {
-          backgroundColor:"red",
-          
+          backgroundColor: "red",
+
         }
       }}
-     />
-      <Drawer.Screen name="Login" component={Login}/>
+      />
+      <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="Cadastro" component={Cadastro} />
       <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} />
     </Drawer.Navigator>
