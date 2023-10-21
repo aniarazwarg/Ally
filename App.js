@@ -13,6 +13,7 @@ import { Calendario } from './componentes/Calendario';
 import { ConexaoBanco } from './componentes/ConexaoBanco';
 import { Adestramento } from './componentes/Adestramento';
 import { Agility } from './componentes/Agility';
+import { Comentarios } from './componentes/Comentarios';
 
 
 
@@ -70,6 +71,7 @@ export default function App() {
         <Stack.Screen name='Calendario' component={Calendario} />
         <Stack.Screen name='Adestramento' component={Adestramento} />
         <Stack.Screen name='Agility' component={Agility} />
+        <Stack.Screen name='Comentarios' component={Comentarios}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

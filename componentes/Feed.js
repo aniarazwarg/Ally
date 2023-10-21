@@ -59,7 +59,7 @@ export function Feed({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity style={styles.servico}
               onPress={() => navigation.navigate('Passeio')}>
-              <Image source={require('../assets/Passeio.png')}
+              <Image source={require('../assets/passeio.png')}
                 style={styles.logoServicos}
               />
               <Text style={styles.textServicos}>Passeio</Text>
@@ -100,7 +100,7 @@ export function Feed({ navigation }) {
           <View>
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais}>
+              <TouchableOpacity style={styles.leiaMais} onPress={()=> navigation.navigate("Comentarios")}>
                 <Text>Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>

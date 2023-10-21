@@ -32,7 +32,7 @@ export function Passeio({ navigation }) {
           </View>
           {/* Logo Agility */}
           <View style={styles.imagem}>
-            <Image source={require('../assets/Passeio.png')}
+            <Image source={require('../assets/passeio.png')}
               style={styles.logoBrothers} />
           </View>
           {/* Card de Texto */}
