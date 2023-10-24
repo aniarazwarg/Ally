@@ -61,7 +61,7 @@ export function Perfil({navigation}) {
                     </View>
                 </View>
             </View>
-            <View style={{width: '80%', alignItems:'center', justifyContent:'center', marginTop: 20}}>
+            <View style={{width: '80%', alignItems:'center', justifyContent:'center', marginTop: 100}}>
                 <TouchableOpacity style={{width: '100%', backgroundColor:'#6FAA9C', padding: 10, alignSelf:'center', borderRadius: 20,alignItems:'center', justifyContent:'center'}} onPress={() => navigation.navigate('Feed')}>
                     <Text style={{color: 'white'}}>Voltar</Text>
                 </TouchableOpacity>

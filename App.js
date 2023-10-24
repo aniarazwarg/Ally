@@ -62,6 +62,7 @@ export default function App() {
     // estrutura do app
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+       <Stack.Screen name='Home' component={MyDrawer} />
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
         <Stack.Screen name='Home' component={MyDrawer} />

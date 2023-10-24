@@ -82,13 +82,14 @@ export function Feed({ navigation }) {
           {/* Noticias */}
           <View style={styles.noticias}>
             <Text style={styles.textTopicos}>Notícias:</Text>
+            
             <View style={styles.noticia}>
-              <Image source={require('../assets/Img_Passeio.png')}
+              <Image source={require('../assets/ally2.png')}
                 style={styles.logo3} />
               <Text style={styles.text2}>Vagas para o feriado!</Text>
             </View>
             <View style={styles.noticia}>
-              <Image source={require('../assets/Img_Passeio.png')}
+              <Image source={require('../assets/icon_pet.png')}
                 style={styles.logo3} />
               <View>
                 <Text style={styles.text2}>Live no Instagram</Text>
