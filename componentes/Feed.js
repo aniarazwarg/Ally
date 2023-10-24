@@ -101,7 +101,7 @@ export function Feed({ navigation }) {
           <View>
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais}>
+              <TouchableOpacity style={styles.leiaMais}  onPress={() => navigation.navigate('Comentarios')}>
                 <Text>Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>
