@@ -3,7 +3,15 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+
+
+
 export function Feed({ navigation }) {
+
+function Like(){
+  
+}
+
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);

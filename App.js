@@ -52,7 +52,7 @@ export default function App() {
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName='Comentarios' screenOptions={{ headerShown: false }}>
        <Stack.Screen name='Home' component={MyDrawer} />
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='Adestramento' component={Adestramento} />
