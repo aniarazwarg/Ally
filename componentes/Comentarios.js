@@ -4,6 +4,10 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, StatusBar 
 export function Comentarios({ navigation }) {
 
     const [comentarios, setComentarios] = useState([]);
+    
+    const [curtidas, setCurtidas] = useState(null);
+    const [descurtidas, setDescurtidas] = useState(null);
+    const [id, setId] = useState(null);
 
     function dataComentarios() {
         fetch('http://localhost/api/comentarios')
@@ -11,9 +15,34 @@ export function Comentarios({ navigation }) {
             .then((json) => setComentarios(json))
     }
 
+    const updateCurtidas = async (id, newData) => {
+        try {
+            const response = await fetch(`http://localhost/api/curtidas/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newData), // Os dados de atualização
+            });
+
+            if (response.status === 200) {
+                console.log('Registro atualizado com sucesso.');
+                console.log(newData)
+            } else {
+                console.error('Erro ao atualizar registro.');
+            }
+        } catch (error) {
+            console.error('Erro de rede:', error);
+        }
+    };
+
+    dataComentarios();
+
     useEffect(() => {
-        dataComentarios();
-    }, []);
+        if (id !== null) {
+            updateCurtidas(id, { curtidas, descurtidas });
+        }
+    }, [curtidas, descurtidas, id]);
 
     return (
         <View style={styles.container}>
@@ -22,19 +51,15 @@ export function Comentarios({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerConteudo}>
                         <View>
-                            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                                <Image source={require('../assets/menu-bar.png')}
+                            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                                <Image source={require('../assets/icon-back.png')}
                                     style={styles.logosHeader}
                                 />
                             </TouchableOpacity>
                         </View>
                         <View>
-                            <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
-                                <Image source={require('../assets/icon_usuario.png')}
-                                    style={styles.logosHeader} />
-                            </TouchableOpacity>
+                            <Text style={styles.headerText}>Comentários</Text>
                         </View>
-                        <Text style={styles.headerText}>Comentários</Text>
                     </View>
                 </View>
                 <View style={styles.comentarios}>
@@ -54,16 +79,22 @@ export function Comentarios({ navigation }) {
                                     <Text style={styles.textoComentario}>{comentario.comentario}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                    <TouchableOpacity>
-                                        <Image
-                                            source={require('../assets/like.png')}
-                                            style={{ width: 20, height: 20 }} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity>
-                                        <Image
-                                            source={require('../assets/dislike.png')}
-                                            style={{ width: 20, height: 20 }} />
-                                    </TouchableOpacity>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                                        <TouchableOpacity onPress={() => { setId(comentario.id); setCurtidas(comentario.curtidas + 1); setDescurtidas(comentario.descurtidas) }}>
+                                            <Image
+                                                source={require('../assets/like.png')}
+                                                style={{ width: 20, height: 20, marginRight: 10 }} />
+                                        </TouchableOpacity>
+                                        <Text>{comentario.curtidas}</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                                        <TouchableOpacity onPress={() => { setId(comentario.id); setDescurtidas(comentario.descurtidas + 1); setCurtidas(comentario.curtidas) }}>
+                                            <Image
+                                                source={require('../assets/dislike.png')}
+                                                style={{ width: 20, height: 20, marginRight: 10 }} />
+                                        </TouchableOpacity>
+                                        <Text>{comentario.descurtidas}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -77,28 +108,25 @@ export function Comentarios({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         backgroundColor: '#F2EAD0',
         paddingTop: StatusBar.currentHeight,
     },
     header: {
         zIndex: 1,
         backgroundColor: '#F2EAD0',
-        width: '100%'
+        width: '100%',
+        padding: 10
     },
     headerConteudo: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         marginHorizontal: 20,
-        paddingVertical: 5
+        paddingVertical: 5,
+        alignItems: "center",
     },
     logosHeader: {
-        width: 40,
-        height: 40
-    },
-    header: {
-        marginTop: 25,
-        marginBottom: 20
+        width: 30,
+        height: 30,
+        marginRight: 20
     },
     headerText: {
         fontSize: 25,
@@ -123,7 +151,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     comentarios: {
-
+        alignItems: 'center'
     }
 
 });
