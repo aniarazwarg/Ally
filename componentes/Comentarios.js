@@ -7,7 +7,9 @@ export function Comentarios({ navigation }) {
     
     const [curtidas, setCurtidas] = useState(null);
     const [descurtidas, setDescurtidas] = useState(null);
+    const [ok, setOk] = useState(0);
     const [id, setId] = useState(null);
+    
 
     function dataComentarios() {
         fetch('http://localhost/api/comentarios')
@@ -40,7 +42,8 @@ export function Comentarios({ navigation }) {
 
     useEffect(() => {
         if (id !== null) {
-            updateCurtidas(id, { curtidas, descurtidas });
+            updateCurtidas(id, { curtidas, descurtidas, ok });
+            
         }
     }, [curtidas, descurtidas, id]);
 
@@ -80,7 +83,15 @@ export function Comentarios({ navigation }) {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        <TouchableOpacity onPress={() => { setId(comentario.id); setCurtidas(comentario.curtidas + 1); setDescurtidas(comentario.descurtidas) }}>
+                                        <TouchableOpacity onPress={() => { 
+                                            setId(comentario.id);
+                                            if (ok == 0) {
+                                                setCurtidas(comentario.curtidas + 1); 
+                                                setDescurtidas(comentario.descurtidas);
+                                            } 
+                                            setOk(1);
+                                          
+                                            }}>
                                             <Image
                                                 source={require('../assets/like.png')}
                                                 style={{ width: 20, height: 20, marginRight: 10 }} />
