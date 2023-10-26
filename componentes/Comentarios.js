@@ -2,14 +2,12 @@ import react, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, StatusBar } from "react-native";
 
 export function Comentarios({ navigation }) {
-
     const [comentarios, setComentarios] = useState([]);
-    
     const [curtidas, setCurtidas] = useState(null);
     const [descurtidas, setDescurtidas] = useState(null);
     const [ok, setOk] = useState(0);
     const [id, setId] = useState(null);
-    
+
 
     function dataComentarios() {
         fetch('http://localhost/api/comentarios')
@@ -41,11 +39,16 @@ export function Comentarios({ navigation }) {
     dataComentarios();
 
     useEffect(() => {
-        if (id !== null) {
-            updateCurtidas(id, { curtidas, descurtidas, ok });
-            
-        }
+        comentarios.forEach((comentario) => {
+            if (id !== null && comentario.ok == 0 && id == comentario.id) {
+                updateCurtidas(id, { curtidas, descurtidas, ok });
+            } 
+            if (id !== null & comentario.ok == 1 & id == comentario.id) {
+                updateCurtidas(id, { curtidas, descurtidas, ok });
+            }
+        });
     }, [curtidas, descurtidas, id]);
+
 
     return (
         <View style={styles.container}>
@@ -83,15 +86,17 @@ export function Comentarios({ navigation }) {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        <TouchableOpacity onPress={() => { 
+                                        <TouchableOpacity onPress={() => {
                                             setId(comentario.id);
-                                            if (ok == 0) {
-                                                setCurtidas(comentario.curtidas + 1); 
-                                                setDescurtidas(comentario.descurtidas);
-                                            } 
+                                            setCurtidas(comentario.curtidas + 1);
+                                            setDescurtidas(comentario.descurtidas);
                                             setOk(1);
-                                          
-                                            }}>
+                                            if (comentario.ok == 1) {
+                                                setCurtidas(comentario.curtidas - 1);
+                                                setDescurtidas(comentario.descurtidas);
+                                                setOk(0);
+                                            }
+                                        }}>
                                             <Image
                                                 source={require('../assets/like.png')}
                                                 style={{ width: 20, height: 20, marginRight: 10 }} />
@@ -99,7 +104,17 @@ export function Comentarios({ navigation }) {
                                         <Text>{comentario.curtidas}</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        <TouchableOpacity onPress={() => { setId(comentario.id); setDescurtidas(comentario.descurtidas + 1); setCurtidas(comentario.curtidas) }}>
+                                        <TouchableOpacity onPress={() => {
+                                            setId(comentario.id); 
+                                            setDescurtidas(comentario.descurtidas + 1); 
+                                            setCurtidas(comentario.curtidas) 
+                                            setOk(1);
+                                            if (comentario.ok == 1) {
+                                                setDescurtidas(comentario.descurtidas - 1);
+                                                setCurtidas(comentario.curtidas);
+                                                setOk(0);
+                                            }
+                                            }}>
                                             <Image
                                                 source={require('../assets/dislike.png')}
                                                 style={{ width: 20, height: 20, marginRight: 10 }} />
