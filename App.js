@@ -23,7 +23,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Cadastro"
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,
@@ -62,7 +62,7 @@ export default function App() {
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Comentarios' screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
         <Stack.Screen name='Home' component={MyDrawer} />

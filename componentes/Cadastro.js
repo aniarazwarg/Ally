@@ -1,31 +1,45 @@
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity, Pressable, Platform } from 'react-native';
+import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 
-export function Cadastro({navigation}){
-    
+export function Cadastro({ navigation }) {
+
+
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [senhaNaoCoincideMsg, setsenhaNaoCoincideMsg] = useState('');
 
-//Confirmação de senha
-  
+  //Confirmação de senha
+
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
-  
+  const handleNomeChange = (text) => {
+    setNome(text);
+  };
+  const handleCpfChange = (text) => {
+    setCpf(text);
+  };
+  const handleEmailChange = (text) => {
+    setEmail(text);
+  };
+
   const handleConfirmPasswordChange = (text) => {
     setConfirmPassword(text);
   }
 
   const handleSubmit = () => {
-    if(password === confirmPassword) {
+    if (password === confirmPassword) {
       console.log('Senhas coincidem:', password);
       setsenhaNaoCoincideMsg('')
     } else {
@@ -34,10 +48,32 @@ export function Cadastro({navigation}){
     }
   }
 
+  //Função cadastro
+  const enviarDados = () => {
+    fetch('http://localhost/api/cadastro', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nome: nome,
+        nasc: dateOfBirth,
+        email: email,
+        senha: password,
+        cpf: cpf,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Erro:', error);
+      });
+  };
 
 
-
-// DatePicker
+  // DatePicker
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const toggleDatepicker = () => {
@@ -48,7 +84,7 @@ export function Cadastro({navigation}){
       const currentDate = selectedDate;
       setDate(currentDate)
 
-      if(Platform.OS === 'android') {
+      if (Platform.OS === 'android') {
         toggleDatepicker();
         setDateOfBirth(formatDate(currentDate));
       }
@@ -59,7 +95,7 @@ export function Cadastro({navigation}){
   const formatDate = (rawDate) => {
     let date = new Date(rawDate);
     let year = date.getFullYear();
-    let month = date.getMonth() +1;
+    let month = date.getMonth() + 1;
     let day = date.getDate();
 
     month = month < 10 ? `0${month}` : month;
@@ -70,7 +106,7 @@ export function Cadastro({navigation}){
 
 
   return (
-    <KeyboardAwareScrollView 
+    <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       extraScrollHeight={100}>
       <View>
@@ -83,17 +119,21 @@ export function Cadastro({navigation}){
           </View>
         </View>
         <View style={styles.formulario}>
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="Nome"
             placeholderTextColor={'#273A73'}
+            onChangeText={handleNomeChange}
+            value={nome}
           />
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="Email"
             placeholderTextColor={'#273A73'}
+            onChangeText={handleEmailChange}
+            value={email}
           />
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="Senha"
             placeholderTextColor={'#273A73'}
@@ -101,7 +141,7 @@ export function Cadastro({navigation}){
             value={password}
             onChangeText={handlePasswordChange}
           />
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="Confirme a senha"
             placeholderTextColor={'#273A73'}
@@ -109,97 +149,100 @@ export function Cadastro({navigation}){
             value={confirmPassword}
             onChangeText={handleConfirmPasswordChange}
           />
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="CPF"
             placeholderTextColor={'#273A73'}
+            onChangeText={handleCpfChange}
+            value={cpf}
           />
           {!showPicker && (
             <Pressable
-            onPress={toggleDatepicker}
-            style={{width:'100%', alignItems:'center'}}
-          >
-            <TextInput 
-              style={styles.input}
-              placeholder="Data de Nascimento"
-              placeholderTextColor={"#273A73"}
-              value={dateOfBirth}
-              onChange={setDateOfBirth}
-              editable={false}
-            />
-          </Pressable>
+              onPress={toggleDatepicker}
+              style={{ width: '100%', alignItems: 'center' }}
+            >
+              <TextInput
+                style={styles.input}
+                placeholder="Data de Nascimento"
+                placeholderTextColor={"#273A73"}
+                value={dateOfBirth}
+                onChange={setDateOfBirth}
+                editable={false}
+              />
+            </Pressable>
           )}
-          {!passwordsMatch && <Text style={{color:'red'}}>{senhaNaoCoincideMsg}</Text>}
+          {!passwordsMatch && <Text style={{ color: 'red' }}>{senhaNaoCoincideMsg}</Text>}
 
           {showPicker && (
             <DateTimePicker
-            mode='date'
-            display='spinner'
-            value={date}
-            onChange={onChange}
-            maximumDate={new Date(2006, 0, 0)}
-          />
+              mode='date'
+              display='spinner'
+              value={date}
+              onChange={onChange}
+              maximumDate={new Date(2006, 0, 0)}
+            />
           )}
         </View>
-        <View style={{alignItems:'center'}}>
-          <TouchableOpacity  style={styles.button} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.textButton}>Enviar</Text>
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.textButton} onPress={enviarDados}>Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <Text>{nome}</Text>
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor:'#F2EAD0',
-      alignItems:'center',
-      justifyContent:'center'
-    },
-    image: {
-      alignItems:'center'
-    },
-    logoBrothers:{
-        height:100,
-        width:'70%',
-    },
-    welcome: {
-      alignItems:'center',
-    },
-    welcomeText:{
-      textAlign:'center',
-      fontSize:15,
-      marginHorizontal: 55,
-    },
-    formulario: {
-      alignItems:'center',
-    },
-    input:{
-      textAlign:'center',
-      fontSize:15,
-      borderWidth: 2,
-      borderColor: '#273A73',
-      color:'#273A73',
-      marginTop:15,
-      padding:10,
-      borderRadius:20,
-      width:'85%',
-      backgroundColor:'#F3EEDB'
-    },
-    button:{
-      marginTop: 25,
-      borderRadius:20,
-      alignItems:'center',
-      backgroundColor: '#6FAA9C',
-      padding:12,
-      width: '50%',
-    },
-    textButton: {
-      color:'white',
-      fontSize:15,
-    },
-    
-   
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#F2EAD0',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  image: {
+    alignItems: 'center'
+  },
+  logoBrothers: {
+    height: 100,
+    width: '70%',
+  },
+  welcome: {
+    alignItems: 'center',
+  },
+  welcomeText: {
+    textAlign: 'center',
+    fontSize: 15,
+    marginHorizontal: 55,
+  },
+  formulario: {
+    alignItems: 'center',
+  },
+  input: {
+    textAlign: 'center',
+    fontSize: 15,
+    borderWidth: 2,
+    borderColor: '#273A73',
+    color: '#273A73',
+    marginTop: 15,
+    padding: 10,
+    borderRadius: 20,
+    width: '85%',
+    backgroundColor: '#F3EEDB'
+  },
+  button: {
+    marginTop: 25,
+    borderRadius: 20,
+    alignItems: 'center',
+    backgroundColor: '#6FAA9C',
+    padding: 12,
+    width: '50%',
+  },
+  textButton: {
+    color: 'white',
+    fontSize: 15,
+  },
+
+
+});
