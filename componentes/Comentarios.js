@@ -2,12 +2,12 @@ import react, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, StatusBar } from "react-native";
 
 export function Comentarios({ navigation }) {
-
     const [comentarios, setComentarios] = useState([]);
-    
     const [curtidas, setCurtidas] = useState(null);
     const [descurtidas, setDescurtidas] = useState(null);
+    const [ok, setOk] = useState(0);
     const [id, setId] = useState(null);
+
 
     function dataComentarios() {
         fetch('http://localhost/api/comentarios')
@@ -39,10 +39,16 @@ export function Comentarios({ navigation }) {
     dataComentarios();
 
     useEffect(() => {
-        if (id !== null) {
-            updateCurtidas(id, { curtidas, descurtidas });
-        }
+        comentarios.forEach((comentario) => {
+            if (id !== null && comentario.ok == 0 && id == comentario.id) {
+                updateCurtidas(id, { curtidas, descurtidas, ok });
+            } 
+            if (id !== null & comentario.ok == 1 & id == comentario.id) {
+                updateCurtidas(id, { curtidas, descurtidas, ok });
+            }
+        });
     }, [curtidas, descurtidas, id]);
+
 
     return (
         <View style={styles.container}>
@@ -52,7 +58,7 @@ export function Comentarios({ navigation }) {
                     <View style={styles.headerConteudo}>
                         <View>
                             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                                <Image source={require('../assets/voltar.png')}
+                                <Image source={require('../assets/icon-back.png')}
                                     style={styles.logosHeader}
                                 />
                             </TouchableOpacity>
@@ -65,6 +71,7 @@ export function Comentarios({ navigation }) {
                 <View style={styles.comentarios}>
                     {comentarios.map((comentario) => (
                         <View key={comentario.id}>
+                             <Text>{comentario.id}</Text>
                             <View style={styles.comentarioCard}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -80,19 +87,43 @@ export function Comentarios({ navigation }) {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        <TouchableOpacity onPress={() => { setId(comentario.id); setCurtidas(comentario.curtidas + 1); setDescurtidas(comentario.descurtidas) }}>
+                                        {/* like */}
+                                        <TouchableOpacity onPress={() => {
+                                            setId(comentario.id);
+                                            setCurtidas(comentario.curtidas + 1);
+                                            setDescurtidas(comentario.descurtidas);
+                                            setOk(1);
+                                            if (comentario.ok == 1) {
+                                                setCurtidas(comentario.curtidas - 1);
+                                                setDescurtidas(comentario.descurtidas);
+                                                setOk(0);
+                                            }
+                                        }}>
                                             <Image
                                                 source={require('../assets/like.png')}
                                                 style={{ width: 20, height: 20, marginRight: 10 }} />
                                         </TouchableOpacity>
+                                        {/* like */}
                                         <Text>{comentario.curtidas}</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        <TouchableOpacity onPress={() => { setId(comentario.id); setDescurtidas(comentario.descurtidas + 1); setCurtidas(comentario.curtidas) }}>
+                                        {/* deslike */}
+                                        <TouchableOpacity onPress={() => {
+                                            setId(comentario.id); 
+                                            setDescurtidas(comentario.descurtidas + 1); 
+                                            setCurtidas(comentario.curtidas) 
+                                            setOk(1);
+                                            if (comentario.ok == 1) {
+                                                setDescurtidas(comentario.descurtidas - 1);
+                                                setCurtidas(comentario.curtidas);
+                                                setOk(0);
+                                            }
+                                            }}>
                                             <Image
                                                 source={require('../assets/dislike.png')}
                                                 style={{ width: 20, height: 20, marginRight: 10 }} />
                                         </TouchableOpacity>
+                                        {/* deslike */}
                                         <Text>{comentario.descurtidas}</Text>
                                     </View>
                                 </View>

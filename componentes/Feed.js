@@ -3,15 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-
-
-
 export function Feed({ navigation }) {
-
-function Like(){
-  
-}
-
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
@@ -90,14 +82,13 @@ function Like(){
           {/* Noticias */}
           <View style={styles.noticias}>
             <Text style={styles.textTopicos}>Notícias:</Text>
-            
             <View style={styles.noticia}>
-              <Image source={require('../assets/ally2.png')}
+              <Image source={require('../assets/favicon.png')}
                 style={styles.logo3} />
               <Text style={styles.text2}>Vagas para o feriado!</Text>
             </View>
             <View style={styles.noticia}>
-              <Image source={require('../assets/icon_pet.png')}
+              <Image source={require('../assets/favicon.png')}
                 style={styles.logo3} />
               <View>
                 <Text style={styles.text2}>Live no Instagram</Text>
@@ -109,7 +100,7 @@ function Like(){
           <View>
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais}  onPress={() => navigation.navigate('Comentarios')}>
+              <TouchableOpacity style={styles.leiaMais} onPress={()=> navigation.navigate("Comentarios")}>
                 <Text>Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>
