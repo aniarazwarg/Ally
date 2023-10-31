@@ -84,12 +84,12 @@ export function Feed({ navigation }) {
             <Text style={styles.textTopicos}>Notícias:</Text>
             
             <View style={styles.noticia}>
-              <Image source={require('../assets/ally2.png')}
+              <Image source={require('../assets/favicon.png')}
                 style={styles.logo3} />
               <Text style={styles.text2}>Vagas para o feriado!</Text>
             </View>
             <View style={styles.noticia}>
-              <Image source={require('../assets/icon_pet.png')}
+              <Image source={require('../assets/favicon.png')}
                 style={styles.logo3} />
               <View>
                 <Text style={styles.text2}>Live no Instagram</Text>
@@ -101,7 +101,7 @@ export function Feed({ navigation }) {
           <View>
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais}>
+              <TouchableOpacity style={styles.leiaMais} onPress={()=> navigation.navigate("Comentarios")}>
                 <Text>Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>

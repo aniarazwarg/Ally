@@ -9,7 +9,7 @@ require './vendor/autoload.php';
 $app = new \Slim\App;
 
 $app->add(new CorsMiddleware([
-    "origin" => ["http://localhost:19006"], // Domínio da origem permitida
+    "origin" => ["http://localhost:19006", "http://localhost:8081"], // Domínio da origem permitida
     "methods" => ["GET", "POST", "PUT", "DELETE"], // Métodos HTTP permitidos
     "headers.allow" => ["Content-Type", "Authorization", "Accept"], // Headers permitidos
 ]));
@@ -36,6 +36,8 @@ $app->get('/pizza','getPizza');
 $app->post('/inserir','getInserir');
 $app->delete('/deletar/{id}', 'getDeletar');
 $app->put('/alterar/{id}', 'getAlterar');
+$app->get('/comentarios', 'getComentarios');
+$app->put('/curtidas/{id}', 'getCurtidas');
 
 
 function getConn()
@@ -119,7 +121,7 @@ function getAlterar(Request $request, Response $response, array $args) {
     '');
     $id = $args['id'];
     $newData = $request->getParsedBody(); // Dados de atualização
-    $sql = "UPDATE produto SET NOME = :nome, WHERE id = :id";
+    $sql = "UPDATE produto SET NOME = :nome WHERE id = :id";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->bindParam(':nome', $newData['nome']);
@@ -129,8 +131,31 @@ function getAlterar(Request $request, Response $response, array $args) {
 
 };
 
+function getComentarios(Request $request, Response $response, array $args) {
+    $sql = "SELECT * FROM Comentarios";
+    $stmt = getConn()->query($sql);
+    $comentarios = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $response->getBody()->write(json_encode($comentarios));
+    return $response;
+}
 
+function getCurtidas(Request $request, Response $response, array $args) {
+    
+    $db = new PDO('mysql:host=localhost:3306;dbname=slimprodutos',
+    'root',
+    '');
+    $id = $args['id'];
+    $newData = $request->getParsedBody(); // Dados de atualização
+    $sql = "UPDATE comentarios SET curtidas = :curtidas, descurtidas = :descurtidas WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':curtidas', $newData['curtidas']);
+    $stmt->bindParam(':descurtidas', $newData['descurtidas']);
+    $stmt->execute();
 
+    return $response->withStatus(200)->withJson(['message' => 'Registro atualizado com sucesso']);
+
+};
 
 
 $app->run();
