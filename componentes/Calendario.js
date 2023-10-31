@@ -84,7 +84,7 @@ export function Calendario({navigation}){
       />
        
 
-       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
           <Text style={styles.textButton}>Agendar</Text>
         </TouchableOpacity>
 
@@ -123,7 +123,7 @@ export function Calendario({navigation}){
       textAlign:'center',
       color:'#273A73',
       fontSize:20,
-      margin:15,
+      marginVertical: 10,
       backgroundColor:'#fff',
       borderWidth:1,
       borderColor:'#273A73',
@@ -146,7 +146,6 @@ export function Calendario({navigation}){
     },
   
     button:{
-      margin:30,
       alignSelf:'center',
       flexDirection: 'row',
       justifyContent: 'center',
@@ -174,7 +173,6 @@ export function Calendario({navigation}){
       backgroundColor: 'white',
       borderRadius: 20,
       shadowRadius:3,
-      
   
       color: '#273A73',
       fontSize:20,
@@ -183,7 +181,6 @@ export function Calendario({navigation}){
       textAlign:'center',
       flex: 0,
       padding: '5%',
-      fontSize:20,
     },
     textButton:{
       color: 'white',

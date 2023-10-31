@@ -82,7 +82,6 @@ export function Feed({ navigation }) {
           {/* Noticias */}
           <View style={styles.noticias}>
             <Text style={styles.textTopicos}>Notícias:</Text>
-            
             <View style={styles.noticia}>
               <Image source={require('../assets/favicon.png')}
                 style={styles.logo3} />
