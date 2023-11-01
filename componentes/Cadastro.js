@@ -184,8 +184,8 @@ export function Cadastro({ navigation }) {
           )}
         </View>
         <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.textButton} onPress={enviarDados}>Enviar</Text>
+          <TouchableOpacity style={styles.button} onPress={enviarDados}>
+            <Text style={styles.textButton} >Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>
