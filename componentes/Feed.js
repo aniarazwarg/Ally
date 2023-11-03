@@ -3,13 +3,13 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export function Feed({ navigation }) {
+export function Feed({ navigation, route }) {
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
-
+  const { name } = route.params;
 
   return (
 
@@ -34,6 +34,11 @@ export function Feed({ navigation }) {
                     style={styles.logosHeader}
                   />
                 </TouchableOpacity>
+              </View>
+              <View>
+                {name !== '' && (
+                  <Text>Bem vindo, {name}!</Text>
+                )}
               </View>
               <View>
                 <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
@@ -100,7 +105,7 @@ export function Feed({ navigation }) {
           <View>
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais} onPress={()=> navigation.navigate("Comentarios")}>
+              <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
                 <Text>Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>

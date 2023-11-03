@@ -23,7 +23,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
-      
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,
