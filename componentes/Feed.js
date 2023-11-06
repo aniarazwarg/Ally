@@ -16,7 +16,7 @@ export function Feed({ navigation }) {
     <PaperProvider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text>Tela não imprementada</Text>
+          <Text>Não imprementado</Text>
         </Modal>
       </Portal>
 
@@ -178,6 +178,9 @@ export function Feed({ navigation }) {
               placeholder="Informe seu email ou whatsapp"
               style={styles.inputComentario}
             />
+             <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
+                <Text>Enviar Comentário</Text>
+              </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -323,5 +326,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingLeft: 30,
     marginTop: 10,
-  }
+  },
+  enviarComentario: {
+    margin: 20,
+    borderWidth: 1,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    width:'35%',
+  },
 });
