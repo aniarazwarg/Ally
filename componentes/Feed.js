@@ -3,13 +3,38 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export function Feed({ navigation }) {
+export function Feed({ navigation, route }) {
 
   const [visible, setVisible] = React.useState(false);
+  const [nome, setNome] = React.useState(null);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
+  const { cd_cliente } = route.params || { cd_cliente: null };
+  const [users, setUsers] = React.useState([]);
 
+  function getUsers() {
+    fetch('http://localhost/api/usuarios')
+      .then((response) => response.json())
+      .then((json) => setUsers(json))
+  }
+
+  function validaCliente() {
+    users.forEach((user) => {
+      if (user.cd_cliente == cd_cliente) {
+        setNome(user.nm_cliente)
+        console.log(nome)
+      }
+    });
+  }
+  
+  
+  console.log(cd_cliente)
+  console.log(users)
+  React.useEffect(() => {
+    getUsers();
+    validaCliente();
+  }, [])
 
   return (
 
@@ -34,6 +59,11 @@ export function Feed({ navigation }) {
                     style={styles.logosHeader}
                   />
                 </TouchableOpacity>
+              </View>
+              <View>
+                {nome !== null && (
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
+                )}
               </View>
               <View>
                 <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
@@ -100,7 +130,7 @@ export function Feed({ navigation }) {
           <View>
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais} onPress={()=> navigation.navigate("Comentarios")}>
+              <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
                 <Text>Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>
@@ -211,7 +241,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    paddingVertical: 5
+    paddingVertical: 5,
+    alignItems: 'center'
   },
   logosHeader: {
     width: 40,

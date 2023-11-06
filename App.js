@@ -22,8 +22,8 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
   return (
-    <Drawer.Navigator initialRouteName='ConexaoBanco'
-      
+    <Drawer.Navigator
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,

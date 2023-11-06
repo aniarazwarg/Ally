@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -8,16 +8,15 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 export function Cadastro({ navigation }) {
 
-
-
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
+  const [nasc, setNasc] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [dateOfBirth, setDateOfBirth] = useState('');
   const [senhaNaoCoincideMsg, setsenhaNaoCoincideMsg] = useState('');
+  // const [dateOfBirth, setDateOfBirth] = useState('');
 
   //Confirmação de senha
 
@@ -34,9 +33,13 @@ export function Cadastro({ navigation }) {
     setEmail(text);
   };
 
+  const handleNascChange = (text) => {
+    setNasc(text);
+  };
+
   const handleConfirmPasswordChange = (text) => {
     setConfirmPassword(text);
-  }
+  };
 
   const handleSubmit = () => {
     if (password === confirmPassword) {
@@ -49,6 +52,7 @@ export function Cadastro({ navigation }) {
   }
 
   //Função cadastro
+  
   const enviarDados = () => {
     fetch('http://localhost/api/cadastro', {
       method: 'POST',
@@ -57,7 +61,7 @@ export function Cadastro({ navigation }) {
       },
       body: JSON.stringify({
         nome: nome,
-        nasc: dateOfBirth,
+        nasc: nasc,
         email: email,
         senha: password,
         cpf: cpf,
@@ -71,6 +75,10 @@ export function Cadastro({ navigation }) {
         console.error('Erro:', error);
       });
   };
+  function cadastrar() {
+    enviarDados();
+    navigation.navigate('Feed')
+  }
 
 
   // DatePicker
@@ -103,6 +111,7 @@ export function Cadastro({ navigation }) {
 
     return `${day}/${month}/${year}`;
   };
+
 
 
   return (
@@ -149,6 +158,7 @@ export function Cadastro({ navigation }) {
             value={confirmPassword}
             onChangeText={handleConfirmPasswordChange}
           />
+          {!passwordsMatch && <Text style={{ color: 'red' }}>{senhaNaoCoincideMsg}</Text>}
           <TextInput
             style={styles.input}
             placeholder="CPF"
@@ -156,7 +166,16 @@ export function Cadastro({ navigation }) {
             onChangeText={handleCpfChange}
             value={cpf}
           />
-          {!showPicker && (
+
+          <TextInput
+          style={styles.input}
+          placeholder='Data de nascimento'
+          placeholderTextColor={'#273A73'}
+          onChangeText={handleNascChange}
+          autoComplete='birthdate-full'
+          value={nasc}
+          />
+          {/* {!showPicker && (
             <Pressable
               onPress={toggleDatepicker}
               style={{ width: '100%', alignItems: 'center' }}
@@ -171,7 +190,6 @@ export function Cadastro({ navigation }) {
               />
             </Pressable>
           )}
-          {!passwordsMatch && <Text style={{ color: 'red' }}>{senhaNaoCoincideMsg}</Text>}
 
           {showPicker && (
             <DateTimePicker
@@ -181,15 +199,14 @@ export function Cadastro({ navigation }) {
               onChange={onChange}
               maximumDate={new Date(2006, 0, 0)}
             />
-          )}
+          )} */}
         </View>
         <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.textButton} onPress={enviarDados}>Enviar</Text>
+          <TouchableOpacity style={styles.button} onPress={cadastrar}>
+            <Text style={styles.textButton} >Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <Text>{nome}</Text>
     </KeyboardAwareScrollView>
   );
 }
