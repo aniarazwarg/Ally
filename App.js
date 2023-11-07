@@ -14,7 +14,7 @@ import { ConexaoBanco } from './componentes/ConexaoBanco';
 import { Adestramento } from './componentes/Adestramento';
 import { Agility } from './componentes/Agility';
 import { Comentarios } from './componentes/Comentarios';
-
+import { FeedAdm} from './componentes/FeedAdm';
 
 
 const Stack = createNativeStackNavigator();
@@ -72,6 +72,7 @@ export default function App() {
         <Stack.Screen name='Adestramento' component={Adestramento} />
         <Stack.Screen name='Agility' component={Agility} />
         <Stack.Screen name='Comentarios' component={Comentarios}/>
+        <Stack.Screen name='FeedAdm' component={FeedAdm}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
