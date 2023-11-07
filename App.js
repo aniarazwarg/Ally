@@ -17,7 +17,6 @@ import { Comentarios } from './componentes/Comentarios';
 
 
 
-
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -53,7 +52,7 @@ function MyDrawer() {
       />
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="Cadastro" component={Cadastro} />
-      <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} />
+      {/* <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} /> */}
     </Drawer.Navigator>
   )
 }

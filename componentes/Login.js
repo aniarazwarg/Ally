@@ -57,6 +57,7 @@ export function Login({ navigation }) {
             style={styles.input}
             placeholder="Senha"
             placeholderTextColor={'#596AA1'}
+            secureTextEntry={true}
             onChangeText={handleSenhaChange}
           />
         </View>
@@ -76,9 +77,9 @@ export function Login({ navigation }) {
             <Text style={styles.texto}>Esqueceu a senha?</Text>
           </TouchableOpacity>
         </View>
-        {users.map((user) => (
+        {/* {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
-        ))}
+        ))} */}
       </ImageBackground>
     </View>
   );

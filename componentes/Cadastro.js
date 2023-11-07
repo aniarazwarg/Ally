@@ -52,7 +52,7 @@ export function Cadastro({ navigation }) {
   }
 
   //Função cadastro
-  
+
   const enviarDados = () => {
     fetch('http://localhost/api/cadastro', {
       method: 'POST',
@@ -77,7 +77,7 @@ export function Cadastro({ navigation }) {
   };
   function cadastrar() {
     enviarDados();
-    navigation.navigate('Feed')
+    navigation.navigate('Login')
   }
 
 
@@ -168,12 +168,12 @@ export function Cadastro({ navigation }) {
           />
 
           <TextInput
-          style={styles.input}
-          placeholder='Data de nascimento'
-          placeholderTextColor={'#273A73'}
-          onChangeText={handleNascChange}
-          autoComplete='birthdate-full'
-          value={nasc}
+            style={styles.input}
+            placeholder='Data de nascimento'
+            placeholderTextColor={'#273A73'}
+            onChangeText={handleNascChange}
+            autoComplete='birthdate-full'
+            value={nasc}
           />
           {/* {!showPicker && (
             <Pressable
@@ -204,6 +204,11 @@ export function Cadastro({ navigation }) {
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity style={styles.button} onPress={cadastrar}>
             <Text style={styles.textButton} >Enviar</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
+            <Text style={styles.textButton} >Voltar</Text>
           </TouchableOpacity>
         </View>
       </View>

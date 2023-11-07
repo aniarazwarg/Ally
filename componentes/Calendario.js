@@ -78,7 +78,7 @@ export function Calendario({ navigation }) {
   function validaAgendamento() {
     // alert("Seu pedido de reserva foi enviado com sucesso! ");
     agendar();
-    // navigation.navigate('Home');
+    navigation.navigate('Home');
   };
 
   
@@ -125,14 +125,15 @@ export function Calendario({ navigation }) {
           keyboardType="numeric"
         />
       </View>
-      <View style={{ marginHorizontal: 25, marginTop: 10 }}>
+      <View style={{ marginTop: 10, width: '100%', alignItems:'center', justifyContent:'center' }}>
         <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
           <Text style={styles.textButton}>Agendar</Text>
         </TouchableOpacity>
-        {/* <Text style={styles.texto}>
-          xx/xx horário especial de funcionamento.
-          ( 10 às 16h ) para check in
-        </Text> */}
+      </View>
+      <View style={{ marginTop: 10, width: '100%', alignItems:'center', justifyContent:'center' }}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+          <Text style={styles.textButton}>Voltar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -186,11 +187,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
     backgroundColor: '#273A73',
-    width: '40%',
+    alignItems:'center',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
     shadowRadius: 10,

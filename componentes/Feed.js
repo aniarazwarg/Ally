@@ -68,7 +68,19 @@ export function Feed({ navigation, route }) {
                 )}
               </View>
               <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
+                {cd_cliente == null && (
+                  <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Image source={require('../assets/icon_usuario.png')}
+                      style={styles.logosHeader2} />
+                  </TouchableOpacity>
+                )}
+                {cd_cliente !== null && (
+                  <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
+                    <Image source={'../assets/' + fotoPerfil}
+                      style={styles.logosHeader2} />
+                  </TouchableOpacity>
+                )}
+                {/* <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
                   {cd_cliente == null && (
                     <Image source={require('../assets/icon_usuario.png')}
                       style={styles.logosHeader2} />
@@ -77,7 +89,7 @@ export function Feed({ navigation, route }) {
                     <Image source={'../assets/'+ fotoPerfil}
                       style={styles.logosHeader2} />
                   )}
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             </View>
           </View>
@@ -88,13 +100,24 @@ export function Feed({ navigation, route }) {
           </View>
           {/* Logo serviços */}
           <View style={styles.servicos}>
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Calendario')}>
-              <Image source={require('../assets/hotel.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Hotel</Text>
-            </TouchableOpacity>
+            {cd_cliente == null && (
+              <TouchableOpacity style={styles.servico}
+                onPress={() => navigation.navigate('Login')}>
+                <Image source={require('../assets/hotel.png')}
+                  style={styles.logoServicos}
+                />
+                <Text style={styles.textServicos}>Hotel</Text>
+              </TouchableOpacity>
+            )}
+            {cd_cliente !== null && (
+              <TouchableOpacity style={styles.servico}
+                onPress={() => navigation.navigate('Calendario')}>
+                <Image source={require('../assets/hotel.png')}
+                  style={styles.logoServicos}
+                />
+                <Text style={styles.textServicos}>Hotel</Text>
+              </TouchableOpacity>
+            )}
             <TouchableOpacity style={styles.servico}
               onPress={() => navigation.navigate('Passeio')}>
               <Image source={require('../assets/passeio.png')}
