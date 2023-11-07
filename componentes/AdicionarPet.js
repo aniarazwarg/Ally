@@ -102,7 +102,7 @@ export function AdicionarPet({navigation}) {
                     onChangeText={handlePesoChange}
                     value={peso}
                 />
-                <View style={{flexDirection:'row', justifyContent:'space-between', width:'100%'}}>
+                {/* <View style={{flexDirection:'row', justifyContent:'space-between', width:'100%'}}>
                     <TextInput 
                         style={styles.input2}
                         placeholder="Vacinas"
@@ -113,10 +113,10 @@ export function AdicionarPet({navigation}) {
                         placeholder="Foto"
                         placeholderTextColor={'#273A73'}
                     />
-                </View>
+                </View> */}
                 <View style={{ alignItems: 'center' }}>
           <TouchableOpacity style={styles.button} onPress={AdicionarPet}>
-            <Text style={styles.textButton} >Envar</Text>
+            <Text style={styles.textButton} >Enviar</Text>
           </TouchableOpacity>
         </View>
             </View>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         backgroundColor: '#6FAA9C',
         padding:12,
-        width: '50%',
+        width: '80%',
         marginTop: 20,
       },
       textButton: {
