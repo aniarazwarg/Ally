@@ -68,7 +68,7 @@ export function Feed({ navigation, route }) {
                 )}
               </View>
               <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
                   {cd_cliente == null && (
                     <Image source={require('../assets/icon_usuario.png')}
                       style={styles.logosHeader2} />

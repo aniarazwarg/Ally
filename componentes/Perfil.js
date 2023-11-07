@@ -1,11 +1,13 @@
 import react, { useState } from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 
-export function Perfil({navigation}) {
+export function Perfil({navigation, route}) {
 
     const [telefone, setTelefone] = useState('(13) 99779-7442')
     const [email, setEmail] = useState('exemplo@exemplo.com.br')
     const [endereco, setEndereco] = useState('Rua Exemplo, 999')
+    const { cd_cliente } = route.params || { cd_cliente: null };
+
     return(
         <View style={styles.container}>
             <View style={{marginTop: 20}}>
