@@ -2,36 +2,104 @@ import react from "react";
 import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity,  } from "react-native";
 
 export function AdicionarPet({navigation}) {
+
+    
+  const [nome, setNome] = useState('');
+  const [raça, setRaça] = useState('');
+  const [porte, setPorte] = useState('');
+  const [cor, setCor] = useState('');
+  const [peso, setPeso] = useState('');
+
+
+  const handleNomeChange = (text) => {
+    setNome(text);
+  };
+  const handleRaçaChange = (text) => {
+    setRaça(text);
+  };
+  const handlePorteChange = (text) => {
+    setPorte(text);
+  };
+  const handleCorChange = (text) => {
+    setCor(text);
+  };
+  const handlePesoChange = (text) => {
+    setPeso(text);
+  };
+
+  //Função adicionar
+  
+  const enviarDados = () => {
+    fetch('http://localhost/api/AdicionarPet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nome: nome,
+        nasc: nasc,
+        email: email,
+        senha: password,
+        cpf: cpf,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Erro:', error);
+      });
+  };
+  function AdicionarPet() {
+    enviarDados();
+    navigation.navigate('Feed')
+  }
+
+
+
+
+
     return(
         <View style={styles.container}>
             <View style={{marginTop: 30}}>
                 <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
             </View>
             <View style={{alignItems:'center', width: '85%', marginTop: 20}}>
-                <TextInput 
-                style={styles.input}
-                placeholder="Nome"
-                placeholderTextColor={'#273A73'}
-                />
+            <TextInput
+            style={styles.input}
+            placeholder="Nome"
+            placeholderTextColor={'#273A73'}
+            onChangeText={handleNomeChange}
+            value={nome}
+          />
                 <TextInput 
                 style={styles.input}
                 placeholder="Raça"
                 placeholderTextColor={'#273A73'}
+                onChangeText={handleRaçaChange}
+            value={raça}
                 />
                 <TextInput 
                     style={styles.input}
                     placeholder="Porte"
                     placeholderTextColor={'#273A73'}
+                    onChangeText={handlePorteChange}
+            value={porte}
                 />
                 <TextInput 
                     style={styles.input}
                     placeholder="Cor"
                     placeholderTextColor={'#273A73'}
+                    onChangeText={handleCorChange}
+            value={cor}
                 />
                 <TextInput 
                     style={styles.input}
                     placeholder="Peso"
                     placeholderTextColor={'#273A73'}
+                    onChangeText={handlePesoChange}
+                    value={peso}
                 />
                 <View style={{flexDirection:'row', justifyContent:'space-between', width:'100%'}}>
                     <TextInput 
@@ -45,9 +113,11 @@ export function AdicionarPet({navigation}) {
                         placeholderTextColor={'#273A73'}
                     />
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perfil')}>
-                    <Text style={styles.textButton}>Enviar</Text>
-                </TouchableOpacity>
+                <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity style={styles.button} onPress={cadastrar}>
+            <Text style={styles.textButton} >Envar</Text>
+          </TouchableOpacity>
+        </View>
             </View>
         </View>
     );
