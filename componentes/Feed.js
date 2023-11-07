@@ -7,11 +7,13 @@ export function Feed({ navigation, route }) {
 
   const [visible, setVisible] = React.useState(false);
   const [nome, setNome] = React.useState(null);
+  const [fotoPerfil, setFotoPerfil] = React.useState(null);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
+  // const foto = require(fotoPerfil)
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
@@ -19,22 +21,22 @@ export function Feed({ navigation, route }) {
       .then((json) => setUsers(json))
   }
 
-  function validaCliente() {
-    users.forEach((user) => {
-      if (user.cd_cliente == cd_cliente) {
-        setNome(user.nm_cliente)
-        console.log(nome)
-      }
-    });
-  }
-  
-  
-  console.log(cd_cliente)
-  console.log(users)
-  React.useEffect(() => {
+
+
+
+  if (users.length === 0 && cd_cliente !== null) {
     getUsers();
-    validaCliente();
-  }, [])
+  }
+
+  React.useEffect(() => {
+    users.forEach((user) => {
+      if (cd_cliente == user.cd_cliente) {
+        setNome(user.nm_cliente)
+        setFotoPerfil(user.fotoPerfil)
+        console.log(user.fotoPerfil)
+      }
+    })
+  }, [users])
 
   return (
 
@@ -67,8 +69,14 @@ export function Feed({ navigation, route }) {
               </View>
               <View>
                 <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
-                  <Image source={require('../assets/icon_usuario.png')}
-                    style={styles.logosHeader} />
+                  {cd_cliente == null && (
+                    <Image source={require('../assets/icon_usuario.png')}
+                      style={styles.logosHeader2} />
+                  )}
+                   {cd_cliente !== null && (
+                    <Image source={'../assets/'+ fotoPerfil}
+                      style={styles.logosHeader2} />
+                  )}
                 </TouchableOpacity>
               </View>
             </View>
@@ -208,9 +216,9 @@ export function Feed({ navigation, route }) {
               placeholder="Informe seu email ou whatsapp"
               style={styles.inputComentario}
             />
-             <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
-                <Text>Enviar Comentário</Text>
-              </TouchableOpacity>
+            <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
+              <Text>Enviar Comentário</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -246,7 +254,12 @@ const styles = StyleSheet.create({
   },
   logosHeader: {
     width: 40,
-    height: 40
+    height: 40,
+  },
+  logosHeader2: {
+    width: 40,
+    height: 40,
+    borderRadius: 40
   },
   imagem: {
     alignItems: 'center',
@@ -363,6 +376,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 15,
     borderRadius: 10,
-    width:'35%',
+    width: '35%',
   },
 });
