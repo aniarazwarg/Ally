@@ -1,5 +1,6 @@
 import react from "react";
 import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity,  } from "react-native";
+import React, { useState } from "react";
 
 export function AdicionarPet({navigation}) {
 
@@ -114,7 +115,7 @@ export function AdicionarPet({navigation}) {
                     />
                 </View>
                 <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={styles.button} onPress={cadastrar}>
+          <TouchableOpacity style={styles.button} onPress={AdicionarPet}>
             <Text style={styles.textButton} >Envar</Text>
           </TouchableOpacity>
         </View>
