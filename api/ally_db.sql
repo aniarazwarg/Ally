@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Nov-2023 às 02:51
--- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.6
+-- Tempo de geração: 07-Nov-2023 às 18:23
+-- Versão do servidor: 10.4.27-MariaDB
+-- versão do PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,8 +34,10 @@ CREATE TABLE `tb_cao` (
   `id_sexo` char(1) DEFAULT NULL,
   `ds_pelagem` varchar(45) DEFAULT NULL,
   `cd_cliente` bigint(20) DEFAULT NULL,
-  `cd_raca` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `nm_raca` varchar(100) DEFAULT NULL,
+  `ds_porte` varchar(100) NOT NULL,
+  `ds_peso` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -50,7 +52,7 @@ CREATE TABLE `tb_cliente` (
   `email` varchar(30) NOT NULL,
   `senha` varchar(30) NOT NULL,
   `cpf` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_cliente`
@@ -79,7 +81,7 @@ CREATE TABLE `tb_comentarios` (
   `curtidas` int(11) NOT NULL,
   `descurtidas` int(11) NOT NULL,
   `ok` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_comentarios`
@@ -100,7 +102,7 @@ CREATE TABLE `tb_ordem_servico` (
   `cd_ordem_servico` int(11) NOT NULL,
   `cd_cliente` bigint(20) DEFAULT NULL,
   `cd_servico` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -113,7 +115,7 @@ CREATE TABLE `tb_raca` (
   `nm_raca` varchar(100) DEFAULT NULL,
   `qt_peso` int(11) DEFAULT NULL,
   `sg_porte` char(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -127,7 +129,7 @@ CREATE TABLE `tb_servico` (
   `nm_servico` varchar(45) DEFAULT NULL,
   `dt_checkin` date DEFAULT NULL,
   `dt_checkout` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_servico`
@@ -152,7 +154,7 @@ CREATE TABLE `tb_vacinas` (
   `ic_gripe` char(1) DEFAULT NULL,
   `ic_giardia` char(1) DEFAULT NULL,
   `cd_cao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Índices para tabelas despejadas
@@ -198,7 +200,8 @@ ALTER TABLE `tb_servico`
 -- Índices para tabela `tb_vacinas`
 --
 ALTER TABLE `tb_vacinas`
-  ADD PRIMARY KEY (`cd_vacina`);
+  ADD PRIMARY KEY (`cd_vacina`),
+  ADD KEY `tb_vacinas_ibfk_1` (`cd_cao`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
