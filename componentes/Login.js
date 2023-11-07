@@ -18,7 +18,7 @@ export function Login({ navigation }) {
     users.forEach((user) => {
       if (user.email === email && user.senha === senha) {
         alert("Login realizado com sucesso!");
-        navigation.navigate('Feed', { cd_cliente: user.cd_cliente });
+        navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
       } else {
         console.log(email, senha)
       }

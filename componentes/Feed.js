@@ -10,7 +10,7 @@ export function Feed({ navigation, route }) {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
-  const { cd_cliente } = route.params || { cd_cliente: null };
+  const { cd_cliente , nm_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
 
   function getUsers() {
@@ -32,8 +32,9 @@ export function Feed({ navigation, route }) {
   console.log(cd_cliente)
   console.log(users)
   React.useEffect(() => {
-    getUsers();
-    validaCliente();
+     validaCliente();
+     getUsers();
+   
   }, [])
 
   return (
@@ -61,8 +62,8 @@ export function Feed({ navigation, route }) {
                 </TouchableOpacity>
               </View>
               <View>
-                {nome !== null && (
-                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
+                {cd_cliente !== null && (
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nm_cliente}!</Text>
                 )}
               </View>
               <View>
