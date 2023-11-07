@@ -6,7 +6,7 @@ export function AdicionarPet({navigation}) {
 
     
   const [nome, setNome] = useState('');
-  const [raça, setRaça] = useState('');
+  const [raca, setRaca] = useState('');
   const [porte, setPorte] = useState('');
   const [cor, setCor] = useState('');
   const [peso, setPeso] = useState('');
@@ -15,8 +15,8 @@ export function AdicionarPet({navigation}) {
   const handleNomeChange = (text) => {
     setNome(text);
   };
-  const handleRaçaChange = (text) => {
-    setRaça(text);
+  const handleRacaChange = (text) => {
+    setRaca(text);
   };
   const handlePorteChange = (text) => {
     setPorte(text);
@@ -38,7 +38,7 @@ export function AdicionarPet({navigation}) {
       },
       body: JSON.stringify({
         nome: nome,
-        raça: raça,
+        raca: raca,
         porte: porte,
         cor: cor,
         peso: peso,
@@ -54,7 +54,7 @@ export function AdicionarPet({navigation}) {
   };
   function AdicionarPet() {
     enviarDados();
-    navigation.navigate('Feed')
+    // navigation.navigate('Feed')
   }
 
 
@@ -78,8 +78,8 @@ export function AdicionarPet({navigation}) {
                 style={styles.input}
                 placeholder="Raça"
                 placeholderTextColor={'#273A73'}
-                onChangeText={handleRaçaChange}
-            value={raça}
+                onChangeText={handleRacaChange}
+            value={raca}
                 />
                 <TextInput 
                     style={styles.input}
