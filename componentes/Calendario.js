@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pre
 import { useState } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
+
 LocaleConfig.locales['fr'] = {
 
   monthNames: [
@@ -134,6 +135,11 @@ export function Calendario({ navigation }) {
           ( 10 às 16h ) para check in
         </Text> */}
       </View>
+      <View style={{ marginHorizontal: 25, marginTop: 10 }}>
+        <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.textButton}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -194,16 +200,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     shadowRadius: 10,
+    marginTop: 7,
   },
   button2: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    alignSelf: 'center',
     backgroundColor: '#6FAA9C',
-    width: '40%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
     marginTop: 20,
-    shadowRadius: 10,
+    alignItems: 'center',
   },
   texto: {
     textAlign: 'center',
@@ -227,5 +233,13 @@ const styles = StyleSheet.create({
   textButton: {
     color: 'white',
     fontSize: 20
+  },
+  buttonCadastrar: {
+    alignSelf: 'center',
+    backgroundColor: '#6FAA9C',
+    width: '50%',
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 20,
   }
 });

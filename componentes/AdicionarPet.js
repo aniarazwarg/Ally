@@ -101,3 +101,36 @@ const styles = StyleSheet.create({
         fontSize:15,
       },
 });
+
+//Implementar imagem 
+//npm install react-native-image-picker
+// import React, { useState } from 'react';
+// import { View, Text, Button, Image } from 'react-native';
+// import ImagePicker from 'react-native-image-picker';
+
+// const App = () => {
+//   const [image, setImage] = useState(null);
+
+//   const pickImage = () => {
+//     ImagePicker.showImagePicker({}, (response) => {
+//       if (response.didCancel) {
+//         console.log('Cancelado');
+//       } else if (response.error) {
+//         console.error('Erro:', response.error);
+//       } else {
+//         // Aqui, você pode salvar a imagem no banco de dados ou em algum serviço de armazenamento.
+//         // Atualize o estado com a imagem escolhida.
+//         setImage({ uri: response.uri });
+//       }
+//     });
+//   };
+
+//   return (
+//     <View>
+//       {image && <Image source={image} style={{ width: 200, height: 200 }} />}
+//       <Button title="Adicionar Imagem" onPress={pickImage} />
+//     </View>
+//   );
+// };
+
+// export default App;
