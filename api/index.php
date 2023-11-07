@@ -19,6 +19,7 @@ $app->put('/curtidas/{id}', 'getCurtidas');
 $app->post('/cadastro', 'getCadastrar');
 $app->get('/usuarios', 'getUsuarios');
 $app->post('/agendar', 'getAgendar');
+$app->post('/adicionarPet', 'getAdicionarPet');
 
 
 
@@ -67,6 +68,20 @@ function getCadastrar(Request $request, Response $response, array $args) {
         ':email' => $dataCadastro['email'],
         ':senha' => $dataCadastro['senha'],
         ':cpf' => $dataCadastro['cpf'],
+    ]);
+    return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
+};
+function getAdicionarPet(Request $request, Response $response, array $args) {
+
+    $dataCadastro = $request->getParsedBody();    
+    $db = getConn();
+    $stmt = $db->prepare('INSERT INTO tb_cao (nm_cao, nm_raca, 	ds_porte, ds_pelagem,ds_peso) VALUES (:nome, :raça,:porte,:cor,:peso,)');
+    $stmt->execute([
+        ':nome' => $dataCadastro['nome'],
+        ':raça' => $dataCadastro['raça'],
+        ':porte' => $dataCadastro['porte'],
+        ':cor' => $dataCadastro['cor'],
+        ':peso' => $dataCadastro['porte'],
     ]);
     return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
 };

@@ -37,10 +37,10 @@ export function AdicionarPet({navigation}) {
       },
       body: JSON.stringify({
         nome: nome,
-        nasc: nasc,
-        email: email,
-        senha: password,
-        cpf: cpf,
+        raça: raça,
+        porte: porte,
+        cor: cor,
+        peso: peso,
       }),
     })
       .then((response) => response.json())
