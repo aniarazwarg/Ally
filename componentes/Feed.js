@@ -16,13 +16,13 @@ export function Feed({ navigation, route }) {
   // const foto = require(fotoPerfil)
 
   function getUsers() {
-    fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
 
 
-
+  console.log(nome, cd_cliente)
 
   if (users.length === 0 && cd_cliente !== null) {
     getUsers();
@@ -34,6 +34,8 @@ export function Feed({ navigation, route }) {
         setNome(user.nm_cliente)
         setFotoPerfil(user.fotoPerfil)
         console.log(user.fotoPerfil)
+        console.log('oi')
+
       }
     })
   }, [users])
@@ -66,6 +68,10 @@ export function Feed({ navigation, route }) {
                 {nome !== null && (
                   <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
                 )}
+                {nome == null && (
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo!</Text>
+                )}
+
               </View>
               <View>
                 {cd_cliente == null && (
@@ -76,20 +82,16 @@ export function Feed({ navigation, route }) {
                 )}
                 {cd_cliente !== null && (
                   <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
-                    <Image source={'../assets/' + fotoPerfil}
-                      style={styles.logosHeader2} />
+                    {fotoPerfil !== null && (
+                      <Image source={'../assets/' + fotoPerfil}
+                        style={styles.logosHeader2} />
+                    )}
+                    {fotoPerfil == null && (
+                      <Image source={require('../assets/icon_usuario.png')}
+                        style={styles.logosHeader2} />
+                    )}
                   </TouchableOpacity>
                 )}
-                {/* <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
-                  {cd_cliente == null && (
-                    <Image source={require('../assets/icon_usuario.png')}
-                      style={styles.logosHeader2} />
-                  )}
-                   {cd_cliente !== null && (
-                    <Image source={'../assets/'+ fotoPerfil}
-                      style={styles.logosHeader2} />
-                  )}
-                </TouchableOpacity> */}
               </View>
             </View>
           </View>

@@ -54,7 +54,7 @@ export function Cadastro({ navigation }) {
   //Função cadastro
 
   const enviarDados = () => {
-    fetch('http://localhost/api/cadastro', {
+    fetch('http://192.168.0.11/api/cadastro', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

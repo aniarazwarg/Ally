@@ -14,7 +14,7 @@ export function Perfil({ navigation, route }) {
     const { cd_cliente } = route.params || { cd_cliente: null };
 
     function getUsers() {
-        fetch('http://localhost/api/usuarios')
+        fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
     }
@@ -26,18 +26,23 @@ export function Perfil({ navigation, route }) {
     useEffect(() => {
         users.forEach((user) => {
             if (cd_cliente == user.cd_cliente) {
-              setNome(user.nm_cliente)
-              setFotoPerfil(user.fotoPerfil)
-              console.log(user.fotoPerfil)
+                setNome(user.nm_cliente)
+                setFotoPerfil(user.fotoPerfil)
+                console.log(user.fotoPerfil)
             }
-          })
+        })
     }, [users])
 
 
     return (
         <View style={styles.container}>
             <View style={{ marginTop: 20 }}>
-                <Image style={styles.logoUser} source={'../assets/'+ fotoPerfil}></Image>
+                {fotoPerfil !== null && (
+                    <Image style={styles.logoUser} source={'../assets/' + fotoPerfil}></Image>
+                )}
+                {fotoPerfil == null && (
+                    <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
+                )}
                 <Text style={styles.nomeText}>{nome}</Text>
             </View>
             <View style={{ width: '100%', alignItems: 'center', marginTop: 20 }}>
@@ -90,7 +95,7 @@ export function Perfil({ navigation, route }) {
                 </View>
             </View>
             <View style={{ width: '80%', alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                <TouchableOpacity style={{ width: '100%', backgroundColor: '#6FAA9C', padding: 10, alignSelf: 'center', borderRadius: 20, alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('Feed', { cd_cliente: cd_cliente})}>
+                <TouchableOpacity style={{ width: '100%', backgroundColor: '#6FAA9C', padding: 10, alignSelf: 'center', borderRadius: 20, alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('Feed', { cd_cliente: cd_cliente })}>
                     <Text style={{ color: 'white' }}>Voltar</Text>
                 </TouchableOpacity>
             </View>
@@ -107,7 +112,8 @@ const styles = StyleSheet.create({
     logoUser: {
         width: 200,
         height: 200,
-        borderRadius: 60
+        borderRadius: 60,
+        marginTop: 40
     },
     nomeText: {
         textAlign: 'center',

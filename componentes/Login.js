@@ -19,6 +19,8 @@ export function Login({ navigation }) {
       if (user.email === email && user.senha === senha) {
         alert("Login realizado com sucesso!");
         navigation.navigate('Feed', { cd_cliente: user.cd_cliente });
+        setEmail('');
+        setSenha('');
       } else {
         console.log(email, senha)
       }
@@ -27,7 +29,7 @@ export function Login({ navigation }) {
 
 
   function getUsers() {
-    fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
@@ -52,6 +54,7 @@ export function Login({ navigation }) {
             placeholder="Email"
             placeholderTextColor={'#596AA1'}
             onChangeText={handleEmailChange}
+            value={email}
           />
           <TextInput
             style={styles.input}
@@ -59,6 +62,7 @@ export function Login({ navigation }) {
             placeholderTextColor={'#596AA1'}
             secureTextEntry={true}
             onChangeText={handleSenhaChange}
+            value={senha}
           />
         </View>
         {/* Botão entrar/cadastrar*/}
