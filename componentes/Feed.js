@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar } from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar, ImageBackground } from "react-native";
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -42,15 +42,15 @@ export function Feed({ navigation, route }) {
     <PaperProvider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text>Não imprementado</Text>
+          <Text>Não implementado</Text>
         </Modal>
       </Portal>
-
 
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
+<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
           {/* Header */}
           <View style={styles.header}>
             <View style={styles.headerConteudo}>
@@ -132,7 +132,7 @@ export function Feed({ navigation, route }) {
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
               <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
-                <Text>Leia mais {'>'}</Text>
+                <Text >Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.comentarios}>
@@ -210,17 +210,17 @@ export function Feed({ navigation, route }) {
               style={styles.inputComentario}
             />
              <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
-                <Text>Enviar Comentário</Text>
+                <Text > Enviar Comentário</Text>
               </TouchableOpacity>
-          </View>
+          </View></ImageBackground>
         </ScrollView>
       </View>
 
-
+  
     </PaperProvider>
 
 
-
+  
   );
 };
 
@@ -228,10 +228,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2EAD0',
+    
     paddingTop: StatusBar.currentHeight,
   },
   scrollView: {
-
+    
   },
   header: {
     zIndex: 1,
@@ -316,7 +317,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 3,
     paddingHorizontal: 15,
-    borderRadius: 10
+    borderRadius: 10,
+    backgroundColor:'#F2EAD0',
+    color:'white'
+
   },
   comentarios: {
     flexDirection: 'row',
@@ -365,5 +369,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 10,
     width:'35%',
+    backgroundColor:'#F2EAD0',
+    color:'white'
   },
 });

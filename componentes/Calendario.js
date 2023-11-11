@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
+import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
 import { useState } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
@@ -86,6 +86,7 @@ export function Calendario({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
       <View>
         <Text style={styles.header}>Agendamento no Hotel</Text>
       </View>
@@ -97,7 +98,8 @@ export function Calendario({ navigation }) {
           style={{
             borderWidth: 1,
             borderColor: 'gray',
-            margin: 25
+            margin: 25,
+            borderRadius: 10,
           }}
           theme={{
             backgroundColor: '#ffffff',
@@ -107,7 +109,8 @@ export function Calendario({ navigation }) {
             selectedDayTextColor: '#ffffff',
             todayTextColor: '#00adf5',
             dayTextColor: '#2d4150',
-            textDisabledColor: '#d9e'
+            textDisabledColor: '#d9e',
+            
             }}
         />
       </View>
@@ -133,7 +136,7 @@ export function Calendario({ navigation }) {
           xx/xx horário especial de funcionamento.
           ( 10 às 16h ) para check in
         </Text> */}
-      </View>
+      </View></ImageBackground>
     </View>
   );
 }
@@ -220,9 +223,10 @@ const styles = StyleSheet.create({
   header: {
     textAlign: 'center',
     flex: 0,
-    fontSize: 26,
+    fontSize: 30,
     margin: 20,
-    marginBottom: 0
+    marginBottom: 0,
+    fontWeight: 'bold',
   },
   textButton: {
     color: 'white',
