@@ -118,7 +118,7 @@ export function Cadastro({ navigation }) {
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       extraScrollHeight={100}>
-<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
+<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
 
       <View>
 

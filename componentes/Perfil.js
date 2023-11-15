@@ -1,12 +1,48 @@
-import react, { useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
+import { Modal, Portal, Button, PaperProvider } from 'react-native-paper';
+
+
+
+
+
 
 export function Perfil({navigation}) {
 
     const [telefone, setTelefone] = useState('(13) 99779-7442')
     const [email, setEmail] = useState('exemplo@exemplo.com.br')
     const [endereco, setEndereco] = useState('Rua Exemplo, 999')
+   
+    const [visibleTel, setVisibleTel] = React.useState(false);
+    const showModalTel = () => setVisibleTel(true);
+    const hideModalTel = () => setVisibleTel(false);
+
+    const [visibleEmail, setVisibleEmail] = React.useState(false);
+    const showModalEmail = () => setVisibleEmail(true);
+    const hideModalEmail = () => setVisibleEmail(false);
+
+    const [visibleEnd, setVisibleEnd] = React.useState(false);
+    const showModalEnd = () => setVisibleEnd(true);
+    const hideModalEnd = () => setVisibleEnd(false);
+
+    const containerStyle = { backgroundColor: 'white', padding: 20 };
+
     return(
+        <PaperProvider>
+        <Portal>
+          <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
+            <Text>Telefone</Text>
+          </Modal>
+
+          <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
+            <Text>Email</Text>
+          </Modal>
+
+          <Modal visible={visibleEnd} onDismiss={hideModalEnd} contentContainerStyle={containerStyle}>
+            <Text>Endereço</Text>
+          </Modal>
+        </Portal>
+        
         <View style={styles.container}>
             <View style={{marginTop: 20}}>
                 <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
@@ -15,19 +51,19 @@ export function Perfil({navigation}) {
             <View style={{width:'100%', alignItems:'center', marginTop: 20}}>
                 <View style={styles.campo}>
                     <Text style={styles.informacao}>Telefone: {telefone}</Text>
-                    <TouchableOpacity style={styles.botaoEditar}>
+                    <TouchableOpacity style={styles.botaoEditar} onPress={showModalTel}>
                         <Text style={styles.textoBotao}>Editar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.campo}>
                     <Text style={styles.informacao}>Email: {email}</Text>
-                    <TouchableOpacity style={styles.botaoEditar}>
+                    <TouchableOpacity style={styles.botaoEditar}onPress={showModalEmail}>
                         <Text style={styles.textoBotao}>Editar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.campo}>
                     <Text style={styles.informacao}>Endereço: {endereco}</Text>
-                    <TouchableOpacity style={styles.botaoEditar}>
+                    <TouchableOpacity style={styles.botaoEditar}onPress={showModalEnd}>
                         <Text style={styles.textoBotao}>Editar</Text>
                     </TouchableOpacity>
                 </View>
@@ -67,6 +103,7 @@ export function Perfil({navigation}) {
                 </TouchableOpacity>
             </View>
         </View>
+        </PaperProvider>
     );
 }
 

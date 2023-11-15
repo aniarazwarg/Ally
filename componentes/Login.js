@@ -42,7 +42,7 @@ export function Login({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Imagem */}
-      <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas.jpg')}>
+      <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas2.jpg')}>
         <View style={styles.imagem}>
           <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
         </View>

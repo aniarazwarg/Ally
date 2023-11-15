@@ -50,7 +50,7 @@ export function Feed({ navigation, route }) {
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
-<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
+<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
           {/* Header */}
           <View style={styles.header}>
             <View style={styles.headerConteudo}>
