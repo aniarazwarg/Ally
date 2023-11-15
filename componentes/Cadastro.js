@@ -41,7 +41,20 @@ export function Cadastro({ navigation }) {
     setConfirmPassword(text);
   };
 
+ 
+  
+   
+
+
   const handleSubmit = () => {
+
+
+    
+      
+
+    
+
+
     if (password === confirmPassword) {
       console.log('Senhas coincidem:', password);
       setsenhaNaoCoincideMsg('')
@@ -50,6 +63,40 @@ export function Cadastro({ navigation }) {
       setsenhaNaoCoincideMsg('*Senhas não coincidem.')
     }
   }
+
+
+
+  //validarEmail
+//   const apiKey = '673ddd839d5d421295bcb2d9e44cbc5b';
+// const apiURL = 'https://emailvalidation.abstractapi.com/v1/?api_key=673ddd839d5d421295bcb2d9e44cbc5b&email=niah.zwarg@gmail.com';
+
+// const sendEmailValidationRequest = async (email) => {
+//   try {
+//       const response = await fetch.get(apiURL + '&email=' + email);
+//       const data = response.json();
+//       return data.is_valid_format.value;
+//   } catch (error) {
+//       throw error;
+//   }
+// }
+// const handleSubmit2 = async (email) => {
+//   try {
+//       const isValid = await sendEmailValidationRequest(email);
+//       if (isValid) {
+//           setErrorMessage("");
+//           console.log("SUBMITTED! ", email);
+//       } else {
+//           setErrorMessage("INVALID EMAIL.PLEASE CHECK YOUR INPUT AND TRY AGAIN.");
+//           console.log("EMAIL WAS INVALID.", email);
+//       }
+//       return isValid;
+//   } catch (error) {
+//       setErrorMessage("SOMETHING WENT WRONG.PLEASE TRY AGAIN LATER.");
+//   }
+
+
+
+
 
   //Função cadastro
   
@@ -75,9 +122,46 @@ export function Cadastro({ navigation }) {
         console.error('Erro:', error);
       });
   };
-  function cadastrar() {
+  function validaCPF() {
+      //  // Extrai somente os números
+       
+      //  var exp = /\.|\-/g
+      //  cpf = cpf.toString().replace(exp, "");
+
+   
+    // Verifica se foi informado todos os digitos corretamente
+    if (cpf.length != 11) {
+        alert('CPF Invalido!');
+        return;
+    }
+    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+    if (cpf.match(/(\d)\1{10}/)) {
+        alert('CPF Invalido!');
+        return;
+    }
+    // Faz o calculo para validar o CPF
+    for (let t = 9; t < 11; t++) {
+        for (d = 0, c = 0; c < t; c++) {
+            d += cpf[c] * ((t + 1) - c);
+        }
+        d = ((10 * d) % 11) % 10;
+        if (cpf[c] != d) {
+            alert('CPF Invalido!');
+            return;
+        }
+    }
+    alert('CPF valido!');
     enviarDados();
+    sendEmailValidationRequest();
+
     navigation.navigate('Feed')
+    return;
+ }
+  function cadastrar() {
+
+    validaCPF();
+   
+    
   }
 
 
