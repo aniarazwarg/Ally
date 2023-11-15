@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, Image, Text, View , Button, TouchableOpacity,ImageBackground } from 'react-native';
 
 export function RecuperacaoSenha({navigation}){
     return (
-      // estrutura login
+      
+      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
       <View style={styles.container}>
         <View style={styles.imagem}>
           <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
@@ -21,6 +22,7 @@ export function RecuperacaoSenha({navigation}){
           </TouchableOpacity>
         </View>
       </View>
+      </ImageBackground>
     );
   }
   
@@ -30,7 +32,7 @@ export function RecuperacaoSenha({navigation}){
     container: {
       flex: 1,
       backgroundColor:'#F2EAD0',
-      justifyContent:'center'
+     
     },
     imagem: {
       alignItems:'center',
@@ -38,6 +40,9 @@ export function RecuperacaoSenha({navigation}){
     logoBrothers:{
       height:150,
       width:'90%',
+      backgroundColor: '#F8F4E8',
+      borderRadius: 20,
+      margin: 10,
     },
     text: {
       fontSize: 15

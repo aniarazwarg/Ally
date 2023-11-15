@@ -4,8 +4,8 @@ import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity,  } from "re
 export function AdicionarPet({navigation}) {
     return(
         <View style={styles.container}>
-            <View style={{marginTop: 30}}>
-                <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
+            <View style={styles.bordaPet}>
+                <Image style={styles.logoPet} source={require('../assets/icon_pet.png')}></Image>
             </View>
             <View style={{alignItems:'center', width: '85%', marginTop: 20}}>
                 <TextInput 
@@ -59,9 +59,17 @@ const styles = StyleSheet.create({
         alignItems:'center',
         backgroundColor:'#F2EAD0',
     },
-    logoUser: {
+    logoPet: {
         width: 200,
-        height: 200
+        height: 200,
+       
+    
+    },
+    bordaPet:{
+         borderRadius: 200,
+        borderWidth: 1,
+        padding: 20,
+        marginTop: 20
     },
     input:{
         textAlign:'center',
