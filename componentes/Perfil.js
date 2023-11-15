@@ -14,7 +14,7 @@ export function Perfil({ navigation, route }) {
     const { cd_cliente } = route.params || { cd_cliente: null };
 
     function getUsers() {
-        fetch('http://192.168.0.11/api/usuarios')
+        fetch('http://localhost/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
     }

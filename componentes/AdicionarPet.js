@@ -1,5 +1,5 @@
 import react from "react";
-import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity, } from "react-native";
+import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity, CheckBox } from "react-native";
 import React, { useState } from "react";
 
 export function AdicionarPet({ navigation }) {
@@ -10,7 +10,10 @@ export function AdicionarPet({ navigation }) {
   const [porte, setPorte] = useState('');
   const [cor, setCor] = useState('');
   const [peso, setPeso] = useState('');
-
+  const [v8, setV8] = useState(false);
+  const [antirrabica, setAntirrabica] = useState(false);
+  const [gripe, setGripe] = useState(false);
+  const [giardia, setGiardia] = useState(false);
 
   const handleNomeChange = (text) => {
     setNome(text);
@@ -28,10 +31,12 @@ export function AdicionarPet({ navigation }) {
     setPeso(text);
   };
 
+
+
   //Função adicionar
 
   const enviarDados = () => {
-    fetch('http://192.168.0.11/api/AdicionarPet', {
+    fetch('http://localhost/api/AdicionarPet', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,11 +57,33 @@ export function AdicionarPet({ navigation }) {
         console.error('Erro:', error);
       });
   };
+
+  const enviarVacinas = () => {
+    fetch('http://localhost/api/vacinas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        v8: v8,
+        antirrabica: antirrabica,
+        gripe: gripe,
+        giardia: giardia,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Erro:', error);
+      });
+  };
   function AdicionarPet() {
     enviarDados();
-    navigation.navigate('Home')
+    enviarVacinas();
+    // navigation.navigate('Home')
   }
-
 
 
 
@@ -102,19 +129,41 @@ export function AdicionarPet({ navigation }) {
           onChangeText={handlePesoChange}
           value={peso}
         />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-          <TextInput
-            style={styles.input2}
-            placeholder="Vacinas"
-            placeholderTextColor={'#273A73'}
-          />
-          <TextInput
-            style={styles.input2}
-            placeholder="Foto"
-            placeholderTextColor={'#273A73'}
-          />
+        <View style={styles.vacinas}>
+          <View>
+            <Text style={{ alignSelf: 'center', fontSize: 15, color: '#273A73' }}>Vacinas</Text>
+          </View>
+          <View style={styles.vacina}>
+            <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>V8/V10</Text>
+            <CheckBox
+              value={v8}
+              onValueChange={setV8}
+            />
+          </View>
+          <View style={styles.vacina}>
+            <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>Antirrabica</Text>
+            <CheckBox
+              value={antirrabica}
+              onValueChange={setAntirrabica}
+            />
+          </View>
+          <View style={styles.vacina}>
+            <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>Gripe</Text>
+            <CheckBox
+              value={gripe}
+              onValueChange={setGripe}
+            />
+          </View>
+          <View style={styles.vacina}>
+            <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>Giardia</Text>
+            <CheckBox
+              value={giardia}
+              onValueChange={setGiardia}
+            />
+          </View>
+
         </View>
-        <View style={{ alignItems: 'center', width:'100%' }}>
+        <View style={{ alignItems: 'center', width: '100%' }}>
           <TouchableOpacity style={styles.button} onPress={AdicionarPet}>
             <Text style={styles.textButton} >Envar</Text>
           </TouchableOpacity>
@@ -157,6 +206,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: '48%',
     backgroundColor: '#F3EEDB',
+  },
+  vacinas: {
+    flexDirection: 'column', justifyContent: 'space-between', width: '100%', borderWidth: 2, borderRadius: 20, backgroundColor: '#F3EEDB', borderColor: '#273A73', marginTop: 15, paddingBottom: 10
+  },
+  vacina: {
+    flexDirection: 'row', alignItems: 'center', paddingLeft: 10, justifyContent:'space-around'
+  },
+  textVacina: {
+    FontSize: 15, marginRight: 5, width: '30%'
   },
   button: {
     marginTop: 25,
