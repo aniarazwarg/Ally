@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
+import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -118,7 +118,10 @@ export function Cadastro({ navigation }) {
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       extraScrollHeight={100}>
+<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
+
       <View>
+
         <View>
           <View style={styles.image}>
             <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
@@ -207,6 +210,7 @@ export function Cadastro({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
+      </ImageBackground>
     </KeyboardAwareScrollView>
   );
 }
@@ -222,8 +226,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logoBrothers: {
-    height: 100,
-    width: '70%',
+    height: 120,
+    width: '90%',
+    backgroundColor: '#F8F4E8',
+    borderRadius: 20,
+    margin: 10,
   },
   welcome: {
     alignItems: 'center',

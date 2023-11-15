@@ -16,11 +16,12 @@ export function Login({ navigation }) {
 
   function validaUsuario() {
     users.forEach((user) => {
-      if (user.email === email && user.senha === senha) {
-        alert("Login realizado com sucesso!");
+      if (user.email === email && user.senha === senha && user.email !='' && user.senha !='') {
+        console.log("Login realizado com sucesso!");
         navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
       } else {
-        console.log(email, senha)
+        
+        console.log("erro")
       }
     })
   }
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   logoBrothers: {
     height: 150,
     width: '100%',
-    backgroundColor: '#F6F1EB',
+    backgroundColor: '#F8F4E8',
     borderRadius: 20
   },
   form: {

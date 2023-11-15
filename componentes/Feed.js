@@ -254,8 +254,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoBrothers: {
-    height: 150,
+    height: 120,
     width: '90%',
+    backgroundColor: '#F6F1EB',
+    borderRadius: 20,
+    margin: 10,
+    
   },
   servicos: {
     flexDirection: 'row',
