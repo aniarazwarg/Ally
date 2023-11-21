@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { Modal, Portal,  PaperProvider } from 'react-native-paper';
+
 
 export function Login({ navigation }) {
 
@@ -18,13 +20,20 @@ export function Login({ navigation }) {
     users.forEach((user) => {
       if (user.email === email && user.senha === senha && user.email !='' && user.senha !='') {
         console.log("Login realizado com sucesso!");
-        navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+        showModalAlertSucesso()
       } else {
-        
-        console.log("erro")
+        showModalAlertErro()
       }
     })
   }
+  
+ function NavigateLogin() {
+  users.forEach((user) => {
+    if (user.email === email && user.senha === senha && user.email !='' && user.senha !='') {
+       navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+    } 
+  })
+ }
 
 
   function getUsers() {
@@ -38,8 +47,29 @@ export function Login({ navigation }) {
     getUsers();
   }, [])
 
+  const [visibleAlertErro, setVisibleAlertErro] = React.useState(false);
+  const showModalAlertErro = () => setVisibleAlertErro(true);
+  const hideModalAlertErro = () => setVisibleAlertErro(false);
+
+  const [visibleAlertSucesso, setVisibleAlertSucesso] = React.useState(false);
+  const showModalAlertSucesso = () => setVisibleAlertSucesso(true);
+  const hideModalAlertSucesso = () => setVisibleAlertSucesso(false);
+
+  const containerStyle = { backgroundColor: 'white', padding: 20 };
 
   return (
+    <PaperProvider>
+  <Portal>
+    <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} contentContainerStyle={containerStyle}>
+                 <Text>Ocorreu um Errro ;-; </Text>   
+    </Modal>
+
+    <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} contentContainerStyle={containerStyle}>
+                 <Text>Login Feito com Sucesso 'u'</Text>   
+    </Modal>
+    
+  </Portal>
+
     <View style={styles.container}>
       {/* Imagem */}
       <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas2.jpg')}>
@@ -82,6 +112,7 @@ export function Login({ navigation }) {
         ))}
       </ImageBackground>
     </View>
+    </PaperProvider>
   );
 }
 

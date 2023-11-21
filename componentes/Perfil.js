@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput} from "react-native";
 import { Modal, Portal, Button, PaperProvider } from 'react-native-paper';
 
 
@@ -31,15 +31,36 @@ export function Perfil({navigation}) {
         <PaperProvider>
         <Portal>
           <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
-            <Text>Telefone</Text>
+                    <TextInput  
+                        placeholder="Altere o Telefone"
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} />
+                    <Button title="Alterar" />
+            
+                <TouchableOpacity style={styles.botaoEditar} onPress={hideModalTel}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
+                    </TouchableOpacity>
           </Modal>
 
           <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
-            <Text>Email</Text>
+          <TextInput  
+                        placeholder="Altere o Email"
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} />
+                    <Button title="Alterar" />
+            
+                <TouchableOpacity style={styles.botaoEditar} onPress={hideModalEmail}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
+                    </TouchableOpacity>
           </Modal>
 
           <Modal visible={visibleEnd} onDismiss={hideModalEnd} contentContainerStyle={containerStyle}>
-            <Text>Endereço</Text>
+          <TextInput  
+                        placeholder="Altere o Endereço"
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} />
+                    <Button title="Alterar" />
+            
+                <TouchableOpacity style={styles.botaoEditar} onPress={hideModalEnd}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
+                    </TouchableOpacity>
           </Modal>
         </Portal>
         
@@ -144,10 +165,12 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingHorizontal: 20,
         borderRadius: 20,
-        marginRight: 2
+        marginRight: 2,
+       
     },
     textoBotao: {
-        color:'white',
+        color:'white', 
+        textAlign:'center',
     },
     campoPets: {
         marginTop: 20,

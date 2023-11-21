@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Modal, Portal,  PaperProvider } from 'react-native-paper';
+
 
 
 
@@ -111,14 +113,25 @@ export function Cadastro({ navigation }) {
 
     return `${day}/${month}/${year}`;
   };
-
-
+  
+  const [visibleAlert, setVisibleAlert] = React.useState(false);
+  const showModalAlert = () => setVisibleAlert(true);
+  const hideModalAlert = () => setVisibleAlert(false);
+  const containerStyle = { backgroundColor: 'white', padding: 20 };
 
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       extraScrollHeight={100}>
-<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
+
+<PaperProvider>
+  <Portal>
+    <Modal visible={visibleAlert} onDismiss={hideModalAlert} contentContainerStyle={containerStyle}>
+                 <Text>Ocorreu um Errro :( </Text>   
+    </Modal>
+  </Portal>
+
+  <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
 
       <View>
 
@@ -211,6 +224,8 @@ export function Cadastro({ navigation }) {
         </View>
       </View>
       </ImageBackground>
+      </PaperProvider>
+
     </KeyboardAwareScrollView>
   );
 }
