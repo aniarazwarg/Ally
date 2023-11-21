@@ -16,7 +16,7 @@ export function Feed({ navigation, route }) {
   // const foto = require(fotoPerfil)
 
   function getUsers() {
-    fetch('http://192.168.0.11/api/usuarios')
+    fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
@@ -80,11 +80,11 @@ export function Feed({ navigation, route }) {
                 )}
                 {cd_cliente !== null && (
                   <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
-                    {fotoPerfil !== null && (
+                    {(fotoPerfil !== null && fotoPerfil !== "" ) && (
                       <Image source={'../assets/' + fotoPerfil}
                         style={styles.logosHeader2} />
                     )}
-                    {fotoPerfil == null && (
+                    {(fotoPerfil == null || fotoPerfil == "") && (
                       <Image source={require('../assets/icon_usuario.png')}
                         style={styles.logosHeader2} />
                     )}
