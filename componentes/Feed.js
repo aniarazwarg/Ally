@@ -33,8 +33,6 @@ export function Feed({ navigation, route }) {
       if (cd_cliente == user.cd_cliente) {
         setNome(user.nm_cliente)
         setFotoPerfil(user.fotoPerfil)
-        console.log(user.fotoPerfil)
-        console.log('oi')
 
       }
     })
