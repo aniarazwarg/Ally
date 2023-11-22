@@ -20,10 +20,16 @@ export function Login({ navigation }) {
 //alert importante para a futura validação abaixo
  
     $validacao = users.find(user => user.email == email)
-      if ($validacao != null ) {
-        showModalAlertSucesso()
+     
+      try {
+         if ($validacao.email == email && $validacao.senha == senha) {
+       showModalAlertSucesso();
       } 
       else {
+        onToggleSnackBar();
+      }
+      }
+      catch {
         onToggleSnackBar();
       }
      
