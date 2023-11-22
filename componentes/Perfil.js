@@ -12,6 +12,17 @@ export function Perfil({navigation}) {
     const [telefone, setTelefone] = useState('(13) 99779-7442')
     const [email, setEmail] = useState('exemplo@exemplo.com.br')
     const [endereco, setEndereco] = useState('Rua Exemplo, 999')
+
+    const handleTelefoneChange = (text) => {
+        setTelefone(text);
+      };
+      const handleEmailChange = (text) => {
+        setEmail(text);
+      };
+      const handleEndChange = (text) => {
+        setEndereco(text);
+      };
+     
    
     const [visibleTel, setVisibleTel] = React.useState(false);
     const showModalTel = () => setVisibleTel(true);
@@ -33,7 +44,10 @@ export function Perfil({navigation}) {
           <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
                     <TextInput  
                         placeholder="Altere o Telefone"
-                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} />
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20,}} 
+                        onChangeText={handleTelefoneChange}  
+                        />
+                        
                     <Button title="Alterar" />
             
                 <TouchableOpacity style={styles.botaoEditar} onPress={hideModalTel}>
@@ -44,7 +58,8 @@ export function Perfil({navigation}) {
           <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
           <TextInput  
                         placeholder="Altere o Email"
-                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} />
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} 
+                        onChangeText={handleEmailChange}  />
                     <Button title="Alterar" />
             
                 <TouchableOpacity style={styles.botaoEditar} onPress={hideModalEmail}>
@@ -56,7 +71,9 @@ export function Perfil({navigation}) {
           <TextInput  
                         placeholder="Altere o Endereço"
                         style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} />
-                    <Button title="Alterar" />
+                    <Button title="Alterar" 
+                         onChangeText={handleEndChange}  />
+
             
                 <TouchableOpacity style={styles.botaoEditar} onPress={hideModalEnd}>
                         <Text style={styles.textoBotao}>Voltar</Text>
