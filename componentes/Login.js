@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
-import { Modal, Portal,  PaperProvider } from 'react-native-paper';
+import { Modal, Portal,  PaperProvider,Button, Snackbar } from 'react-native-paper';
 
 
 export function Login({ navigation }) {
@@ -17,23 +17,27 @@ export function Login({ navigation }) {
   };
 
   function validaUsuario() {
-    users.forEach((user) => {
+    users.map((user) => {
       if (user.email === email && user.senha === senha && user.email !='' && user.senha !='') {
         console.log("Login realizado com sucesso!");
         showModalAlertSucesso()
-      } else {
-        showModalAlertErro()
-      }
+      } 
+      //console.log("Erro!"); onToggleSnackBar();
+      
     })
   }
   
  function NavigateLogin() {
+  
   users.forEach((user) => {
     if (user.email === email && user.senha === senha && user.email !='' && user.senha !='') {
        navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+ 
     } 
   })
+
  }
+
 
 
   function getUsers() {
@@ -55,19 +59,26 @@ export function Login({ navigation }) {
   const showModalAlertSucesso = () => setVisibleAlertSucesso(true);
   const hideModalAlertSucesso = () => setVisibleAlertSucesso(false);
 
+  const [visible2, setVisible2] = React.useState(false);
+
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
+
   const containerStyle = { backgroundColor: 'white', padding: 20 };
 
   return (
     <PaperProvider>
   <Portal>
+
+     <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} contentContainerStyle={containerStyle}>
+                 <Text>Login Feito com Sucesso ☺</Text>   
+    </Modal>
+    
     <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} contentContainerStyle={containerStyle}>
                  <Text>Ocorreu um Errro ;-; </Text>   
     </Modal>
 
-    <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} contentContainerStyle={containerStyle}>
-                 <Text>Login Feito com Sucesso 'u'</Text>   
-    </Modal>
-    
+   
   </Portal>
 
     <View style={styles.container}>
@@ -110,6 +121,14 @@ export function Login({ navigation }) {
         {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
         ))}
+
+         <Snackbar
+        visible={visible2}
+        onDismiss={onDismissSnackBar}
+        duration={10}
+        >
+       ERRO
+      </Snackbar>
       </ImageBackground>
     </View>
     </PaperProvider>

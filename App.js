@@ -62,7 +62,7 @@ export default function App() {
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Perfil' screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Feed' component={Feed} />
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
