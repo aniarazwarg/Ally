@@ -16,7 +16,8 @@ export function Cadastro({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [senhaNaoCoincideMsg, setsenhaNaoCoincideMsg] = useState('');
-  // const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [forceRerender, setForceRerender] = useState(false);
 
   //Confirmação de senha
 
@@ -54,7 +55,8 @@ export function Cadastro({ navigation }) {
   //Função cadastro
 
   const enviarDados = () => {
-    fetch('http://localhost/api/cadastro', {
+    // fetch('http://localhost/api/cadastro', {
+    fetch('http://192.168.0.11/api/cadastro', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -112,6 +114,11 @@ export function Cadastro({ navigation }) {
     return `${day}/${month}/${year}`;
   };
 
+  useEffect(() => {
+    var data = dateOfBirth.split('/').reverse().join('-')
+    setNasc(data)
+    setForceRerender(prevState => !prevState);
+  }, [dateOfBirth])
 
 
   return (
@@ -167,15 +174,15 @@ export function Cadastro({ navigation }) {
             value={cpf}
           />
 
-          <TextInput
+          {/* <TextInput
             style={styles.input}
             placeholder='Data de nascimento'
             placeholderTextColor={'#273A73'}
             onChangeText={handleNascChange}
             autoComplete='birthdate-full'
             value={nasc}
-          />
-          {/* {!showPicker && (
+          /> */}
+          {!showPicker && (
             <Pressable
               onPress={toggleDatepicker}
               style={{ width: '100%', alignItems: 'center' }}
@@ -199,7 +206,8 @@ export function Cadastro({ navigation }) {
               onChange={onChange}
               maximumDate={new Date(2006, 0, 0)}
             />
-          )} */}
+          )}
+          <Text>{nasc}</Text>
         </View>
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity style={styles.button} onPress={cadastrar}>

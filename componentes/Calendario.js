@@ -81,62 +81,64 @@ export function Calendario({ navigation }) {
     // navigation.navigate('Home');
   };
 
-  
+
 
 
   return (
     <View style={styles.container}>
-      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
-      <View>
-        <Text style={styles.header}>Agendamento no Hotel</Text>
-      </View>
-      <View>
-        <Calendar
-          onDayPress={onDayPress}
-          markedDates={markedDates}
-          enableSwipeMonths={true}
-          style={{
-            borderWidth: 1,
-            borderColor: 'gray',
-            margin: 25,
-            borderRadius: 10,
-          }}
-          theme={{
-            backgroundColor: '#ffffff',
-            calendarBackground: '#ffffff',
-            textSectionTitleColor: '#b6c1cd',
-            selectedDayBackgroundColor: '#00adf5',
-            selectedDayTextColor: '#ffffff',
-            todayTextColor: '#00adf5',
-            dayTextColor: '#2d4150',
-            textDisabledColor: '#d9e',
-            
+      <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas.jpg')}>
+        <View>
+          <Text style={styles.header}>Agendamento no Hotel</Text>
+        </View>
+        <View>
+          <Calendar
+            onDayPress={onDayPress}
+            markedDates={markedDates}
+            enableSwipeMonths={true}
+            style={{
+              borderWidth: 1,
+              borderColor: 'gray',
+              margin: 25,
+              borderRadius: 10,
             }}
-        />
-      </View>
-      <View>
-        <TextInput
-          placeholder='Check in'
-          style={styles.input}
-          value={selectedStartDate !== null ? selectedStartDate : ''}
-          keyboardType="numeric"
-        />
-        <TextInput
-          placeholder='Check out'
-          style={styles.input}
-          value={selectedEndDate !== null ? selectedEndDate : ''}
-          keyboardType="numeric"
-        />
-      </View>
-      <View style={{ marginHorizontal: 25, marginTop: 10 }}>
-        <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
-          <Text style={styles.textButton}>Agendar</Text>
-        </TouchableOpacity>
-        {/* <Text style={styles.texto}>
-          xx/xx horário especial de funcionamento.
-          ( 10 às 16h ) para check in
-        </Text> */}
-      </View></ImageBackground>
+            theme={{
+              backgroundColor: '#ffffff',
+              calendarBackground: '#ffffff',
+              textSectionTitleColor: '#b6c1cd',
+              selectedDayBackgroundColor: '#00adf5',
+              selectedDayTextColor: '#ffffff',
+              todayTextColor: '#00adf5',
+              dayTextColor: '#2d4150',
+              textDisabledColor: '#d9e',
+
+            }}
+          />
+        </View>
+        <View>
+          <TextInput
+            placeholder='Check in'
+            style={styles.input}
+            value={selectedStartDate !== null ? selectedStartDate : ''}
+            keyboardType="numeric"
+          />
+          <TextInput
+            placeholder='Check out'
+            style={styles.input}
+            value={selectedEndDate !== null ? selectedEndDate : ''}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={{ marginHorizontal: 25, marginTop: 10 }}>
+          <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
+            <Text style={styles.textButton}>Agendar</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ marginHorizontal: 25, marginTop: 10 }}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.textButton}>Voltar</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }

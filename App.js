@@ -23,7 +23,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Cadastro"
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,
