@@ -18,15 +18,13 @@ export function Login({ navigation }) {
 
   function validaUsuario() {
 //alert importante para a futura validação abaixo
-    alert(users.find(user => user.cd_cliente == 12));
-
-    
-      if ( email=== users.email && senha === users.senha && email !='' && senha !='' ) {
-        console.log("Login realizado com sucesso!");
+ 
+    $validacao = users.find(user => user.email == email)
+      if ($validacao != null ) {
         showModalAlertSucesso()
-      } else {
-         console.log("Erro!"); 
-         onToggleSnackBar();
+      } 
+      else {
+        onToggleSnackBar();
       }
      
       
@@ -36,9 +34,8 @@ export function Login({ navigation }) {
  function NavigateLogin() {
   
   users.forEach((user) => {
-    if (user.email === email && user.senha === senha && user.email !='' && user.senha !='') {
+    if (user.email == email) {
        navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
- 
     } 
   })
 
