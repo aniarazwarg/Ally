@@ -18,11 +18,15 @@ export function Login({ navigation }) {
 
   function validaUsuario() {
     users.map((user) => {
-      if (user.email === email && user.senha === senha && user.email !='' && user.senha !='') {
+     
+      if ( email=== user.email && senha === user.senha && email !='' && senha !='' ) {
         console.log("Login realizado com sucesso!");
         showModalAlertSucesso()
-      } 
-      //console.log("Erro!"); onToggleSnackBar();
+      } else {
+         console.log("Erro!"); 
+         onToggleSnackBar();
+      }
+     
       
     })
   }
@@ -125,9 +129,9 @@ export function Login({ navigation }) {
          <Snackbar
         visible={visible2}
         onDismiss={onDismissSnackBar}
-        duration={10}
+        duration={300}
         >
-       ERRO
+       Erro ao acessar conta. Tente Novamente.
       </Snackbar>
       </ImageBackground>
     </View>
