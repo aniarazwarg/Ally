@@ -17,9 +17,11 @@ export function Login({ navigation }) {
   };
 
   function validaUsuario() {
-    users.map((user) => {
-     
-      if ( email=== user.email && senha === user.senha && email !='' && senha !='' ) {
+//alert importante para a futura validação abaixo
+    alert(users.find(user => user.cd_cliente == 12));
+
+    
+      if ( email=== users.email && senha === users.senha && email !='' && senha !='' ) {
         console.log("Login realizado com sucesso!");
         showModalAlertSucesso()
       } else {
@@ -28,7 +30,7 @@ export function Login({ navigation }) {
       }
      
       
-    })
+    
   }
   
  function NavigateLogin() {
