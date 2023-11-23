@@ -79,7 +79,8 @@ export function Cadastro({ navigation }) {
   };
   function cadastrar() {
     enviarDados();
-    navigation.navigate('Feed')
+    navigation.navigate('Home');
+     
   }
 
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
+import { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { Modal, Portal,  PaperProvider, Snackbar } from 'react-native-paper';
 
 LocaleConfig.locales['fr'] = {
 
@@ -32,6 +33,11 @@ export function Calendario({ navigation }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [markedDates, setMarkedDates] = useState({});
+
+  const [visible2, setVisible2] = React.useState(false);
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
+
 
   const onDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
@@ -76,7 +82,7 @@ export function Calendario({ navigation }) {
   };
 
   function validaAgendamento() {
-    // alert("Seu pedido de reserva foi enviado com sucesso! ");
+    onToggleSnackBar();
     agendar();
     // navigation.navigate('Home');
   };
@@ -85,6 +91,7 @@ export function Calendario({ navigation }) {
 
 
   return (
+    <PaperProvider>
     <View style={styles.container}>
       <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
       <View>
@@ -138,6 +145,14 @@ export function Calendario({ navigation }) {
         </Text> */}
       </View></ImageBackground>
     </View>
+    <Snackbar
+    visible={visible2}
+    onDismiss={onDismissSnackBar}
+    duration={700}
+    >
+   Seu pedido de reserva foi enviado com sucesso!
+  </Snackbar>
+</PaperProvider>
   );
 }
 

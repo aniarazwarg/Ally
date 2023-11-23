@@ -11,7 +11,7 @@ export function Perfil({navigation}) {
 
     const [telefone, setTelefone] = useState('(13) 99779-7442')
     const [email, setEmail] = useState('exemplo@exemplo.com.br')
-    const [endereco, setEndereco] = useState('Rua Exemplo, 999')
+  
 
     const handleTelefoneChange = (text) => {
         setTelefone(text);
@@ -19,9 +19,7 @@ export function Perfil({navigation}) {
       const handleEmailChange = (text) => {
         setEmail(text);
       };
-      const handleEndChange = (text) => {
-        setEndereco(text);
-      };
+     
      
    
     const [visibleTel, setVisibleTel] = React.useState(false);
@@ -41,6 +39,7 @@ export function Perfil({navigation}) {
     return(
         <PaperProvider>
         <Portal>
+         {/* Modal Telefone */}
           <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
                     <TextInput  
                         placeholder="Altere o Telefone"
@@ -54,6 +53,7 @@ export function Perfil({navigation}) {
                         <Text style={styles.textoBotao}>Voltar</Text>
                     </TouchableOpacity>
           </Modal>
+         {/* Modal Email */}
 
           <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
           <TextInput  
@@ -67,18 +67,6 @@ export function Perfil({navigation}) {
                     </TouchableOpacity>
           </Modal>
 
-          <Modal visible={visibleEnd} onDismiss={hideModalEnd} contentContainerStyle={containerStyle}>
-          <TextInput  
-                        placeholder="Altere o Endereço"
-                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} />
-                    <Button title="Alterar" 
-                         onChangeText={handleEndChange}  />
-
-            
-                <TouchableOpacity style={styles.botaoEditar} onPress={hideModalEnd}>
-                        <Text style={styles.textoBotao}>Voltar</Text>
-                    </TouchableOpacity>
-          </Modal>
         </Portal>
         
         <View style={styles.container}>
@@ -99,12 +87,7 @@ export function Perfil({navigation}) {
                         <Text style={styles.textoBotao}>Editar</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.campo}>
-                    <Text style={styles.informacao}>Endereço: {endereco}</Text>
-                    <TouchableOpacity style={styles.botaoEditar}onPress={showModalEnd}>
-                        <Text style={styles.textoBotao}>Editar</Text>
-                    </TouchableOpacity>
-                </View>
+                
             </View>
             <View style={styles.campoPets}>
                 <Text style={styles.nomeText}>Meus pets</Text>

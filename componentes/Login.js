@@ -38,11 +38,13 @@ export function Login({ navigation }) {
   }
   
  function NavigateLogin() {
-  
+
   users.forEach((user) => {
+ 
     if (user.email == email) {
        navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
     } 
+   
   })
 
  }
@@ -74,9 +76,13 @@ export function Login({ navigation }) {
   const onDismissSnackBar = () => setVisible2(false);
 
   const containerStyle = { backgroundColor: 'white', padding: 20 };
+ getUsers();
+
 
   return (
+   
     <PaperProvider>
+      
   <Portal>
 
      <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} contentContainerStyle={containerStyle}>
@@ -90,7 +96,8 @@ export function Login({ navigation }) {
    
   </Portal>
 
-    <View style={styles.container}>
+    <View style={styles.container} 
+    >
       {/* Imagem */}
       <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas2.jpg')}>
         <View style={styles.imagem}>
@@ -134,7 +141,7 @@ export function Login({ navigation }) {
          <Snackbar
         visible={visible2}
         onDismiss={onDismissSnackBar}
-        duration={300}
+        duration={400}
         >
        Erro ao acessar conta. Tente Novamente.
       </Snackbar>
