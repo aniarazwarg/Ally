@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import validator from 'validator';
 
 
 
@@ -21,160 +22,175 @@ export function Cadastro({ navigation }) {
 
   //Confirmação de senha
 
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-  };
-  const handleNomeChange = (text) => {
-    setNome(text);
-  };
-  const handleCpfChange = (text) => {
-    setCpf(text);
-  };
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
+  // validacao de email
 
-  const handleNascChange = (text) => {
-    setNasc(text);
-  };
-
-  const handleConfirmPasswordChange = (text) => {
-    setConfirmPassword(text);
-  };
-
-  const handleSubmit = () => {
-    if (password === confirmPassword) {
-      console.log('Senhas coincidem:', password);
-      setsenhaNaoCoincideMsg('')
+  const [emailError, setEmailError] = useState('')
+  function validaEmail() {
+    if (validator.isEmail(email)) {
+      console.log('Valid Email :)')
     } else {
-      setPasswordsMatch(false);
-      setsenhaNaoCoincideMsg('*Senhas não coincidem.')
+      console.log('Enter valid Email!')
     }
   }
 
-  //Função cadastro
 
-  const enviarDados = () => {
-    // fetch('http://localhost/api/cadastro', {
-    fetch('http://192.168.0.11/api/cadastro', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nome: nome,
-        nasc: nasc,
-        email: email,
-        senha: password,
-        cpf: cpf,
-      }),
+
+const handlePasswordChange = (text) => {
+  setPassword(text);
+};
+const handleNomeChange = (text) => {
+  setNome(text);
+};
+const handleCpfChange = (text) => {
+  setCpf(text);
+};
+const handleEmailChange = (text) => {
+  setEmail(text);
+};
+
+const handleNascChange = (text) => {
+  setNasc(text);
+};
+
+const handleConfirmPasswordChange = (text) => {
+  setConfirmPassword(text);
+};
+
+const handleSubmit = () => {
+  if (password === confirmPassword) {
+    console.log('Senhas coincidem:', password);
+    setsenhaNaoCoincideMsg('')
+  } else {
+    setPasswordsMatch(false);
+    setsenhaNaoCoincideMsg('*Senhas não coincidem.')
+  }
+}
+
+//Função cadastro
+
+const enviarDados = () => {
+  fetch('http://localhost/api/cadastro', {
+  // fetch('http://192.168.0.11/api/cadastro', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      nome: nome,
+      nasc: nasc,
+      email: email,
+      senha: password,
+      cpf: cpf,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('Erro:', error);
-      });
-  };
-  function cadastrar() {
-    enviarDados();
-    navigation.navigate('Login')
-  }
+    .catch((error) => {
+      console.error('Erro:', error);
+    });
+};
+function cadastrar() {
+  // enviarDados();
+  // navigation.navigate('Login')
+  validaEmail();
+
+}
 
 
-  // DatePicker
-  const [date, setDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
-  const toggleDatepicker = () => {
-    setShowPicker(!showPicker);
-  }
-  const onChange = ({ type }, selectedDate) => {
-    if (type == "set") {
-      const currentDate = selectedDate;
-      setDate(currentDate)
+// DatePicker
+const [date, setDate] = useState(new Date());
+const [showPicker, setShowPicker] = useState(false);
+const toggleDatepicker = () => {
+  setShowPicker(!showPicker);
+}
+const onChange = ({ type }, selectedDate) => {
+  if (type == "set") {
+    const currentDate = selectedDate;
+    setDate(currentDate)
 
-      if (Platform.OS === 'android') {
-        toggleDatepicker();
-        setDateOfBirth(formatDate(currentDate));
-      }
-
-    } else
+    if (Platform.OS === 'android') {
       toggleDatepicker();
-  };
-  const formatDate = (rawDate) => {
-    let date = new Date(rawDate);
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
+      setDateOfBirth(formatDate(currentDate));
+    }
 
-    month = month < 10 ? `0${month}` : month;
-    day = day < 10 ? `0${month}` : day;
+  } else
+    toggleDatepicker();
+};
+const formatDate = (rawDate) => {
+  let date = new Date(rawDate);
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
 
-    return `${day}/${month}/${year}`;
-  };
+  month = month < 10 ? `0${month}` : month;
+  day = day < 10 ? `0${month}` : day;
 
-  useEffect(() => {
-    var data = dateOfBirth.split('/').reverse().join('-')
-    setNasc(data)
-    setForceRerender(prevState => !prevState);
-  }, [dateOfBirth])
+  return `${day}/${month}/${year}`;
+};
+
+useEffect(() => {
+  var data = dateOfBirth.split('/').reverse().join('-')
+  setNasc(data)
+  setForceRerender(prevState => !prevState);
+}, [dateOfBirth])
 
 
-  return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.container}
-      extraScrollHeight={100}>
+return (
+  <KeyboardAwareScrollView
+    contentContainerStyle={styles.container}
+    extraScrollHeight={100}>
+    <View>
       <View>
-        <View>
-          <View style={styles.image}>
-            <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
-          </View>
-          <View style={styles.welcome}>
-            <Text style={styles.welcomeText}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
-          </View>
+        <View style={styles.image}>
+          <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
         </View>
-        <View style={styles.formulario}>
-          <TextInput
-            style={styles.input}
-            placeholder="Nome"
-            placeholderTextColor={'#273A73'}
-            onChangeText={handleNomeChange}
-            value={nome}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor={'#273A73'}
-            onChangeText={handleEmailChange}
-            value={email}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Senha"
-            placeholderTextColor={'#273A73'}
-            secureTextEntry={true}
-            value={password}
-            onChangeText={handlePasswordChange}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Confirme a senha"
-            placeholderTextColor={'#273A73'}
-            secureTextEntry={true}
-            value={confirmPassword}
-            onChangeText={handleConfirmPasswordChange}
-          />
-          {!passwordsMatch && <Text style={{ color: 'red' }}>{senhaNaoCoincideMsg}</Text>}
-          <TextInput
-            style={styles.input}
-            placeholder="CPF"
-            placeholderTextColor={'#273A73'}
-            onChangeText={handleCpfChange}
-            value={cpf}
-          />
+        <View style={styles.welcome}>
+          <Text style={styles.welcomeText}>Bem vindo ao aplicativo da Brothers! Para se cadastrar preencha seus dados:</Text>
+        </View>
+      </View>
+      <View style={styles.formulario}>
+        <TextInput
+          style={styles.input}
+          placeholder="Nome"
+          placeholderTextColor={'#273A73'}
+          onChangeText={handleNomeChange}
+          value={nome}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor={'#273A73'}
+          onChangeText={handleEmailChange}
+          value={email}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          placeholderTextColor={'#273A73'}
+          secureTextEntry={true}
+          value={password}
+          onChangeText={handlePasswordChange}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirme a senha"
+          placeholderTextColor={'#273A73'}
+          secureTextEntry={true}
+          value={confirmPassword}
+          onChangeText={handleConfirmPasswordChange}
+        />
+        {!passwordsMatch && <Text style={{ color: 'red' }}>{senhaNaoCoincideMsg}</Text>}
+        <TextInput
+          style={styles.input}
+          placeholder="CPF"
+          placeholderTextColor={'#273A73'}
+          onChangeText={handleCpfChange}
+          value={cpf}
+        />
 
-          {/* <TextInput
+        {/* <TextInput
             style={styles.input}
             placeholder='Data de nascimento'
             placeholderTextColor={'#273A73'}
@@ -182,46 +198,46 @@ export function Cadastro({ navigation }) {
             autoComplete='birthdate-full'
             value={nasc}
           /> */}
-          {!showPicker && (
-            <Pressable
-              onPress={toggleDatepicker}
-              style={{ width: '100%', alignItems: 'center' }}
-            >
-              <TextInput
-                style={styles.input}
-                placeholder="Data de Nascimento"
-                placeholderTextColor={"#273A73"}
-                value={dateOfBirth}
-                onChange={setDateOfBirth}
-                editable={false}
-              />
-            </Pressable>
-          )}
-
-          {showPicker && (
-            <DateTimePicker
-              mode='date'
-              display='spinner'
-              value={date}
-              onChange={onChange}
-              maximumDate={new Date(2006, 0, 0)}
+        {!showPicker && (
+          <Pressable
+            onPress={toggleDatepicker}
+            style={{ width: '100%', alignItems: 'center' }}
+          >
+            <TextInput
+              style={styles.input}
+              placeholder="Data de Nascimento"
+              placeholderTextColor={"#273A73"}
+              value={dateOfBirth}
+              onChange={setDateOfBirth}
+              editable={false}
             />
-          )}
-          <Text>{nasc}</Text>
-        </View>
-        <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={styles.button} onPress={cadastrar}>
-            <Text style={styles.textButton} >Enviar</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
-            <Text style={styles.textButton} >Voltar</Text>
-          </TouchableOpacity>
-        </View>
+          </Pressable>
+        )}
+
+        {showPicker && (
+          <DateTimePicker
+            mode='date'
+            display='spinner'
+            value={date}
+            onChange={onChange}
+            maximumDate={new Date(2006, 0, 0)}
+          />
+        )}
+        <Text>{nasc}</Text>
       </View>
-    </KeyboardAwareScrollView>
-  );
+      <View style={{ alignItems: 'center' }}>
+        <TouchableOpacity style={styles.button} onPress={cadastrar}>
+          <Text style={styles.textButton} >Enviar</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
+          <Text style={styles.textButton} >Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </KeyboardAwareScrollView>
+);
 }
 
 const styles = StyleSheet.create({
