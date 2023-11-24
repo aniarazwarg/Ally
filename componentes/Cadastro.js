@@ -23,6 +23,10 @@ export function Cadastro({ navigation }) {
   const [telefone, setTelefone] = useState('');
   const [telefoneFormat, setTelefoneFormat] = useState('');
   const [users, setUsers] = useState('');
+  const [cpfInvalidMsg, setCpfInvalidMsg] = useState(null)
+  const [emailInvalidMsg, setEmailInvalidMsg] = useState(null)
+  const [senhaInvalidMsg, setSenhaInvalidMsg] = useState(null)
+  const [nomeInvalidMsg, setNomeInvalidMsg] = useState(null)
   // const [forceRerender, setForceRerender] = useState(false);
 
 
@@ -53,7 +57,7 @@ export function Cadastro({ navigation }) {
   function validarCPF(cpf) {
     var cpfRegex = /^(?:(\d{3}).(\d{3}).(\d{3})-(\d{2}))$/;
     if (!cpfRegex.test(cpf)) {
-      console.log("cpf invalido")
+      // console.log("cpf invalido")
       return false;
     }
 
@@ -72,7 +76,7 @@ export function Cadastro({ navigation }) {
     }
 
     if (resto !== numeros[9]) {
-      console.log("cpf invalido")
+      // console.log("cpf invalido")
       return false;
     }
 
@@ -90,11 +94,17 @@ export function Cadastro({ navigation }) {
     }
 
     if (resto !== numeros[10]) {
-      console.log('cpf invalido')
+      // console.log('cpf invalido')
       return false;
     }
 
-    console.log('cpf valido')
+    if (users.some(user => user.cpf === cpf)) {
+      console.log('cpf ja utilizado')
+      return false;
+    }
+
+    // console.log('cpf valido')
+
     return true;
   }
 
@@ -102,7 +112,7 @@ export function Cadastro({ navigation }) {
 
   function validaEmail() {
     if (validator.isEmail(email)) {
-      console.log('Valid email!')
+      // console.log('Valid email!')
       if (users.some(user => user.email === email)) {
         console.log('email ja utilizado')
         return false;
@@ -110,7 +120,7 @@ export function Cadastro({ navigation }) {
         return true;
       }
     } else {
-      console.log('Enter valid Email!')
+      // console.log('Enter valid Email!')
       return false;
     }
   }
@@ -259,13 +269,30 @@ export function Cadastro({ navigation }) {
   // Função cadastrar
 
   function cadastrar() {
-    // if (validarCPF(cpf) && validaEmail() && validarNome(nome) && validarSenha(password)) {
-    //   console.log('Cadastro realizado com sucesso!')
-    //   enviarDados();
-    // }
+    if (validarCPF(cpf) && validaEmail() && validarNome(nome) && validarSenha(password)) {
+      console.log('Cadastro realizado com sucesso!')
+      enviarDados();
+      navigation.navigate('Login')
+    } else {
+      if (!validarCPF(cpf)) {
+        console.log('CPF inválido.')
+        setCpfInvalidMsg('CPF inválido ou já utilizado. Tente outro.')
+      }
+      if (!validaEmail()) {
+        console.log('Email inválido.')
+        setEmailInvalidMsg('*Email inválido ou já utilizado. Tente outro.')
+      }
+      if (!validarNome(nome)) {
+        console.log('Nome inválido')
+        setNomeInvalidMsg('Nome não pode conter caracteres especiais ou números.')
+      }
+      if (!validarSenha(password)) {
+        console.log('Senha inválida')
+        setSenhaInvalidMsg('Email ou senha incorretos. Tente novamente.')
+      }
+    }
     // validaEmail();
-    console.log(validaEmail());
-    // navigation.navigate('Login')
+    // console.log(validaEmail());
   }
 
   useEffect(() => {
@@ -283,9 +310,15 @@ export function Cadastro({ navigation }) {
       var tel = telefone.replace(/\D/g, '')
       setTelefoneFormat(tel)
     }
+    if (password == confirmPassword) {
+      setPasswordsMatch(true)
+    } else {
+      setPasswordsMatch(false)
+      setsenhaNaoCoincideMsg('*Senhas não coincidem')
+    }
 
     // setForceRerender(prevState => !prevState);
-  }, [dateOfBirth, nasc, telefone])
+  }, [dateOfBirth, nasc, telefone, confirmPassword])
 
 
   return (
@@ -316,6 +349,7 @@ export function Cadastro({ navigation }) {
             onChangeText={handleEmailChange}
             value={email}
           />
+          {!validaEmail() && <Text style={{ color: 'red' }}>{emailInvalidMsg}</Text>}
           <TextInput
             style={styles.input}
             placeholder="Telefone"
@@ -323,7 +357,6 @@ export function Cadastro({ navigation }) {
             onChangeText={handleTelefoneChange}
             value={telefone}
           />
-          <Text>{telefoneFormat}</Text>
           <TextInput
             style={styles.input}
             placeholder="Senha"
@@ -381,17 +414,18 @@ export function Cadastro({ navigation }) {
               maximumDate={new Date(2006, 0, 0)}
             />
           )} */}
-          <Text>{dataNasc}</Text>
         </View>
-        <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={styles.button} onPress={cadastrar}>
-            <Text style={styles.textButton} >Cadastrar</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Feed')}>
-            <Text style={styles.textButton} >Voltar</Text>
-          </TouchableOpacity>
+        <View style={{ flexDirection: 'row', width: '85%', justifyContent: 'space-evenly', alignSelf: 'center' }}>
+          <View style={{ alignItems: 'center', width: '45%' }}>
+            <TouchableOpacity style={styles.buttonVoltar} onPress={() => navigation.navigate('Feed')}>
+              <Text style={styles.textButton} >Voltar</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ alignItems: 'center', width: '45%' }}>
+            <TouchableOpacity style={styles.buttonCadastrar} onPress={cadastrar}>
+              <Text style={styles.textButton} >Cadastrar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </KeyboardAwareScrollView>
@@ -435,13 +469,21 @@ const styles = StyleSheet.create({
     width: '85%',
     backgroundColor: '#F3EEDB'
   },
-  button: {
+  buttonCadastrar: {
     marginTop: 25,
     borderRadius: 20,
     alignItems: 'center',
     backgroundColor: '#6FAA9C',
-    padding: 12,
-    width: '50%',
+    padding: 10,
+    width: '100%',
+  },
+  buttonVoltar: {
+    marginTop: 25,
+    borderRadius: 20,
+    alignItems: 'center',
+    backgroundColor: '#2E1A82',
+    padding: 10,
+    width: '100%',
   },
   textButton: {
     color: 'white',
