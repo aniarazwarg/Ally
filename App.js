@@ -23,7 +23,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
-      initialRouteName="Cadastro"
+      initialRouteName="Feed"
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,
@@ -34,25 +34,37 @@ function MyDrawer() {
       }}
       backBehavior='none'
     >
-      <Drawer.Screen name="Feed" component={Feed} options={{
+       <Drawer.Screen name="Feed" component={Feed} options={{
         drawerItemStyle: {
           backgroundColor: "#C1BBA6",
           width: '100%',
           margin: 0
-
         },
         drawerLabelStyle: {
           color: '#C1BBA6'
         },
         sceneContainerStyle: {
           backgroundColor: "red",
-
         }
       }}
       />
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="Cadastro" component={Cadastro} />
       {/* <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} /> */}
+    </Drawer.Navigator>
+  )
+}
+
+function UsuarioDrawer () {
+  return (
+    <Drawer.Navigator initialRouteName='FeedLogado'>
+      <Drawer.Screen name="FeedLogado" component={Feed} />
+      <Drawer.Screen name="Perfil" component={Perfil} />
+      <Drawer.Screen name="AdicionarPet" component={AdicionarPet} />
+      <Drawer.Screen name="Hotel" component={Calendario} />
+      <Drawer.Screen name="Passeio" component={Passeio} />
+      <Drawer.Screen name="Adestramento" component={Adestramento} />
+      <Drawer.Screen name="Agility" component={Agility} />
     </Drawer.Navigator>
   )
 }
@@ -72,6 +84,7 @@ export default function App() {
         <Stack.Screen name='Adestramento' component={Adestramento} />
         <Stack.Screen name='Agility' component={Agility} />
         <Stack.Screen name='Comentarios' component={Comentarios}/>
+        <Stack.Screen name='HomeLogado' component={UsuarioDrawer} />
       </Stack.Navigator>
     </NavigationContainer>
   );
