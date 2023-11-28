@@ -57,7 +57,7 @@ export function Comentarios({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerConteudo}>
                         <View>
-                            <TouchableOpacity onPress={() => navigation.navigate('HomeLogado')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                                 <Image source={require('../assets/icon-back.png')}
                                     style={styles.logosHeader}
                                 />

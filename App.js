@@ -14,6 +14,8 @@ import { ConexaoBanco } from './componentes/ConexaoBanco';
 import { Adestramento } from './componentes/Adestramento';
 import { Agility } from './componentes/Agility';
 import { Comentarios } from './componentes/Comentarios';
+import { MenuAdmin } from './componentes/MenuAdmin';
+import { Clientes } from './componentes/Clientes';
 
 
 
@@ -55,26 +57,22 @@ function MyDrawer() {
   )
 }
 
-function UsuarioDrawer () {
+function Admin() {
   return (
-    <Drawer.Navigator initialRouteName='FeedLogado'>
-      <Drawer.Screen name="FeedLogado" component={Feed} />
-      <Drawer.Screen name="Perfil" component={Perfil} />
-      <Drawer.Screen name="AdicionarPet" component={AdicionarPet} />
-      <Drawer.Screen name="Hotel" component={Calendario} />
-      <Drawer.Screen name="Passeio" component={Passeio} />
-      <Drawer.Screen name="Adestramento" component={Adestramento} />
-      <Drawer.Screen name="Agility" component={Agility} />
+    <Drawer.Navigator initialRouteName='Clientes'>
+      <Drawer.Screen name='MenuAdmin' component={MenuAdmin}/>
+      <Drawer.Screen name='Clientes' component={Clientes}/>
     </Drawer.Navigator>
   )
 }
+
 
 export default function App() {
 
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName='Admin' screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
         <Stack.Screen name='Home' component={MyDrawer} />
@@ -84,7 +82,7 @@ export default function App() {
         <Stack.Screen name='Adestramento' component={Adestramento} />
         <Stack.Screen name='Agility' component={Agility} />
         <Stack.Screen name='Comentarios' component={Comentarios}/>
-        <Stack.Screen name='HomeLogado' component={UsuarioDrawer} />
+        <Stack.Screen name='Admin' component={Admin}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -16,8 +16,8 @@ export function Feed({ navigation, route }) {
   // const foto = require(fotoPerfil)
 
   function getUsers() {
-    // fetch('http://localhost/api/usuarios')
-    fetch('http://192.168.0.11/api/usuarios')
+    fetch('http://localhost/api/usuarios')
+    // fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
