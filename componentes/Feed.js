@@ -5,42 +5,41 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export function Feed({ navigation, route }) {
 
+  
   const [visible, setVisible] = React.useState(false);
   const [nome, setNome] = React.useState(null);
   const [fotoPerfil, setFotoPerfil] = React.useState(null);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
-  const { cd_cliente , nm_cliente } = route.params || { cd_cliente: null };
+  const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
+  // const foto = require(fotoPerfil)
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
-    //fetch('http://192.168.0.11/api/usuarios')
+    // fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
 
-  function validaCliente() {
-    users.forEach((user) => {
-      if (user.cd_cliente == cd_cliente) {
-        setNome(user.nm_cliente)
-        setFotoPerfil(user.fotoPerfil)
-        console.log(nome)
-      }
-    });
-  }
+
+
 
   if (users.length === 0 && cd_cliente !== null) {
     getUsers();
   }
-  console.log(cd_cliente)
-  console.log(users)
+
   React.useEffect(() => {
-     validaCliente();
-     getUsers();
-   
-  }, [,])
+    users.forEach((user) => {
+      if (cd_cliente == user.cd_cliente) {
+        setNome(user.nm_cliente)
+        setFotoPerfil(user.fotoPerfil)
+
+      }
+    })
+  }, [users])
+
 
   return (
 
@@ -68,7 +67,7 @@ export function Feed({ navigation, route }) {
               </View>
               <View>
                 {cd_cliente !== null && (
-                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nm_cliente}!</Text>
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
                 )}
               </View>
               <View>

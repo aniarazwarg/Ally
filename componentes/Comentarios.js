@@ -36,9 +36,10 @@ export function Comentarios({ navigation }) {
         }
     };
 
-    dataComentarios();
+    
 
     useEffect(() => {
+        dataComentarios();
         comentarios.forEach((comentario) => {
             if (id !== null && comentario.ok == 0 && id == comentario.id) {
                 updateCurtidas(id, { curtidas, descurtidas, ok });
@@ -47,7 +48,7 @@ export function Comentarios({ navigation }) {
                 updateCurtidas(id, { curtidas, descurtidas, ok });
             }
         });
-    }, [curtidas, descurtidas, id]);
+    }, [,]);
 
 
     return (
@@ -57,7 +58,7 @@ export function Comentarios({ navigation }) {
                 <View style={styles.header}>
                     <View style={styles.headerConteudo}>
                         <View>
-                            <TouchableOpacity onPress={() => navigation.navigate('HomeLogado')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                                 <Image source={require('../assets/icon-back.png')}
                                     style={styles.logosHeader}
                                 />

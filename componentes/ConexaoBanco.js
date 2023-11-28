@@ -83,11 +83,12 @@ export function ConexaoBanco({ navigation }) {
             .then((json) => setCometarios(json))
     }
 
-    data();
+    
 
    
 
     useEffect(() => {
+        data();
     }, []);
 
 
