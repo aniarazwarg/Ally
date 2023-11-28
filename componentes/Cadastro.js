@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
+import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import validator from 'validator';
+import { Modal, Portal,  PaperProvider } from 'react-native-paper';
+
 
 
 
@@ -206,10 +208,10 @@ export function Cadastro({ navigation }) {
 
 
   //Função cadastro
-
+  
   const enviarDados = () => {
-    // fetch('http://localhost/api/cadastro', {
-    fetch('http://192.168.0.11/api/cadastro', {
+     fetch('http://localhost/api/cadastro', {
+  //  fetch('http://192.168.0.11/api/cadastro', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -232,7 +234,6 @@ export function Cadastro({ navigation }) {
         console.error('Erro:', error);
       });
   };
-
 
 
   // DatePicker
@@ -320,12 +321,28 @@ export function Cadastro({ navigation }) {
     // setForceRerender(prevState => !prevState);
   }, [dateOfBirth, nasc, telefone, confirmPassword])
 
+  
+  const [visibleAlert, setVisibleAlert] = React.useState(false);
+  const showModalAlert = () => setVisibleAlert(true);
+  const hideModalAlert = () => setVisibleAlert(false);
+  const containerStyle = { backgroundColor: 'white', padding: 20 };
 
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
       extraScrollHeight={100}>
+
+<PaperProvider>
+  <Portal>
+    <Modal visible={visibleAlert} onDismiss={hideModalAlert} contentContainerStyle={containerStyle}>
+                 <Text>Ocorreu um Errro :( </Text>   
+    </Modal>
+  </Portal>
+
+  <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
+
       <View>
+
         <View>
           <View style={styles.image}>
             <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
@@ -382,12 +399,12 @@ export function Cadastro({ navigation }) {
             value={cpf}
           />
           <TextInput
-            style={styles.input}
-            placeholder='Data de nascimento'
-            placeholderTextColor={'#273A73'}
-            onChangeText={handleNascChange}
-            autoComplete='birthdate-full'
-            value={nasc}
+          style={styles.input}
+          placeholder='Data de nascimento'
+          placeholderTextColor={'#273A73'}
+          onChangeText={handleNascChange}
+          autoComplete='birthdate-full'
+          value={nasc}
           />
           {/* {!showPicker && (
             <Pressable
@@ -428,6 +445,9 @@ export function Cadastro({ navigation }) {
           </View>
         </View>
       </View>
+      </ImageBackground>
+      </PaperProvider>
+
     </KeyboardAwareScrollView>
   );
 }
@@ -443,8 +463,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logoBrothers: {
-    height: 100,
-    width: '70%',
+    height: 120,
+    width: '90%',
+    backgroundColor: '#F8F4E8',
+    borderRadius: 20,
+    margin: 10,
   },
   welcome: {
     alignItems: 'center',

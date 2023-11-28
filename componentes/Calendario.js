@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
+import { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { Modal, Portal,  PaperProvider, Snackbar } from 'react-native-paper';
 
 LocaleConfig.locales['fr'] = {
 
@@ -32,6 +33,11 @@ export function Calendario({ navigation }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [markedDates, setMarkedDates] = useState({});
+
+  const [visible2, setVisible2] = React.useState(false);
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
+
 
   const onDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
@@ -76,7 +82,7 @@ export function Calendario({ navigation }) {
   };
 
   function validaAgendamento() {
-    // alert("Seu pedido de reserva foi enviado com sucesso! ");
+    onToggleSnackBar();
     agendar();
     // navigation.navigate('Home');
   };
@@ -85,61 +91,69 @@ export function Calendario({ navigation }) {
 
 
   return (
+    <PaperProvider>
     <View style={styles.container}>
-      <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas.jpg')}>
-        <View>
-          <Text style={styles.header}>Agendamento no Hotel</Text>
-        </View>
-        <View>
-          <Calendar
-            onDayPress={onDayPress}
-            markedDates={markedDates}
-            enableSwipeMonths={true}
-            style={{
-              borderWidth: 1,
-              borderColor: 'gray',
-              margin: 25,
-              borderRadius: 10,
+      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
+      <View>
+        <Text style={styles.header}>Agendamento no Hotel</Text>
+      </View>
+      <View>
+        <Calendar
+          onDayPress={onDayPress}
+          markedDates={markedDates}
+          enableSwipeMonths={true}
+          style={{
+            borderWidth: 1,
+            borderColor: 'gray',
+            margin: 25,
+            borderRadius: 10,
+          }}
+          theme={{
+            backgroundColor: '#ffffff',
+            calendarBackground: '#ffffff',
+            textSectionTitleColor: '#b6c1cd',
+            selectedDayBackgroundColor: '#00adf5',
+            selectedDayTextColor: '#ffffff',
+            todayTextColor: '#00adf5',
+            dayTextColor: '#2d4150',
+            textDisabledColor: '#d9e',
+            
             }}
-            theme={{
-              backgroundColor: '#ffffff',
-              calendarBackground: '#ffffff',
-              textSectionTitleColor: '#b6c1cd',
-              selectedDayBackgroundColor: '#00adf5',
-              selectedDayTextColor: '#ffffff',
-              todayTextColor: '#00adf5',
-              dayTextColor: '#2d4150',
-              textDisabledColor: '#d9e',
-
-            }}
-          />
-        </View>
-        <View>
-          <TextInput
-            placeholder='Check in'
-            style={styles.input}
-            value={selectedStartDate !== null ? selectedStartDate : ''}
-            keyboardType="numeric"
-          />
-          <TextInput
-            placeholder='Check out'
-            style={styles.input}
-            value={selectedEndDate !== null ? selectedEndDate : ''}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={{ marginHorizontal: 25, marginTop: 10 }}>
-          <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
-            <Text style={styles.textButton}>Agendar</Text>
-          </TouchableOpacity>
+        />
+      </View>
+      <View>
+        <TextInput
+          placeholder='Check in'
+          style={styles.input}
+          value={selectedStartDate !== null ? selectedStartDate : ''}
+          keyboardType="numeric"
+        />
+        <TextInput
+          placeholder='Check out'
+          style={styles.input}
+          value={selectedEndDate !== null ? selectedEndDate : ''}
+          keyboardType="numeric"
+        />
+      </View>
+      <View style={{ marginHorizontal: 25, marginTop: 10 }}>
+        <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
+          <Text style={styles.textButton}>Agendar</Text>
+        </TouchableOpacity>
         </View>
         <View style={{ marginHorizontal: 25, marginTop: 10 }}>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
             <Text style={styles.textButton}>Voltar</Text>
           </TouchableOpacity>
-        </View>
-      </ImageBackground>
+      </View></ImageBackground>
     </View>
+    <Snackbar
+    visible={visible2}
+    onDismiss={onDismissSnackBar}
+    duration={700}
+    >
+   Seu pedido de reserva foi enviado com sucesso!
+  </Snackbar>
+</PaperProvider>
   );
 }
 

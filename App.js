@@ -23,7 +23,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,
@@ -50,7 +50,7 @@ function MyDrawer() {
       />
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="Cadastro" component={Cadastro} />
-      {/* <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} /> */}
+      <Drawer.Screen name="ConexaoBanco" component={ConexaoBanco} />
     </Drawer.Navigator>
   )
 }
@@ -75,6 +75,7 @@ export default function App() {
     // estrutura do app
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='Feed' component={Feed} />
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
         <Stack.Screen name='Home' component={MyDrawer} />

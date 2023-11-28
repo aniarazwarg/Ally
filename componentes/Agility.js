@@ -108,10 +108,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoBrothers: {
-    maxHeight: 300,
-    maxWidth: 300,
-    width: "90%",
-    height: 300
+    maxHeight: 400,
+    maxWidth: 400,
+    width: "90%"
   },
   servicos: {
     flexDirection: 'row',

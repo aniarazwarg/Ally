@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { Modal, Portal,  PaperProvider,Button, Snackbar } from 'react-native-paper';
+
 
 export function Login({ navigation }) {
 
@@ -15,35 +17,90 @@ export function Login({ navigation }) {
   };
 
   function validaUsuario() {
-    users.forEach((user) => {
-      if (user.email === email && user.senha === senha) {
-        alert("Login realizado com sucesso!");
-        navigation.navigate('HomeLogado', { cd_cliente: user.cd_cliente });
-        setEmail('');
-        setSenha('');
-      } else {
-        console.log(email, senha)
+//alert importante para a futura validação abaixo
+ 
+    $validacao = users.find(user => user.email == email)
+     
+      try {
+         if ($validacao.email == email && $validacao.senha == senha) {
+       showModalAlertSucesso();
+      } 
+      else {
+        onToggleSnackBar();
       }
-    })
+      }
+      catch {
+        onToggleSnackBar();
+      }
+     
+      
+    
   }
+  
+ function NavigateLogin() {
+
+  users.forEach((user) => {
+ 
+    if (user.email == email) {
+       navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+    } 
+   
+  })
+
+ }
+
 
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
+     
   }
 
 
   useEffect(() => {
-    getUsers();
-  }, [users])
+   getUsers();
+  }, [,])
+
+  const [visibleAlertErro, setVisibleAlertErro] = React.useState(false);
+  const showModalAlertErro = () => setVisibleAlertErro(true);
+  const hideModalAlertErro = () => setVisibleAlertErro(false);
+
+  const [visibleAlertSucesso, setVisibleAlertSucesso] = React.useState(false);
+  const showModalAlertSucesso = () => setVisibleAlertSucesso(true);
+  const hideModalAlertSucesso = () => setVisibleAlertSucesso(false);
+
+  const [visible2, setVisible2] = React.useState(false);
+
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
+
+  const containerStyle = { backgroundColor: 'white', padding: 20 };
+ 
 
 
   return (
-    <View style={styles.container}>
+   
+    <PaperProvider>
+      
+  <Portal>
+
+     <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} contentContainerStyle={containerStyle}>
+                 <Text>Login Feito com Sucesso ☺</Text>   
+    </Modal>
+    
+    <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} contentContainerStyle={containerStyle}>
+                 <Text>Ocorreu um Errro ;-; </Text>   
+    </Modal>
+
+   
+  </Portal>
+
+    <View style={styles.container} 
+    >
       {/* Imagem */}
-      <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas.jpg')}>
+      <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas2.jpg')}>
         <View style={styles.imagem}>
           <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
         </View>
@@ -54,15 +111,12 @@ export function Login({ navigation }) {
             placeholder="Email"
             placeholderTextColor={'#596AA1'}
             onChangeText={handleEmailChange}
-            value={email}
           />
           <TextInput
             style={styles.input}
             placeholder="Senha"
             placeholderTextColor={'#596AA1'}
-            secureTextEntry={true}
             onChangeText={handleSenhaChange}
-            value={senha}
           />
         </View>
         {/* Botão entrar/cadastrar*/}
@@ -81,11 +135,20 @@ export function Login({ navigation }) {
             <Text style={styles.texto}>Esqueceu a senha?</Text>
           </TouchableOpacity>
         </View>
-        {/* {users.map((user) => (
+        {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
-        ))} */}
+        ))}
+
+         <Snackbar
+        visible={visible2}
+        onDismiss={onDismissSnackBar}
+        duration={400}
+        >
+       Erro ao acessar conta. Tente Novamente.
+      </Snackbar>
       </ImageBackground>
     </View>
+    </PaperProvider>
   );
 }
 
@@ -103,7 +166,7 @@ const styles = StyleSheet.create({
   logoBrothers: {
     height: 150,
     width: '100%',
-    backgroundColor: '#F6F1EB',
+    backgroundColor: '#F8F4E8',
     borderRadius: 20
   },
   form: {

@@ -71,6 +71,7 @@ export function Comentarios({ navigation }) {
                 <View style={styles.comentarios}>
                     {comentarios.map((comentario) => (
                         <View key={comentario.id}>
+                             <Text>{comentario.id}</Text>
                             <View style={styles.comentarioCard}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>

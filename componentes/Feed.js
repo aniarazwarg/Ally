@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar } from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar, ImageBackground } from "react-native";
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -11,48 +11,51 @@ export function Feed({ navigation, route }) {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
-  const { cd_cliente } = route.params || { cd_cliente: null };
+  const { cd_cliente , nm_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
-  // const foto = require(fotoPerfil)
 
   function getUsers() {
-    // fetch('http://localhost/api/usuarios')
-    fetch('http://192.168.0.11/api/usuarios')
+    fetch('http://localhost/api/usuarios')
+    //fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
 
-
-  console.log(nome, cd_cliente)
+  function validaCliente() {
+    users.forEach((user) => {
+      if (user.cd_cliente == cd_cliente) {
+        setNome(user.nm_cliente)
+        setFotoPerfil(user.fotoPerfil)
+        console.log(nome)
+      }
+    });
+  }
 
   if (users.length === 0 && cd_cliente !== null) {
     getUsers();
   }
-
+  console.log(cd_cliente)
+  console.log(users)
   React.useEffect(() => {
-    users.forEach((user) => {
-      if (cd_cliente == user.cd_cliente) {
-        setNome(user.nm_cliente)
-        setFotoPerfil(user.fotoPerfil)
-
-      }
-    })
-  }, [users])
+     validaCliente();
+     getUsers();
+   
+  }, [,])
 
   return (
 
     <PaperProvider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text>Não imprementado</Text>
+          <Text>Não implementado</Text>
         </Modal>
       </Portal>
-
 
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
+<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
           {/* Header */}
           <View style={styles.header}>
             <View style={styles.headerConteudo}>
@@ -64,13 +67,9 @@ export function Feed({ navigation, route }) {
                 </TouchableOpacity>
               </View>
               <View>
-                {nome !== null && (
-                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
+                {cd_cliente !== null && (
+                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nm_cliente}!</Text>
                 )}
-                {nome == null && (
-                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo!</Text>
-                )}
-
               </View>
               <View>
                 {cd_cliente == null && (
@@ -101,24 +100,13 @@ export function Feed({ navigation, route }) {
           </View>
           {/* Logo serviços */}
           <View style={styles.servicos}>
-            {cd_cliente == null && (
-              <TouchableOpacity style={styles.servico}
-                onPress={() => navigation.navigate('Login')}>
-                <Image source={require('../assets/hotel.png')}
-                  style={styles.logoServicos}
-                />
-                <Text style={styles.textServicos}>Hotel</Text>
-              </TouchableOpacity>
-            )}
-            {cd_cliente !== null && (
-              <TouchableOpacity style={styles.servico}
-                onPress={() => navigation.navigate('Calendario')}>
-                <Image source={require('../assets/hotel.png')}
-                  style={styles.logoServicos}
-                />
-                <Text style={styles.textServicos}>Hotel</Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity style={styles.servico}
+              onPress={() => navigation.navigate('Calendario')}>
+              <Image source={require('../assets/hotel.png')}
+                style={styles.logoServicos}
+              />
+              <Text style={styles.textServicos}>Hotel</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.servico}
               onPress={() => navigation.navigate('Passeio')}>
               <Image source={require('../assets/passeio.png')}
@@ -163,7 +151,7 @@ export function Feed({ navigation, route }) {
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
               <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
-                <Text>Leia mais {'>'}</Text>
+                <Text >Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.comentarios}>
@@ -240,18 +228,18 @@ export function Feed({ navigation, route }) {
               placeholder="Informe seu email ou whatsapp"
               style={styles.inputComentario}
             />
-            <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
-              <Text>Enviar Comentário</Text>
-            </TouchableOpacity>
-          </View>
+             <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
+                <Text > Enviar Comentário</Text>
+              </TouchableOpacity>
+          </View></ImageBackground>
         </ScrollView>
       </View>
 
-
+  
     </PaperProvider>
 
 
-
+  
   );
 };
 
@@ -259,10 +247,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2EAD0',
+    
     paddingTop: StatusBar.currentHeight,
   },
   scrollView: {
-
+    
   },
   header: {
     zIndex: 1,
@@ -278,7 +267,7 @@ const styles = StyleSheet.create({
   },
   logosHeader: {
     width: 40,
-    height: 40,
+    height: 40
   },
   logosHeader2: {
     width: 40,
@@ -289,8 +278,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoBrothers: {
-    height: 150,
+    height: 120,
     width: '90%',
+    backgroundColor: '#F6F1EB',
+    borderRadius: 20,
+    margin: 10,
+    
   },
   servicos: {
     flexDirection: 'row',
@@ -352,7 +345,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 3,
     paddingHorizontal: 15,
-    borderRadius: 10
+    borderRadius: 10,
+    backgroundColor:'#F2EAD0',
+    color:'white'
+
   },
   comentarios: {
     flexDirection: 'row',
@@ -400,6 +396,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 15,
     borderRadius: 10,
-    width: '35%',
+    width:'35%',
+    backgroundColor:'#F2EAD0',
+    color:'white'
   },
 });
