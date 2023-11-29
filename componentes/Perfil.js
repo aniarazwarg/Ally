@@ -72,7 +72,7 @@ export function Perfil({ navigation, route }) {
                         <View style={styles.pet}>
                             <Image style={styles.iconPet} source={require('../assets/icon_pet.png')} />
                         </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('AdicionarPet')} style={styles.botaoAdicionar}>
+                        <TouchableOpacity onPress={() => navigation.navigate('AdicionarPet', { cd_cliente: cd_cliente })} style={styles.botaoAdicionar}>
                             <Text style={styles.textoBotao}>Adicionar</Text>
                         </TouchableOpacity>
                     </View>
@@ -80,7 +80,7 @@ export function Perfil({ navigation, route }) {
                         <View style={styles.pet}>
                             <Image style={styles.iconPet} source={require('../assets/icon_pet.png')} />
                         </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('AdicionarPet')} style={styles.botaoAdicionar}>
+                        <TouchableOpacity onPress={() => navigation.navigate('AdicionarPet', { cd_cliente: cd_cliente })} style={styles.botaoAdicionar}>
                             <Text style={styles.textoBotao}>Adicionar</Text>
                         </TouchableOpacity>
                     </View>
@@ -88,7 +88,7 @@ export function Perfil({ navigation, route }) {
                         <View style={styles.pet}>
                             <Image style={styles.iconPet} source={require('../assets/icon_pet.png')} />
                         </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('AdicionarPet')} style={styles.botaoAdicionar}>
+                        <TouchableOpacity onPress={() => navigation.navigate('AdicionarPet', { cd_cliente: cd_cliente })} style={styles.botaoAdicionar}>
                             <Text style={styles.textoBotao}>Adicionar</Text>
                         </TouchableOpacity>
                     </View>
