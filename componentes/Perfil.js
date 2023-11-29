@@ -1,5 +1,6 @@
-import react, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput} from "react-native";
+import { Modal, Portal, Button, PaperProvider } from 'react-native-paper';
 
 export function Perfil({ navigation, route }) {
 
@@ -9,6 +10,22 @@ export function Perfil({ navigation, route }) {
     const [users, setUsers] = useState([])
     const [nome, setNome] = useState(null)
     const [fotoPerfil, setFotoPerfil] = useState(null)
+
+
+    
+    const [visibleTel, setVisibleTel] = React.useState(false);
+    const showModalTel = () => setVisibleTel(true);
+    const hideModalTel = () => setVisibleTel(false);
+
+    const [visibleEmail, setVisibleEmail] = React.useState(false);
+    const showModalEmail = () => setVisibleEmail(true);
+    const hideModalEmail = () => setVisibleEmail(false);
+
+    const [visibleEnd, setVisibleEnd] = React.useState(false);
+    const showModalEnd = () => setVisibleEnd(true);
+    const hideModalEnd = () => setVisibleEnd(false);
+
+    const containerStyle = { backgroundColor: 'white', padding: 20 };
 
 
     const { cd_cliente } = route.params || { cd_cliente: null };
@@ -35,6 +52,49 @@ export function Perfil({ navigation, route }) {
 
 
     return (
+
+        <PaperProvider>
+        <Portal>
+         {/* Modal Telefone */}
+          <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
+                    <TextInput  
+                        placeholder="Altere o Telefone"
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20,}}               
+                        />
+                    
+            
+                <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalTel}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
+                    </TouchableOpacity>
+          </Modal>
+         {/* Modal Email */}
+
+          <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
+          <TextInput  
+                        placeholder="Altere o Email"
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} 
+                          />
+                  
+            
+                <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalEmail}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
+                    </TouchableOpacity>
+          </Modal>
+
+          <Modal visible={visibleEnd} onDismiss={hideModalEnd} contentContainerStyle={containerStyle}>
+          <TextInput  
+                        placeholder="Altere o Endereço"
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} 
+                          />
+                   
+            
+                <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalEnd}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
+                    </TouchableOpacity>
+          </Modal>
+
+        </Portal>
+
         <View style={styles.container}>
             <View style={{ marginTop: 20 }}>
                 {fotoPerfil !== null && (
@@ -49,19 +109,19 @@ export function Perfil({ navigation, route }) {
                 <View style={styles.campo}>
                     <Text style={styles.informacao}>Telefone: {telefone}</Text>
                     <TouchableOpacity style={styles.botaoEditar}>
-                        <Text style={styles.textoBotao}>Editar</Text>
+                        <Text style={styles.textoBotao} onPress={showModalTel}>Editar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.campo}>
                     <Text style={styles.informacao}>Email: {email}</Text>
                     <TouchableOpacity style={styles.botaoEditar}>
-                        <Text style={styles.textoBotao}>Editar</Text>
+                        <Text style={styles.textoBotao} onPress={showModalEmail}>Editar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.campo}>
                     <Text style={styles.informacao}>Endereço: {endereco}</Text>
                     <TouchableOpacity style={styles.botaoEditar}>
-                        <Text style={styles.textoBotao}>Editar</Text>
+                        <Text style={styles.textoBotao} onPress={showModalEnd}>Editar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -100,6 +160,7 @@ export function Perfil({ navigation, route }) {
                 </TouchableOpacity>
             </View>
         </View>
+        </PaperProvider>
     );
 }
 
@@ -143,6 +204,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 20,
         marginRight: 2
+    },
+    botaoEditar2: {
+        justifyContent: 'center',
+        backgroundColor: '#6FAA9C',
+        padding: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        marginRight: 2,
+        marginTop:20,
     },
     textoBotao: {
         color: 'white',
