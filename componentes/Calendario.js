@@ -93,7 +93,7 @@ export function Calendario({ navigation }) {
   return (
     <PaperProvider>
     <View style={styles.container}>
-      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas.jpg')}>
+      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
       <View>
         <Text style={styles.header}>Agendamento no Hotel</Text>
       </View>

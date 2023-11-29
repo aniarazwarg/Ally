@@ -86,11 +86,11 @@ export function Login({ navigation }) {
       
   <Portal>
 
-     <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} contentContainerStyle={containerStyle}>
-                 <Text>Login Feito com Sucesso ☺</Text>   
+     <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} >
+                 <Text style={styles.modal}>Login Feito com Sucesso</Text>   
     </Modal>
     
-    <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} contentContainerStyle={containerStyle}>
+    <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} >
                  <Text>Ocorreu um Errro ;-; </Text>   
     </Modal>
 
@@ -162,6 +162,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal: 20,
+  },
+  modal:{
+    fontSize:40,
+    textAlign:'center',
+    borderWidth:2,
+    borderColor:'black',
+    borderRadius:10,
+    backgroundColor:'white',
+    
   },
   logoBrothers: {
     height: 150,
