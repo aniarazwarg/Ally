@@ -21,25 +21,30 @@ export function Feed({ navigation, route }) {
     // fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
+      
   }
 
 
-
+ 
 
   if (users.length === 0 && cd_cliente !== null) {
     getUsers();
+    
   }
-
-  React.useEffect(() => {
+ 
+  React.useEffect(() => { 
     users.forEach((user) => {
       if (cd_cliente == user.cd_cliente) {
         setNome(user.nm_cliente)
         setFotoPerfil(user.fotoPerfil)
-
+         
+      }
+      else{
+         
       }
     })
-  }, [users])
-
+  }, [users]);
+ 
 
   return (
 
@@ -59,11 +64,13 @@ export function Feed({ navigation, route }) {
           <View style={styles.header}>
             <View style={styles.headerConteudo}>
               <View>
+                 {(cd_cliente == null ) && (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
+    
                   <Image source={require('../assets/menu-bar.png')}
                     style={styles.logosHeader}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity>)}
               </View>
               <View>
                 {cd_cliente !== null && (
@@ -98,6 +105,7 @@ export function Feed({ navigation, route }) {
               style={styles.logoBrothers} />
           </View>
           {/* Logo serviços */}
+          {(cd_cliente != null ) && (
           <View style={styles.servicos}>
             <TouchableOpacity style={styles.servico}
               onPress={() => navigation.navigate('Calendario')}>
@@ -127,7 +135,7 @@ export function Feed({ navigation, route }) {
               />
               <Text style={styles.textServicos}>Agility</Text>
             </TouchableOpacity>
-          </View>
+          </View>)}
           {/* Noticias */}
           <View style={styles.noticias}>
             <Text style={styles.textTopicos}>Notícias:</Text>
