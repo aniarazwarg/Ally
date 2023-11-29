@@ -28,10 +28,24 @@ export function Clientes({ navigation, route }) {
                         <Text>Email: {user.email}</Text>
                         <Text>CPF: {user.cpf}</Text>
                         <Text>Telfone: {user.telefone}</Text>
+                        <TouchableOpacity style={styles.botaoVer}>
+                            <Text style={{color:'white'}}>Ver</Text>
+                        </TouchableOpacity>
                     </View>
                 ))}
             </View>
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    botaoVer: {
+        backgroundColor: '#6FAA9C',
+        padding: 5,
+        alignItems:'center',
+        borderRadius: 20,
+        marginRight: 2,
+        marginTop: 10,
+    },
+})
 
