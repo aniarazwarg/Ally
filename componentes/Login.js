@@ -113,6 +113,7 @@ export function Login({ navigation }) {
             onChangeText={handleEmailChange}
           />
           <TextInput
+           secureTextEntry={true}
             style={styles.input}
             placeholder="Senha"
             placeholderTextColor={'#596AA1'}
