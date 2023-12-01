@@ -16,6 +16,7 @@ import { Agility } from './componentes/Agility';
 import { Comentarios } from './componentes/Comentarios';
 import { MenuAdmin } from './componentes/MenuAdmin';
 import { Clientes } from './componentes/Clientes';
+import { Cliente } from './componentes/Cliente';
 
 
 
@@ -62,6 +63,7 @@ function Admin() {
     <Drawer.Navigator initialRouteName='Clientes'>
       <Drawer.Screen name='MenuAdmin' component={MenuAdmin}/>
       <Drawer.Screen name='Clientes' component={Clientes}/>
+      <Drawer.Screen name='Cliente' component={Cliente}/>
     </Drawer.Navigator>
   )
 }

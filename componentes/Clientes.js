@@ -28,7 +28,7 @@ export function Clientes({ navigation, route }) {
                         <Text>Email: {user.email}</Text>
                         <Text>CPF: {user.cpf}</Text>
                         <Text>Telfone: {user.telefone}</Text>
-                        <TouchableOpacity style={styles.botaoVer}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Cliente', { cd_cliente: user.cd_cliente })} style={styles.botaoVer}>
                             <Text style={{color:'white'}}>Ver</Text>
                         </TouchableOpacity>
                     </View>
