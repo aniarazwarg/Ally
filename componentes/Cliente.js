@@ -1,5 +1,6 @@
 import react, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native";
+import { Modal, Portal, PaperProvider } from 'react-native-paper';
 
 export function Cliente({ navigation, route }) {
 
@@ -11,6 +12,49 @@ export function Cliente({ navigation, route }) {
     const [nasc, setNasc] = useState('');
     const [users, setUsers] = useState([]);
     const { cd_cliente } = route.params || { cd_cliente: null };
+
+    const [visibleTel, setVisibleTel] = useState(false);
+    const showModalTel = () => setVisibleTel(true);
+    const hideModalTel = () => setVisibleTel(false);
+
+    const [visibleEmail, setVisibleEmail] = useState(false);
+    const showModalEmail = () => setVisibleEmail(true);
+    const hideModalEmail = () => setVisibleEmail(false);
+
+    const [visibleCpf, setVisibleCpf] = useState(false);
+    const showModalCpf = () => setVisibleCpf(true);
+    const hideModalCpf = () => setVisibleCpf(false);
+
+    const [visibleNasc, setVisibleNasc] = useState(false);
+    const showModalNasc = () => setVisibleNasc(true);
+    const hideModalNasc = () => setVisibleNasc(false);
+
+    const handleTelefoneChange = (text) => {
+        setTelefone(text);
+    };
+    const handleEmailChange = (text) => {
+        setEmail(text);
+    };
+    const handleCpfChange = (text) => {
+        setCpf(text);
+    };
+    const handleNascChange = (text) => {
+        const formatado = formatDateString(text);
+        setNasc(formatado);
+    };
+
+    // Formata data
+
+    const formatDateString = (text) => {
+        const cleaned = text.replace(/\D/g, '');
+        if (cleaned.length <= 2) {
+            return cleaned;
+        }
+        if (cleaned.length <= 4) {
+            return `${cleaned.slice(0, 2)}/${cleaned.slice(2)}`;
+        }
+        return `${cleaned.slice(0, 2)}/${cleaned.slice(2, 4)}/${cleaned.slice(4, 8)}`;
+    };
 
     function getUsers() {
         fetch('http://localhost/api/usuarios')
@@ -43,37 +87,95 @@ export function Cliente({ navigation, route }) {
     }, [cd_cliente,])
 
     return (
-        <View style={styles.container}>
-            <View style={{ marginTop: 20 }}>
-                {fotoPerfil !== null && (
-                    <Image style={styles.logoUser} source={'../assets/' + fotoPerfil}></Image>
-                )}
-                {fotoPerfil == null && (
-                    <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
-                )}
-                <Text style={styles.nomeText}>{nome}</Text>
-            </View>
-            <View style={{ width: '80%', marginTop: 5 }}>
-                <View style={styles.dados}>
-                    <Text style={styles.textDados}>{email}</Text>
-                    <TouchableOpacity style={styles.botaoEditar}>
-                        <Text style={{color:'white'}}>Editar</Text>
+        <PaperProvider>
+            <Portal>
+                <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
+                    <TextInput
+                        value={telefone}
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 10, borderRadius: 20, marginBottom: 10, }}
+                        onChangeText={handleTelefoneChange}
+                    />
+                    <TouchableOpacity style={styles.botaoEditar} onPress={hideModalTel}>
+                        <Text style={styles.textoBotao}>Concluir</Text>
                     </TouchableOpacity>
+                </Modal>
+                <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
+                    <TextInput
+                        value={email}
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 10, borderRadius: 20, marginBottom: 10 }}
+                        onChangeText={handleEmailChange} />
+                    <TouchableOpacity style={styles.botaoEditar} onPress={hideModalEmail}>
+                        <Text style={styles.textoBotao}>Concluir</Text>
+                    </TouchableOpacity>
+                </Modal>
+                <Modal visible={visibleCpf} onDismiss={hideModalCpf} contentContainerStyle={containerStyle}>
+                    <TextInput
+                        value={cpf}
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 10, borderRadius: 20, marginBottom: 10 }}
+                        onChangeText={handleCpfChange} />
+                    <TouchableOpacity style={styles.botaoEditar} onPress={hideModalCpf}>
+                        <Text style={styles.textoBotao}>Concluir</Text>
+                    </TouchableOpacity>
+                </Modal>
+                <Modal visible={visibleNasc} onDismiss={hideModalNasc} contentContainerStyle={containerStyle}>
+                    <TextInput
+                        value={nasc.split('-').reverse().join('/')}
+                        style={{ textAlign: 'center', borderWidth: 1, padding: 10, borderRadius: 20, marginBottom: 10 }}
+                        onChangeText={handleNascChange} />
+                    <TouchableOpacity style={styles.botaoEditar} onPress={hideModalNasc}>
+                        <Text style={styles.textoBotao}>Concluir</Text>
+                    </TouchableOpacity>
+                </Modal>
+
+            </Portal>
+
+            <View style={styles.container}>
+                <View style={{ marginTop: 20 }}>
+                    {fotoPerfil !== null && (
+                        <Image style={styles.logoUser} source={'../assets/' + fotoPerfil}></Image>
+                    )}
+                    {fotoPerfil == null && (
+                        <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
+                    )}
+                    <Text style={styles.nomeText}>{nome}</Text>
                 </View>
-                <View>
-                    <Text>{telefone}</Text>
-                </View>
-                <View>
-                    <Text>{cpf}</Text>
-                </View>
-                <View>
-                    <Text>{nasc}</Text>
+                <View style={{ width: '80%', marginTop: 5 }}>
+                    <View style={styles.dados}>
+                        <Text style={styles.textDados}>{email}</Text>
+                        <TouchableOpacity style={styles.botaoEditar} onPress={showModalEmail}>
+                            <Text style={{ color: 'white' }}>Editar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.dados}>
+                        <Text style={styles.textDados}>{telefone}</Text>
+                        <TouchableOpacity style={styles.botaoEditar} onPress={showModalTel}>
+                            <Text style={{ color: 'white' }}>Editar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.dados}>
+                        <Text style={styles.textDados}>{cpf}</Text>
+                        <TouchableOpacity style={styles.botaoEditar} onPress={showModalCpf}>
+                            <Text style={{ color: 'white' }}>Editar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.dados}>
+                        <Text style={styles.textDados}>{nasc.split('-').reverse().join('/')}</Text>
+                        <TouchableOpacity style={styles.botaoEditar} onPress={showModalNasc}>
+                            <Text style={{ color: 'white' }}>Editar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.dados}>
+                        <TouchableOpacity style={styles.botaoPet} onPress={showModalNasc}>
+                            <Text style={{ color: 'white' }}>Ver pets</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-        </View>
+        </PaperProvider>
     )
 }
 
+const containerStyle = { backgroundColor: 'white', padding: 20, paddingVertical: 50, borderRadius: 40, width: '90%', alignSelf: 'center' };
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -95,7 +197,7 @@ const styles = StyleSheet.create({
     dados: {
         padding: 5,
         flexDirection: 'row',
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'space-between',
     },
     textDados: {
@@ -107,6 +209,20 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingHorizontal: 20,
         borderRadius: 20,
-        marginRight: 2
+        marginRight: 2,
+        alignItems: 'center'
+    },
+    botaoPet: {
+        justifyContent: 'center',
+        backgroundColor: '#6FAA9C',
+        padding: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        marginRight: 2,
+        alignItems: 'center',
+        width:'100%',
+    },
+    textoBotao: {
+        color: 'white',
     },
 })
