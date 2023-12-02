@@ -150,7 +150,7 @@ export function AdicionarPet({ navigation, route }) {
         </View>
         <View style={{ alignItems: 'center', width: '100%' }}>
           <TouchableOpacity style={styles.button} onPress={AdicionarPet}>
-            <Text style={styles.textButton} >Envar</Text>
+            <Text style={styles.textButton} >Enviar</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -16,14 +16,7 @@ export function Pets({ navigation, route }) {
             .then((json) => setPets(json))
     }
 
-    function pet() {
-        pets.forEach(pet => {;
-            nome.push({
-                id: 
-                nome : pet.nm_cao
-            })
-        });
-    }
+   
     if (nome == '') {
         pet();
         if (pets.length > 1) {
