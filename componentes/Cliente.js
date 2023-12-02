@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native";
 import { Modal, Portal, PaperProvider } from 'react-native-paper';
 
@@ -165,8 +165,16 @@ export function Cliente({ navigation, route }) {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.dados}>
-                        <TouchableOpacity style={styles.botaoPet} onPress={showModalNasc}>
+                        <TouchableOpacity style={styles.botaoPet} onPress={() => navigation.navigate('Pets', {cd_cliente: cd_cliente})}>
                             <Text style={{ color: 'white' }}>Ver pets</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{flexDirection:'row', justifyContent:'center', marginTop: 100}}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.botaoVoltar}>
+                            <Text style={{ color: 'white' }}>Voltar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.botaoVoltar}>
+                            <Text style={{ color: 'white' }}>Salvar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -220,7 +228,17 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginRight: 2,
         alignItems: 'center',
-        width:'100%',
+        width: '100%',
+    },
+    botaoVoltar: {
+        justifyContent: 'center',
+        backgroundColor: '#6FAA9C',
+        padding: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        marginRight: 2,
+        alignItems: 'center',
+        width: '40%',
     },
     textoBotao: {
         color: 'white',

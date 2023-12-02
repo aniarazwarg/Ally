@@ -17,6 +17,7 @@ import { Comentarios } from './componentes/Comentarios';
 import { MenuAdmin } from './componentes/MenuAdmin';
 import { Clientes } from './componentes/Clientes';
 import { Cliente } from './componentes/Cliente';
+import { Pets } from './componentes/Pets';
 
 
 
@@ -63,8 +64,7 @@ function Admin() {
     <Drawer.Navigator initialRouteName='Clientes'>
       <Drawer.Screen name='MenuAdmin' component={MenuAdmin}/>
       <Drawer.Screen name='Clientes' component={Clientes}/>
-      <Drawer.Screen name='Cliente' component={Cliente}/>
-    </Drawer.Navigator>
+     </Drawer.Navigator>
   )
 }
 
@@ -85,6 +85,9 @@ export default function App() {
         <Stack.Screen name='Agility' component={Agility} />
         <Stack.Screen name='Comentarios' component={Comentarios}/>
         <Stack.Screen name='Admin' component={Admin}/>
+        <Stack.Screen name='Cliente' component={Cliente}/>
+        <Stack.Screen name='Pets' component={Pets}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
