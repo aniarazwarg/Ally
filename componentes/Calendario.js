@@ -136,7 +136,7 @@ export function Calendario({ navigation }) {
         />
       </View>
       <View style={{ marginHorizontal: 25, marginTop: 10 }}>
-        <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
+        <TouchableOpacity style={styles.button2} onPress={validaAgendamento}>
           <Text style={styles.textButton}>Agendar</Text>
         </TouchableOpacity>
         </View>
@@ -206,23 +206,18 @@ const styles = StyleSheet.create({
 
   button: {
     alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: '#273A73',
-    width: '40%',
-    padding: 10,
-    borderRadius: 20,
-    shadowRadius: 10,
-  },
-  button2: {
-    flexDirection: 'row',
-    justifyContent: 'center',
     backgroundColor: '#6FAA9C',
-    width: '40%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
     marginTop: 20,
-    shadowRadius: 10,
+  },
+  button2: {
+    alignItems: 'center',
+    backgroundColor: '#273A73',
+    width: '50%',
+    padding: 10,
+    borderRadius: 20,
   },
   texto: {
     textAlign: 'center',
@@ -246,6 +241,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: 'white',
-    fontSize: 20
+    fontSize: 20,
+    textAlign:'center',
   }
 });
