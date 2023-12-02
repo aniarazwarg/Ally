@@ -2,7 +2,7 @@ import react from "react";
 import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity, CheckBox } from "react-native";
 import React, { useState } from "react";
 
-export function AdicionarPet({ navigation }) {
+export function AdicionarPet({ navigation, route }) {
 
 
   const [nome, setNome] = useState('');
@@ -14,6 +14,7 @@ export function AdicionarPet({ navigation }) {
   const [antirrabica, setAntirrabica] = useState(false);
   const [gripe, setGripe] = useState(false);
   const [giardia, setGiardia] = useState(false);
+  const { cd_cliente } = route.params || { cd_cliente: null };
 
   const handleNomeChange = (text) => {
     setNome(text);
@@ -47,24 +48,7 @@ export function AdicionarPet({ navigation }) {
         porte: porte,
         cor: cor,
         peso: peso,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('Erro:', error);
-      });
-  };
-
-  const enviarVacinas = () => {
-    fetch('http://localhost/api/vacinas', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+        cd_cliente: cd_cliente,
         v8: v8,
         antirrabica: antirrabica,
         gripe: gripe,
@@ -79,9 +63,10 @@ export function AdicionarPet({ navigation }) {
         console.error('Erro:', error);
       });
   };
+
+  
   function AdicionarPet() {
     enviarDados();
-    enviarVacinas();
     // navigation.navigate('Home')
   }
 

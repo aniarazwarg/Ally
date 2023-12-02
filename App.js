@@ -14,6 +14,10 @@ import { ConexaoBanco } from './componentes/ConexaoBanco';
 import { Adestramento } from './componentes/Adestramento';
 import { Agility } from './componentes/Agility';
 import { Comentarios } from './componentes/Comentarios';
+import { MenuAdmin } from './componentes/MenuAdmin';
+import { Clientes } from './componentes/Clientes';
+import { Cliente } from './componentes/Cliente';
+import { Pets } from './componentes/Pets';
 
 
 
@@ -55,19 +59,15 @@ function MyDrawer() {
   )
 }
 
-function UsuarioDrawer () {
+function Admin() {
   return (
-    <Drawer.Navigator initialRouteName='FeedLogado'>
-      <Drawer.Screen name="FeedLogado" component={Feed} />
-      <Drawer.Screen name="Perfil" component={Perfil} />
-      <Drawer.Screen name="AdicionarPet" component={AdicionarPet} />
-      <Drawer.Screen name="Hotel" component={Calendario} />
-      <Drawer.Screen name="Passeio" component={Passeio} />
-      <Drawer.Screen name="Adestramento" component={Adestramento} />
-      <Drawer.Screen name="Agility" component={Agility} />
-    </Drawer.Navigator>
+    <Drawer.Navigator initialRouteName='Clientes'>
+      <Drawer.Screen name='MenuAdmin' component={MenuAdmin}/>
+      <Drawer.Screen name='Clientes' component={Clientes}/>
+     </Drawer.Navigator>
   )
 }
+
 
 export default function App() {
 
@@ -85,7 +85,10 @@ export default function App() {
         <Stack.Screen name='Adestramento' component={Adestramento} />
         <Stack.Screen name='Agility' component={Agility} />
         <Stack.Screen name='Comentarios' component={Comentarios}/>
-        <Stack.Screen name='HomeLogado' component={UsuarioDrawer} />
+        <Stack.Screen name='Admin' component={Admin}/>
+        <Stack.Screen name='Cliente' component={Cliente}/>
+        <Stack.Screen name='Pets' component={Pets}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
