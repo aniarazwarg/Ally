@@ -213,11 +213,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button2: {
-    alignItems: 'center',
     backgroundColor: '#273A73',
+    alignSelf: 'center',  
     width: '50%',
     padding: 10,
     borderRadius: 20,
+    marginTop: 20,
   },
   texto: {
     textAlign: 'center',
