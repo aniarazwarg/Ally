@@ -4,9 +4,19 @@ import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 
 export function Pets({ navigation, route }) {
 
-    const [nome, setNome] = useState([])
+    const [nome, setNome] = useState('')
+    const [pelagem, setPelagem] = useState('')
+    const [raca, setRaca] = useState('')
+    const [porte, setPorte] = useState('')
+    const [peso, setPeso] = useState('')
+    const [v8, setV8] = useState('')
+    const [antirrabica, setAntirrabica] = useState('')
+    const [gripe, setGripe] = useState('')
+    const [giardia, setGiardia] = useState('')
     const [pets, setPets] = useState([])
     const { cd_cliente } = route.params || { cd_cliente: null };
+
+    
 
 
     function getPets() {
@@ -16,14 +26,26 @@ export function Pets({ navigation, route }) {
             .then((json) => setPets(json))
     }
 
-   
+    function pet() {
+        pets.forEach(pet => {
+            if (pet.cd_cliente == cd_cliente) {
+                setNome(pet.nm_cao)
+                setPelagem(pet.ds_pelagem)
+                setRaca(pet.nm_raca)
+                setPorte(pet.ds_porte)
+                setPeso(pet.ds_peso)
+                setV8(pet.ic_v8_v10)
+                setAntirrabica(pet.ic_antirrabica)
+                setGripe(pet.ic_gripo)
+                setGiardia(pet.ic_giardia)
+            }
+        });
+    }
     if (nome == '') {
         pet();
-        if (pets.length > 1) {
-            console.log(pets)
-        }
+        
     }
-    console.log(nome)
+    console.log(pets)
     useEffect(() => {
         getPets();
     }, [,])
@@ -32,7 +54,7 @@ export function Pets({ navigation, route }) {
         <View style={styles.container}>
             {pets.map((pet) => (
                 <View key={pet.cd_cao}>
-                    <Text>{pet.nm_cao}</Text>
+                    <Text>{nome}</Text>
                 </View>
             ))}
         </View>
