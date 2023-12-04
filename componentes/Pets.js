@@ -13,10 +13,10 @@ export function Pets({ navigation, route }) {
     const [antirrabica, setAntirrabica] = useState('')
     const [gripe, setGripe] = useState('')
     const [giardia, setGiardia] = useState('')
-
-    
     const [pets, setPets] = useState([])
     const { cd_cliente } = route.params || { cd_cliente: null };
+
+    
 
 
     function getPets() {
@@ -45,7 +45,7 @@ export function Pets({ navigation, route }) {
         pet();
         
     }
-
+    console.log(pets)
     useEffect(() => {
         getPets();
     }, [,])
