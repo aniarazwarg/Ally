@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native"; 
+import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native";
 import { Modal, Portal, Button, PaperProvider } from 'react-native-paper';
 
 
@@ -16,7 +16,7 @@ export function Perfil({ navigation, route }) {
     const [reserva, setReserva] = useState('')
     const [checkIn, setCheckIn] = useState('')
     const [checkOut, setCheckOut] = useState('')
-    
+
     const { cd_cliente } = route.params || { cd_cliente: null };
 
 
@@ -24,7 +24,7 @@ export function Perfil({ navigation, route }) {
     const showModalTel = () => setVisibleTel(true);
     const hideModalTel = () => setVisibleTel(false);
 
-    const [visibleEmail, setVisibleEmail] =useState(false);
+    const [visibleEmail, setVisibleEmail] = useState(false);
     const showModalEmail = () => setVisibleEmail(true);
     const hideModalEmail = () => setVisibleEmail(false);
 
@@ -54,7 +54,59 @@ export function Perfil({ navigation, route }) {
         getReservas();
     }
 
-    
+
+    const updateEmail = () => {
+        fetch(`http://localhost/api/updateEmail/${cd_cliente}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email, // Updated email value
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data);
+                hideModalEmail();
+            })
+            .catch(error => {
+
+                console.error('Error:', error);
+            });
+    };
+
+    const resetValues = () => {
+        getUsers();
+        setEmail(users.find(user => user.cd_cliente === cd_cliente)?.email || '');
+        setTelefone(users.find(user => user.cd_cliente === cd_cliente)?.telefone || '');
+    };
+
+    // Função update telefone
+    const updateTelefone = () => {
+        fetch(`http://localhost/api/updateTelefone/${cd_cliente}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                telefone: telefone,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data);
+                hideModalTel();
+            })
+            .catch(error => {
+
+                console.error('Error:', error);
+            });
+    };
+
+
 
     useEffect(() => {
         users.forEach((user) => {
@@ -86,8 +138,11 @@ export function Perfil({ navigation, route }) {
                         value={telefone}
                         style={{ textAlign: 'center', borderWidth: 1, padding: 14, borderRadius: 20, }}
                     />
-                    <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalTel}>
-                        <Text style={styles.textoBotao}>Salvar</Text>
+                    <TouchableOpacity style={styles.botaoEditar2} onPress={updateTelefone}>
+                        <Text style={styles.textoBotao}>Atualizar Telefone</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.botaoEditar2} onPress={() => { hideModalTel(); resetValues(); }}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
                     </TouchableOpacity>
                 </Modal>
                 <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
@@ -97,8 +152,11 @@ export function Perfil({ navigation, route }) {
                         onChangeText={(text) => setEmail(text)}
                         style={{ textAlign: 'center', borderWidth: 1, padding: 14, borderRadius: 20 }}
                     />
-                    <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalEmail}>
-                        <Text style={styles.textoBotao}>Salvar</Text>
+                    <TouchableOpacity style={styles.botaoEditar2} onPress={updateEmail}>
+                        <Text style={styles.textoBotao}>Atualizar Email</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.botaoEditar2} onPress={() => { hideModalEmail(); resetValues(); }}>
+                        <Text style={styles.textoBotao}>Voltar</Text>
                     </TouchableOpacity>
                 </Modal>
             </Portal>
@@ -128,15 +186,9 @@ export function Perfil({ navigation, route }) {
                     </View>
                     <View style={styles.campo}>
                         <Text style={styles.informacao}>Status da reserva: {reserva}</Text>
-                        <TouchableOpacity style={styles.botaoEditar}>
-                            <Text style={styles.textoBotao}>Ver</Text>
-                        </TouchableOpacity>
                     </View>
                     <View style={styles.campo}>
                         <Text style={styles.informacao}>Data da reserva: {checkIn.split('-').reverse().join('/')} - {checkOut.split('-').reverse().join('/')}</Text>
-                        <TouchableOpacity style={styles.botaoEditar}>
-                            <Text style={styles.textoBotao}>Ver</Text>
-                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.campoPets}>
@@ -259,7 +311,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 20,
         marginRight: 2,
-        marginTop:20,
+        marginTop: 20,
     },
-   
+
 });

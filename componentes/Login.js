@@ -29,10 +29,10 @@ export function Login({ navigation }) {
   const handleSenhaChange = (text) => {
     setSenha(text);
   };
- const $validacao = users.find(user => user.email === email);
+  const $validacao = users.find(user => user.email === email);
   function validaUsuario() {
     //alert importante para a futura validação abaixo
-   
+
 
     try {
       if ($validacao && $validacao.email === email && $validacao.senha === senha) {
@@ -52,19 +52,21 @@ export function Login({ navigation }) {
     const admin = users.find(user => user.email === 'admin');
 
     if (user) {
-      if($validacao.email =="admin")
-      {
+      if ($validacao.email == "admin") {
         navigation.navigate('Admin')
+        hideModalAlertSucesso();
+        setEmail('')
+        setSenha('')
       }
-      else{
+      else {
         navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
-      hideModalAlertSucesso();
-      setEmail('')
-      setSenha('')
+        hideModalAlertSucesso();
+        setEmail('')
+        setSenha('')
       }
-      
+
     }
-   
+
   }
 
 
@@ -132,7 +134,7 @@ export function Login({ navigation }) {
             <TouchableOpacity style={styles.buttonEntrar} onPress={() => navigation.navigate('Feed')}>
               <Text style={styles.textButton}>Voltar</Text>
             </TouchableOpacity>
-           
+
           </View>
           {/* {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
@@ -214,12 +216,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F1EB',
     borderRadius: 20
   },
-  modal:{
-    fontSize:40,
-    textAlign:'center',
-    borderWidth:2,
-    borderColor:'black',
-    borderRadius:10,
-    backgroundColor:'white',
+  modal: {
+    fontSize: 40,
+    textAlign: 'center',
+    borderWidth: 2,
+    borderColor: 'black',
+    borderRadius: 10,
+    backgroundColor: 'white',
   },
 });

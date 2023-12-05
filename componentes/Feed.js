@@ -6,7 +6,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export function Feed({ navigation, route }) {
 
-  
+
   const [visible, setVisible] = React.useState(false);
   const [nome, setNome] = React.useState(null);
   const [fotoPerfil, setFotoPerfil] = React.useState(null);
@@ -32,41 +32,45 @@ export function Feed({ navigation, route }) {
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
-    // fetch('http://localhost/api/usuarios')
+      // fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
-      
+
   }
 
+  function sair() {
+    navigation.navigate('Feed', { cd_cliente: null })
+    hideModal();
+    setNome('')
+  }
 
- 
 
   if (users.length === 0 && cd_cliente !== null) {
     getUsers();
-    
+
   }
- 
-  React.useEffect(() => { 
+
+  React.useEffect(() => {
     dataComentarios()
     users.forEach((user) => {
       if (cd_cliente == user.cd_cliente) {
         setNome(user.nm_cliente)
-        setFotoPerfil(user.fotoPerfil) 
-        console.log(user.fotoPerfil) 
-        console.log(user.nm_cliente) 
+        setFotoPerfil(user.fotoPerfil)
+        console.log(user.fotoPerfil)
+        console.log(user.nm_cliente)
 
       }
-      
+
     })
   }, [users]);
- 
+
 
   return (
 
     <PaperProvider>
       <Portal>
-        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text>Não implementado</Text>
+        <Modal visible={visible} onDismiss={sair} contentContainerStyle={containerStyle}>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', textAlign: 'center' }}>Volte sempre!</Text>
         </Modal>
       </Portal>
 
@@ -74,174 +78,184 @@ export function Feed({ navigation, route }) {
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
-      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
-          {/* Header */}
-          <View style={styles.header}>
-            <View style={styles.headerConteudo}>
-              <View>
-                 {(cd_cliente == null ) && (
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-    
-                  <Image source={require('../assets/menu-bar.png')}
-                    style={styles.logosHeader}
-                  />
-                </TouchableOpacity>)}
-              </View>
-              <View>
-                {cd_cliente !== null && (
-                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
-                )}
-              </View>
-              <View>
-                {cd_cliente == null && (
-                  <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Image source={require('../assets/icon_usuario.png')}
-                      style={styles.logosHeader2} />
-                  </TouchableOpacity>
-                )}
-                {cd_cliente !== null && (
-                  <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
-                    {(fotoPerfil !== null && fotoPerfil !== "" ) && (
-                      <Image source={'../assets/' + fotoPerfil}
-                        style={styles.logosHeader2} />
-                    )}
+          <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas2.jpg')}>
+            {/* Header */}
+            <View style={styles.header}>
+              <View style={styles.headerConteudo}>
+                {(cd_cliente == null) && (
+                  <View>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
 
-                    {(fotoPerfil == null || fotoPerfil == "") && (
+                      <Image source={require('../assets/menu-bar.png')}
+                        style={styles.logosHeader}
+                      />
+                    </TouchableOpacity>
+                  </View>)}
+                {(cd_cliente !== null) && (
+                  <View>
+                    <TouchableOpacity onPress={showModal}>
+                      <Text style={{ fontWeight: 'bold' }}>Sair</Text>
+                    </TouchableOpacity>
+                  </View>)}
+                <View>
+                  {cd_cliente !== null && (
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
+                  )}
+                  {cd_cliente == null && (
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo!</Text>
+                  )}
+
+                </View>
+                <View>
+                  {cd_cliente == null && (
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                       <Image source={require('../assets/icon_usuario.png')}
                         style={styles.logosHeader2} />
-                    )}
+                    </TouchableOpacity>
+                  )}
+                  {cd_cliente !== null && (
+                    <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
+                      {(fotoPerfil !== null && fotoPerfil !== "") && (
+                        <Image source={'../assets/' + fotoPerfil}
+                          style={styles.logosHeader2} />
+                      )}
 
-                  </TouchableOpacity>
-                )}
-              </View>
-            </View>
-          </View>
-          {/* Logo Brothers */}
-          <View style={styles.imagem}>
-            <Image source={require('../assets/Logo_Brothers.png')}
-              style={styles.logoBrothers} />
-          </View>
-          {/* Logo serviços */}
-          {(cd_cliente != null ) && (
-          <View style={styles.servicos}>
-            {cd_cliente == null && (
-              <TouchableOpacity style={styles.servico}
-                onPress={() => navigation.navigate('Login')}>
-                <Image source={require('../assets/hotel.png')}
-                  style={styles.logoServicos}
-                />
-                <Text style={styles.textServicos}>Hotel</Text>
-              </TouchableOpacity>
-            )}
-            {cd_cliente !== null && (
-              <TouchableOpacity style={styles.servico}
-                onPress={() => navigation.navigate('Calendario', {cd_cliente: cd_cliente})}>
-                <Image source={require('../assets/hotel.png')}
-                  style={styles.logoServicos}
-                />
-                <Text style={styles.textServicos}>Hotel</Text>
-              </TouchableOpacity>
-            )}
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Passeio')}>
-              <Image source={require('../assets/passeio.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Passeio</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Adestramento')}>
-              <Image source={require('../assets/adestrar.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Adestramento</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Agility')}>
-              <Image source={require('../assets/agility.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Agility</Text>
-            </TouchableOpacity>
-          </View>)}
-          {/* Noticias */}
-          <View style={styles.noticias}>
-            <Text style={styles.textTopicos}>Notícias:</Text>
-            <View style={styles.noticia}>
-              <Image source={require('../assets/favicon.png')}
-                style={styles.logo3} />
-              <Text style={styles.text2}>Vagas para o feriado!</Text>
-            </View>
-            <View style={styles.noticia}>
-              <Image source={require('../assets/favicon.png')}
-                style={styles.logo3} />
-              <View>
-                <Text style={styles.text2}>Live no Instagram</Text>
-                <Text style={styles.text3}>Novidades pra vocês!</Text>
-              </View>
-            </View>
-          </View>
-         {/* Comentários */}
-      <View>
-        <View style={styles.comentariosHeader}>
-          <Text style={styles.textTopicos}>Comentários:</Text>
-          <TouchableOpacity
-            style={styles.leiaMais}
-            onPress={() => navigation.navigate("Comentarios")}
-          >
-            <Text>Leia mais {'>'}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.comentarios}>
-          
-          {comentarios.map((comentario) => (
-            <View key={comentario.id} style={styles.comentarioCard}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={require('../assets/icon_usuario.png')}
-                    style={{ width: 30, height: 30 }}
-                  />
-                  <Text style={styles.nomeUsuario}>{comentario.nome}</Text>
+                      {(fotoPerfil == null || fotoPerfil == "") && (
+                        <Image source={require('../assets/icon_usuario.png')}
+                          style={styles.logosHeader2} />
+                      )}
+
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={styles.textoComentario}>{comentario.comentario}</Text>
-              </View>
-             
             </View>
-          ))}
-        </View>
-      </View>
-          {/* Digita comentário */}
-          <View style={styles.digiteComentario}>
-            <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
-            <TextInput
-              placeholder="Digite o comentário"
-              style={styles.inputComentario}
-            />
-            <TextInput
-              placeholder="Informe seu email ou whatsapp"
-              style={styles.inputComentario}
-            />
-             <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
+            {/* Logo Brothers */}
+            <View style={styles.imagem}>
+              <Image source={require('../assets/Logo_Brothers.png')}
+                style={styles.logoBrothers} />
+            </View>
+            {/* Logo serviços */}
+            {(cd_cliente != null) && (
+              <View style={styles.servicos}>
+                {cd_cliente == null && (
+                  <TouchableOpacity style={styles.servico}
+                    onPress={() => navigation.navigate('Login')}>
+                    <Image source={require('../assets/hotel.png')}
+                      style={styles.logoServicos}
+                    />
+                    <Text style={styles.textServicos}>Hotel</Text>
+                  </TouchableOpacity>
+                )}
+                {cd_cliente !== null && (
+                  <TouchableOpacity style={styles.servico}
+                    onPress={() => navigation.navigate('Calendario', { cd_cliente: cd_cliente })}>
+                    <Image source={require('../assets/hotel.png')}
+                      style={styles.logoServicos}
+                    />
+                    <Text style={styles.textServicos}>Hotel</Text>
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity style={styles.servico}
+                  onPress={() => navigation.navigate('Passeio')}>
+                  <Image source={require('../assets/passeio.png')}
+                    style={styles.logoServicos}
+                  />
+                  <Text style={styles.textServicos}>Passeio</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.servico}
+                  onPress={() => navigation.navigate('Adestramento')}>
+                  <Image source={require('../assets/adestrar.png')}
+                    style={styles.logoServicos}
+                  />
+                  <Text style={styles.textServicos}>Adestramento</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.servico}
+                  onPress={() => navigation.navigate('Agility')}>
+                  <Image source={require('../assets/agility.png')}
+                    style={styles.logoServicos}
+                  />
+                  <Text style={styles.textServicos}>Agility</Text>
+                </TouchableOpacity>
+              </View>)}
+            {/* Noticias */}
+            <View style={styles.noticias}>
+              <Text style={styles.textTopicos}>Notícias:</Text>
+              <View style={styles.noticia}>
+                <Image source={require('../assets/favicon.png')}
+                  style={styles.logo3} />
+                <Text style={styles.text2}>Vagas para o feriado!</Text>
+              </View>
+              <View style={styles.noticia}>
+                <Image source={require('../assets/favicon.png')}
+                  style={styles.logo3} />
+                <View>
+                  <Text style={styles.text2}>Live no Instagram</Text>
+                  <Text style={styles.text3}>Novidades pra vocês!</Text>
+                </View>
+              </View>
+            </View>
+            {/* Comentários */}
+            <View>
+              <View style={styles.comentariosHeader}>
+                <Text style={styles.textTopicos}>Comentários:</Text>
+                <TouchableOpacity
+                  style={styles.leiaMais}
+                  onPress={() => navigation.navigate("Comentarios")}
+                >
+                  <Text>Leia mais {'>'}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.comentarios}>
+
+                {comentarios.map((comentario) => (
+                  <View key={comentario.id} style={styles.comentarioCard}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Image
+                          source={require('../assets/icon_usuario.png')}
+                          style={{ width: 30, height: 30 }}
+                        />
+                        <Text style={styles.nomeUsuario}>{comentario.nome}</Text>
+                      </View>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                      <Text style={styles.textoComentario}>{comentario.comentario}</Text>
+                    </View>
+
+                  </View>
+                ))}
+              </View>
+            </View>
+            {/* Digita comentário */}
+            <View style={styles.digiteComentario}>
+              <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
+              <TextInput
+                placeholder="Digite o comentário"
+                style={styles.inputComentario}
+              />
+              <TextInput
+                placeholder="Informe seu email ou whatsapp"
+                style={styles.inputComentario}
+              />
+              <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
                 <Text > Enviar Comentário</Text>
               </TouchableOpacity>
-          </View></ImageBackground>
+            </View></ImageBackground>
         </ScrollView>
       </View>
 
-  
+
     </PaperProvider>
 
 
-  
+
   );
 };
 
@@ -249,11 +263,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2EAD0',
-    
+
     paddingTop: StatusBar.currentHeight,
   },
   scrollView: {
-    
+
   },
   header: {
     zIndex: 1,
@@ -285,7 +299,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F1EB',
     borderRadius: 20,
     margin: 10,
-    
+
   },
   servicos: {
     flexDirection: 'row',
@@ -348,8 +362,8 @@ const styles = StyleSheet.create({
     padding: 3,
     paddingHorizontal: 15,
     borderRadius: 10,
-    backgroundColor:'#F2EAD0',
-    color:'white'
+    backgroundColor: '#F2EAD0',
+    color: 'white'
 
   },
   comentarios: {
@@ -366,14 +380,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#C0C0C0',
     height: 150,
-    
+
   },
   nomeUsuario: {
     marginLeft: 10,
   },
   textoComentario: {
     fontSize: 13,
-    margin:10,
+    margin: 10,
   },
 
   //Cria comentários
@@ -399,8 +413,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 15,
     borderRadius: 10,
-    width:'35%',
-    backgroundColor:'#F2EAD0',
-    color:'white'
+    width: '35%',
+    backgroundColor: '#F2EAD0',
+    color: 'white'
   },
 });
