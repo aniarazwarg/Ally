@@ -55,6 +55,7 @@ export function Perfil({ navigation, route }) {
   };
 
   const resetValues = () => {
+    getUsers();
     setEmail(users.find(user => user.cd_cliente === cd_cliente)?.email || '');
     setTelefone(users.find(user => user.cd_cliente === cd_cliente)?.telefone || '');
   };

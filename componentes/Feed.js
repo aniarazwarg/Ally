@@ -3,6 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Statu
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+
 export function Feed({ navigation, route }) {
 
   
@@ -15,6 +16,19 @@ export function Feed({ navigation, route }) {
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
   // const foto = require(fotoPerfil)
+
+  const [comentarios, setComentarios] = React.useState([]);
+
+  function dataComentarios() {
+    fetch('http://localhost/api/comentarios')
+      .then((response) => response.json())
+      .then((json) => {
+        // Assuming json is an array of comentarios
+        // Modify this logic to get only two comentarios
+        const limitedcomentarios = json.slice(0, 2);
+        setComentarios(limitedcomentarios);
+      });
+  }
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
@@ -33,6 +47,7 @@ export function Feed({ navigation, route }) {
   }
  
   React.useEffect(() => { 
+    dataComentarios()
     users.forEach((user) => {
       if (cd_cliente == user.cd_cliente) {
         setNome(user.nm_cliente)
@@ -59,7 +74,7 @@ export function Feed({ navigation, route }) {
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
-<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
+      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
           {/* Header */}
           <View style={styles.header}>
             <View style={styles.headerConteudo}>
@@ -166,77 +181,44 @@ export function Feed({ navigation, route }) {
               </View>
             </View>
           </View>
-          {/* Comentários */}
-          <View>
-            <View style={styles.comentariosHeader}>
-              <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
-                <Text >Leia mais {'>'}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.comentarios}>
-              <View style={styles.comentarioCard}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Image
-                      source={require('../assets/icon_usuario.png')}
-                      style={{ width: 30, height: 30 }}
-                    />
-                    <Text style={styles.nomeUsuario}>Maria</Text>
-                  </View>
+         {/* Comentários */}
+      <View>
+        <View style={styles.comentariosHeader}>
+          <Text style={styles.textTopicos}>Comentários:</Text>
+          <TouchableOpacity
+            style={styles.leiaMais}
+            onPress={() => navigation.navigate("Comentarios")}
+          >
+            <Text>Leia mais {'>'}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.comentarios}>
+          
+          {comentarios.map((comentario) => (
+            <View key={comentario.id} style={styles.comentarioCard}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Image
-                    source={require('../assets/avaliacao.png')}
-                    style={{ width: 50, height: 20 }}
+                    source={require('../assets/icon_usuario.png')}
+                    style={{ width: 30, height: 30 }}
                   />
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={styles.textoComentario}>Adorei a experiência que o Bob Marley teve com vocês!</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/like.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/dislike.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
+                  <Text style={styles.nomeUsuario}>{comentario.nome}</Text>
                 </View>
               </View>
-              <View style={styles.comentarioCard}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Image
-                      source={require('../assets/icon_usuario.png')}
-                      style={{ width: 30, height: 30 }}
-                    />
-                    <Text style={styles.nomeUsuario}>José</Text>
-                  </View>
-                  <Image
-                    source={require('../assets/avaliacao.png')}
-                    style={{ width: 50, height: 20 }}
-                  />
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={styles.textoComentario}>Adestradores nota 10!!!</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/like.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/dislike.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
-                </View>
+              <View style={{ alignItems: 'center' }}>
+                <Text style={styles.textoComentario}>{comentario.comentario}</Text>
               </View>
+             
             </View>
-          </View>
+          ))}
+        </View>
+      </View>
           {/* Digita comentário */}
           <View style={styles.digiteComentario}>
             <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
@@ -384,13 +366,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#C0C0C0',
     height: 150,
-    justifyContent: 'space-between'
+    
   },
   nomeUsuario: {
     marginLeft: 10,
   },
   textoComentario: {
-    fontSize: 13
+    fontSize: 13,
+    margin:10,
   },
 
   //Cria comentários
