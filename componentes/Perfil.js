@@ -54,6 +54,11 @@ export function Perfil({ navigation, route }) {
       });
   };
 
+  const resetValues = () => {
+    setEmail(users.find(user => user.cd_cliente === cd_cliente)?.email || '');
+    setTelefone(users.find(user => user.cd_cliente === cd_cliente)?.telefone || '');
+  };
+
      // Função update telefone
   const updateTelefone = () => {
     fetch(`http://localhost/api/updateTelefone/${cd_cliente}`, {
@@ -118,7 +123,7 @@ export function Perfil({ navigation, route }) {
         <TouchableOpacity style={styles.botaoEditar2} onPress={updateEmail}>
           <Text style={styles.textoBotao}>Atualizar Email</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalEmail}>
+        <TouchableOpacity style={styles.botaoEditar2} onPress={() => { hideModalEmail(); resetValues(); }}>
           <Text style={styles.textoBotao}>Voltar</Text>
         </TouchableOpacity>
       </Modal>
@@ -135,7 +140,7 @@ export function Perfil({ navigation, route }) {
         <TouchableOpacity style={styles.botaoEditar2} onPress={updateTelefone}>
           <Text style={styles.textoBotao}>Atualizar Telefone</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalTel}>
+        <TouchableOpacity style={styles.botaoEditar2} onPress={() => { hideModalTel(); resetValues(); }}>
           <Text style={styles.textoBotao}>Voltar</Text>
         </TouchableOpacity>
       </Modal>
