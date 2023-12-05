@@ -17,37 +17,39 @@ export function Login({ navigation }) {
   };
 
   function validaUsuario() {
-//alert importante para a futura validação abaixo
- 
-    $validacao = users.find(user => user.email == email)
-     
-      try {
-         if ($validacao.email == email && $validacao.senha == senha) {
-       showModalAlertSucesso();
-      } 
-      else {
+    //alert importante para a futura validação abaixo
+    const $validacao = users.find(user => user.email === email);
+  
+    try {
+      if ($validacao && $validacao.email === email && $validacao.senha === senha) {
+        showModalAlertSucesso();
+      } else {
         onToggleSnackBar();
       }
-      }
-      catch {
-        onToggleSnackBar();
-      }
-     
-      
-    
+    } catch (error) {
+      console.error("Erro durante a validação do usuário:", error);
+      onToggleSnackBar();
+    }
   }
   
- function NavigateLogin() {
-
-  users.forEach((user) => {
- 
-    if (user.email == email) {
-       navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
-    } 
-   
-  })
-
- }
+  function NavigateLogin() {
+    const user = users.find(user => user.email === email);
+  
+    if (user) {
+      navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+    }
+  }
+  
+  function getUsers() {
+    fetch('http://localhost/api/usuarios')
+      .then((response) => response.json())
+      .then((json) => setUsers(json))
+      .catch((error) => console.error("Erro ao obter usuários:", error));
+  }
+  
+  useEffect(() => {
+    getUsers();
+  }, []);
 
 
 

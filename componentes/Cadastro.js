@@ -222,7 +222,7 @@ export function Cadastro({ navigation }) {
 
   const enviarDados = () => {
     // fetch('http://localhost/api/cadastro', {
-    fetch('http://192.168.0.11/api/cadastro', {
+    fetch('http://localhost/api/cadastro', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -348,21 +348,27 @@ export function Cadastro({ navigation }) {
           </View>
         </View>
         <View style={styles.formulario}>
+  <TextInput
+    style={styles.input}
+    placeholder="Nome"
+    placeholderTextColor={'#273A73'}
+    onChangeText={handleNomeChange}
+    value={nome}
+  />
+  {!validarNome(nome) && <Text style={styles.errorMessage}>Caracteres não permitidos no nome.</Text>}
+
           <TextInput
-            style={styles.input}
-            placeholder="Nome"
-            placeholderTextColor={'#273A73'}
-            onChangeText={handleNomeChange}
-            value={nome}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor={'#273A73'}
-            onChangeText={handleEmailChange}
-            value={email}
-          />
-          {!validaEmail() && <Text style={{ color: 'red' }}>{emailInvalidMsg}</Text>}
+    style={styles.input}
+    placeholder="Email"
+    placeholderTextColor={'#273A73'}
+    onChangeText={handleEmailChange}
+    value={email}
+  />
+  {!validaEmail() && (
+    <Text style={styles.errorMessage}>
+      Email inválido ou já utilizado. Tente outro.
+    </Text>
+  )}
           <TextInput
             style={styles.input}
             placeholder="Telefone"
@@ -378,6 +384,11 @@ export function Cadastro({ navigation }) {
             value={password}
             onChangeText={handlePasswordChange}
           />
+           {!validarSenha(password) && (
+    <Text style={styles.errorMessage}>
+      Senha deve ter entre 6 e 30 caracteres.
+    </Text>)}
+
           <TextInput
             style={styles.input}
             placeholder="Confirme a senha"
@@ -394,6 +405,11 @@ export function Cadastro({ navigation }) {
             onChangeText={handleCpfChange}
             value={cpf}
           />
+          {!validarCPF(cpf) && (
+    <Text style={styles.errorMessage}>
+      CPF inválido ou já utilizado. Tente outro.
+    </Text>
+  )}
           <TextInput
             style={styles.input}
             placeholder='Data de nascimento'
