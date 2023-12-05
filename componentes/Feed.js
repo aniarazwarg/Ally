@@ -244,7 +244,7 @@ export function Feed({ navigation, route }) {
                 placeholder="Informe seu email ou whatsapp"
                 style={styles.inputComentario}
               />
-              <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
+              <TouchableOpacity style={styles.enviarComentario}>
                 <Text > Enviar Comentário</Text>
               </TouchableOpacity>
             </View></ImageBackground>

@@ -321,7 +321,8 @@ export function Cadastro({ navigation }) {
     }
     if (telefone != "") {
       var tel = telefone.replace(/\D/g, '')
-      setTelefoneFormat(tel)
+      setTelefoneFormat(tel);
+
     }
     if (password == confirmPassword) {
       setPasswordsMatch(true)
@@ -375,6 +376,7 @@ export function Cadastro({ navigation }) {
             placeholderTextColor={'#273A73'}
             onChangeText={handleTelefoneChange}
             value={telefone}
+            maxLength={15}
           />
           <TextInput
             style={styles.input}
