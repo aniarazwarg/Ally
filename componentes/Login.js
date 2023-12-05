@@ -29,10 +29,10 @@ export function Login({ navigation }) {
   const handleSenhaChange = (text) => {
     setSenha(text);
   };
-
+ const $validacao = users.find(user => user.email === email);
   function validaUsuario() {
     //alert importante para a futura validação abaixo
-    const $validacao = users.find(user => user.email === email);
+   
 
     try {
       if ($validacao && $validacao.email === email && $validacao.senha === senha) {
@@ -52,14 +52,19 @@ export function Login({ navigation }) {
     const admin = users.find(user => user.email === 'admin');
 
     if (user) {
-      navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+      if($validacao.email =="admin")
+      {
+        navigation.navigate('Admin')
+      }
+      else{
+        navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
       hideModalAlertSucesso();
       setEmail('')
       setSenha('')
+      }
+      
     }
-    if (admin) {
-      navigation.navigate('Admin')
-    }
+   
   }
 
 
