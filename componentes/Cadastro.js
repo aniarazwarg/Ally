@@ -373,6 +373,7 @@ export function Cadastro({ navigation }) {
             placeholderTextColor={'#273A73'}
             onChangeText={handleTelefoneChange}
             value={telefone}
+            maxLength={15}
           />
           <TextInput
             style={styles.input}
