@@ -1,14 +1,21 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  Image,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Pressable,
+  Platform,
+  Modal,
+} from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import validator from 'validator';
 
-
-
 export function Cadastro({ navigation }) {
-
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
@@ -23,12 +30,12 @@ export function Cadastro({ navigation }) {
   const [telefone, setTelefone] = useState('');
   const [telefoneFormat, setTelefoneFormat] = useState('');
   const [users, setUsers] = useState('');
-  const [cpfInvalidMsg, setCpfInvalidMsg] = useState(null)
-  const [emailInvalidMsg, setEmailInvalidMsg] = useState(null)
-  const [senhaInvalidMsg, setSenhaInvalidMsg] = useState(null)
-  const [nomeInvalidMsg, setNomeInvalidMsg] = useState(null)
-  // const [forceRerender, setForceRerender] = useState(false);
-
+  const [cpfInvalidMsg, setCpfInvalidMsg] = useState(null);
+  const [emailInvalidMsg, setEmailInvalidMsg] = useState(null);
+  const [senhaInvalidMsg, setSenhaInvalidMsg] = useState(null);
+  const [nomeInvalidMsg, setNomeInvalidMsg] = useState(null);
+  const [showEmailError, setShowEmailError] = useState(false);
+  const [showCpfError, setShowCpfError] = useState(false);
 
   // validacao nome
 
@@ -44,7 +51,7 @@ export function Cadastro({ navigation }) {
   // validacao senha
 
   function validarSenha(password) {
-    if (password.length >= 8 && password.length <= 30 && password == confirmPassword) {
+    if (password.length >= 6 && password.length <= 30 && password == confirmPassword) {
       return true;
     } else {
 
@@ -110,25 +117,26 @@ export function Cadastro({ navigation }) {
 
   // validacao de email
 
-// Validar formato de e-mail
-function isEmailValid(email) {
-  return validator.isEmail(email);
-}
-
-// Verificar se o e-mail já foi utilizado
-function isEmailAvailable(email, users) {
-  return !users.some(user => user.email === email);
-}
-
-// Função para validar e-mail
-function validaEmail(users) {
-  if (isEmailValid(email) && isEmailAvailable(email, users)) {
-    return true;
-  } else {
-    console.log('E-mail inválido ou já utilizado.');
-    return false;
+  // Validar formato de e-mail
+  function isEmailValid(email) {
+    return validator.isEmail(email);
   }
-}
+
+  // Verificar se o e-mail já foi utilizado
+  function isEmailAvailable(email, users) {
+    return !users.some(user => user.email === email);
+  }
+
+  // Função para validar e-mail
+  function validaEmail() {
+    if (isEmailValid(email) && isEmailAvailable(email, users)) {
+      return true;
+    } else {
+      console.log('E-mail inválido ou já utilizado.');
+      
+      return false;
+    }
+  }
 
   // handles
 
@@ -433,6 +441,37 @@ function validaEmail(users) {
           </View>
         </View>
       </View>
+      <View>
+        <Modal
+          visible={showEmailError}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowEmailError(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalText}>Email inválido ou já utilizado.</Text>
+              <Button title="Fechar" onPress={() => setShowEmailError(false)} />
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          visible={showCpfError}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowCpfError(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalText}>CPF inválido ou já utilizado.</Text>
+              <Button title="Fechar" onPress={() => setShowCpfError(false)} />
+            </View>
+          </View>
+        </Modal>
+      </View>
+
+
     </KeyboardAwareScrollView>
   );
 }
@@ -493,6 +532,26 @@ const styles = StyleSheet.create({
   textButton: {
     color: 'white',
     fontSize: 15,
+  },
+
+  // Estilos para os modais
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2EAD0',  // Cor igual ao fundo da sua página
+  },
+  modalContent: {
+    backgroundColor: '#F2EAD0',  // Cor igual ao fundo da sua página
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    borderColor: '#2E1A82',  // Tom do botão cadastrar
+    borderWidth: 2,  // Borda no tom do botão cadastrar
+  },
+  modalText: {
+    color: '#2E1A82',  // Tom do botão voltar
+    marginBottom: 10,
   },
 
 
