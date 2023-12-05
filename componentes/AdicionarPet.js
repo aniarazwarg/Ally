@@ -1,5 +1,6 @@
 import react from "react";
-import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity, CheckBox } from "react-native";
+import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity } from "react-native";
+import Checkbox from 'expo-checkbox';
 import React, { useState } from "react";
 
 export function AdicionarPet({ navigation, route }) {
@@ -37,7 +38,7 @@ export function AdicionarPet({ navigation, route }) {
   //Função adicionar
 
   const enviarDados = () => {
-    fetch('http://localhost/api/AdicionarPet', {
+    fetch('http://192.168.26.94/api/AdicionarPet', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -120,28 +121,28 @@ export function AdicionarPet({ navigation, route }) {
           </View>
           <View style={styles.vacina}>
             <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>V8/V10</Text>
-            <CheckBox
+            <Checkbox
               value={v8}
               onValueChange={setV8}
             />
           </View>
           <View style={styles.vacina}>
             <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>Antirrabica</Text>
-            <CheckBox
+            <Checkbox
               value={antirrabica}
               onValueChange={setAntirrabica}
             />
           </View>
           <View style={styles.vacina}>
             <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>Gripe</Text>
-            <CheckBox
+            <Checkbox
               value={gripe}
               onValueChange={setGripe}
             />
           </View>
           <View style={styles.vacina}>
             <Text style={{ fontSize: 15, marginRight: 5, width: '30%' }}>Giardia</Text>
-            <CheckBox
+            <Checkbox
               value={giardia}
               onValueChange={setGiardia}
             />

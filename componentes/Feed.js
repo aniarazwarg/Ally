@@ -20,7 +20,7 @@ export function Feed({ navigation, route }) {
   const [comentarios, setComentarios] = React.useState([]);
 
   function dataComentarios() {
-    fetch('http://localhost/api/comentarios')
+    fetch('http://192.168.26.94/api/comentarios')
       .then((response) => response.json())
       .then((json) => {
         // Assuming json is an array of comentarios
@@ -31,7 +31,7 @@ export function Feed({ navigation, route }) {
   }
 
   function getUsers() {
-    fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.26.94/api/usuarios')
       // fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
@@ -116,7 +116,7 @@ export function Feed({ navigation, route }) {
                   {cd_cliente !== null && (
                     <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
                       {(fotoPerfil !== null && fotoPerfil !== "") && (
-                        <Image source={'../assets/' + fotoPerfil}
+                        <Image source={require('../assets/icon_usuario.png')}
                           style={styles.logosHeader2} />
                       )}
 

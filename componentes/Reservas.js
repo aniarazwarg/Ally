@@ -21,14 +21,14 @@ export function Reservas({ navigation, route }) {
 
 
     function getReservas() {
-        fetch('http://localhost/api/reservas')
+        fetch('http://192.168.26.94/api/reservas')
             // fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setReservas(json))
     }
 
     function getUsers() {
-        fetch('http://localhost/api/usuarios')
+        fetch('http://192.168.26.94/api/usuarios')
             // fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
@@ -37,7 +37,7 @@ export function Reservas({ navigation, route }) {
     const updateReserva = async (cd_cliente, statusReserva) => {
         try {
             const newData = { statusReserva };
-            const response = await fetch(`http://localhost/api/atualizaReserva/${cd_cliente}`, {
+            const response = await fetch(`http://192.168.26.94/api/atualizaReserva/${cd_cliente}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

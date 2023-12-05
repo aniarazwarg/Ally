@@ -52,7 +52,7 @@ export function Login({ navigation }) {
     const admin = users.find(user => user.email === 'admin');
 
     if (user) {
-      if ($validacao.email == "admin") {
+      if ($validacao.email == "admin@admin.com") {
         navigation.navigate('Admin')
         hideModalAlertSucesso();
         setEmail('')
@@ -71,7 +71,7 @@ export function Login({ navigation }) {
 
 
   function getUsers() {
-    fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.26.94/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
