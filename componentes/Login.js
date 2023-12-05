@@ -1,69 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
-import { Modal, Portal,  PaperProvider,Button, Snackbar } from 'react-native-paper';
-
+import { Modal, Portal, PaperProvider, Button, Snackbar } from 'react-native-paper';
 
 export function Login({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [users, setUsers] = useState([]);
-
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
-  const handleSenhaChange = (text) => {
-    setSenha(text);
-  };
-
-  function validaUsuario() {
-    //alert importante para a futura validação abaixo
-    const $validacao = users.find(user => user.email === email);
-  
-    try {
-      if ($validacao && $validacao.email === email && $validacao.senha === senha) {
-        showModalAlertSucesso();
-      } else {
-        onToggleSnackBar();
-      }
-    } catch (error) {
-      console.error("Erro durante a validação do usuário:", error);
-      onToggleSnackBar();
-    }
-  }
-  
-  function NavigateLogin() {
-    const user = users.find(user => user.email === email);
-  
-    if (user) {
-      navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
-    }
-  }
-  
-  function getUsers() {
-    fetch('http://localhost/api/usuarios')
-      .then((response) => response.json())
-      .then((json) => setUsers(json))
-      .catch((error) => console.error("Erro ao obter usuários:", error));
-  }
-  
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-
-
-  function getUsers() {
-    fetch('http://localhost/api/usuarios')
-      .then((response) => response.json())
-      .then((json) => setUsers(json))
-     
-  }
-
-
-  useEffect(() => {
-   getUsers();
-  }, [,])
 
   const [visibleAlertErro, setVisibleAlertErro] = React.useState(false);
   const showModalAlertErro = () => setVisibleAlertErro(true);
@@ -79,78 +22,123 @@ export function Login({ navigation }) {
   const onDismissSnackBar = () => setVisible2(false);
 
   const containerStyle = { backgroundColor: 'white', padding: 20 };
- 
 
+  const handleEmailChange = (text) => {
+    setEmail(text);
+  };
+  const handleSenhaChange = (text) => {
+    setSenha(text);
+  };
+ const $validacao = users.find(user => user.email === email);
+  function validaUsuario() {
+    //alert importante para a futura validação abaixo
+   
+
+    try {
+      if ($validacao && $validacao.email === email && $validacao.senha === senha) {
+        showModalAlertSucesso();
+      } else {
+        onToggleSnackBar();
+        showModalAlertErro();
+      }
+    } catch (error) {
+      console.error("Erro durante a validação do usuário:", error);
+      onToggleSnackBar();
+    }
+  }
+
+  function NavigateLogin() {
+    const user = users.find(user => user.email === email);
+    const admin = users.find(user => user.email === 'admin');
+
+    if (user) {
+      if($validacao.email =="admin")
+      {
+        navigation.navigate('Admin')
+      }
+      else{
+        navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+      hideModalAlertSucesso();
+      setEmail('')
+      setSenha('')
+      }
+      
+    }
+   
+  }
+
+
+  function getUsers() {
+    fetch('http://localhost/api/usuarios')
+      .then((response) => response.json())
+      .then((json) => setUsers(json))
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, [,])
 
   return (
-   
     <PaperProvider>
-      
-  <Portal>
+      <Portal>
+        <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin}  >
+          <Text style={styles.modal}>Login Feito com Sucesso</Text>
+        </Modal>
+        <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} >
+          <Text style={styles.modal}>Ocorrreu um Errro. </Text>
+        </Modal>
+      </Portal>
+      <View style={styles.container}>
+        {/* Imagem */}
+        <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas.jpg')}>
+          <View style={styles.imagem}>
+            <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
+          </View>
+          {/* Formulário de login */}
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor={'#596AA1'}
+              onChangeText={handleEmailChange}
+              value={email}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              placeholderTextColor={'#596AA1'}
+              secureTextEntry={true}
+              onChangeText={handleSenhaChange}
+              value={senha}
+            />
+          </View>
+          {/* Botão entrar/cadastrar*/}
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.buttonEntrar} onPress={(validaUsuario)}>
+              <Text style={styles.textButton}>Entrar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonCadastrar} onPress={() => navigation.navigate('Cadastro')}>
+              <Text style={styles.textButton}>Cadastrar</Text>
+            </TouchableOpacity>
+          </View>
 
-     <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} >
-                 <Text style={styles.modal}>Login Feito com Sucesso</Text>   
-    </Modal>
-    
-    <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} >
-                 <Text>Ocorreu um Errro ;-; </Text>   
-    </Modal>
-
-   
-  </Portal>
-
-    <View style={styles.container} 
-    >
-      {/* Imagem */}
-      <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas2.jpg')}>
-        <View style={styles.imagem}>
-          <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
-        </View>
-        {/* Formulário de login */}
-        <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor={'#596AA1'}
-            onChangeText={handleEmailChange}
-          />
-          <TextInput
-           secureTextEntry={true}
-            style={styles.input}
-            placeholder="Senha"
-            placeholderTextColor={'#596AA1'}
-            onChangeText={handleSenhaChange}
-          />
-        </View>
-        {/* Botão entrar/cadastrar*/}
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.buttonEntrar} onPress={(validaUsuario)}>
-            <Text style={styles.textButton}>Entrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonCadastrar} onPress={() => navigation.navigate('Cadastro')}>
-            <Text style={styles.textButton}>Cadastrar</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Esqueceu a senha */}
-        <View style={styles.link}>
-          <TouchableOpacity onPress={() => navigation.navigate('RecuperacaoSenha')}>
-            <Text style={styles.texto}>Esqueceu a senha?</Text>
-          </TouchableOpacity>
-        </View>
-        {users.map((user) => (
+          {/* Esqueceu a senha */}
+          <View style={styles.link}>
+            <TouchableOpacity onPress={() => navigation.navigate('RecuperacaoSenha')}>
+              <Text style={styles.texto}>Esqueceu a senha?</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.buttonEntrar} onPress={() => navigation.navigate('Feed')}>
+              <Text style={styles.textButton}>Voltar</Text>
+            </TouchableOpacity>
+           
+          </View>
+          {/* {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
-        ))}
-
-         <Snackbar
-        visible={visible2}
-        onDismiss={onDismissSnackBar}
-        duration={400}
-        >
-       Erro ao acessar conta. Tente Novamente.
-      </Snackbar>
-      </ImageBackground>
-    </View>
+        ))} */}
+        </ImageBackground>
+      </View>
     </PaperProvider>
   );
 }
@@ -166,19 +154,10 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
   },
-  modal:{
-    fontSize:40,
-    textAlign:'center',
-    borderWidth:2,
-    borderColor:'black',
-    borderRadius:10,
-    backgroundColor:'white',
-    
-  },
   logoBrothers: {
     height: 150,
     width: '100%',
-    backgroundColor: '#F8F4E8',
+    backgroundColor: '#F6F1EB',
     borderRadius: 20
   },
   form: {
@@ -234,5 +213,13 @@ const styles = StyleSheet.create({
     width: '60%',
     backgroundColor: '#F6F1EB',
     borderRadius: 20
+  },
+  modal:{
+    fontSize:40,
+    textAlign:'center',
+    borderWidth:2,
+    borderColor:'black',
+    borderRadius:10,
+    backgroundColor:'white',
   },
 });
