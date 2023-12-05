@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05-Dez-2023 às 02:46
--- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.6
+-- Tempo de geração: 05/12/2023 às 15:40
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_cao`
+-- Estrutura para tabela `tb_cao`
 --
 
 CREATE TABLE `tb_cao` (
@@ -41,20 +41,22 @@ CREATE TABLE `tb_cao` (
   `ic_antirrabica` tinyint(1) NOT NULL,
   `ic_gripe` tinyint(1) NOT NULL,
   `ic_giardia` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `tb_cao`
+-- Despejando dados para a tabela `tb_cao`
 --
 
 INSERT INTO `tb_cao` (`cd_cao`, `ds_idade`, `nm_cao`, `id_sexo`, `ds_pelagem`, `cd_cliente`, `nm_raca`, `ds_porte`, `ds_peso`, `ic_v8_v10`, `ic_antirrabica`, `ic_gripe`, `ic_giardia`) VALUES
 (3, NULL, 'Caramelo', NULL, 'Caramelo', 12, 'Lhasa Apso', 'Pequeno', '5', 0, 0, 0, 0),
-(19, NULL, 'Choco', NULL, 'Marrom', 10, 'Labrador', 'Grande', '31', 1, 1, 0, 1);
+(19, NULL, 'Choco', NULL, 'Marrom', 10, 'Labrador', 'Grande', '31', 1, 1, 0, 1),
+(20, NULL, '', NULL, '', 12, '', '', '', 0, 0, 0, 0),
+(21, NULL, 'Maiquinha', NULL, 'preta trigrada', 12, 'srd', 'media', '10', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_cliente`
+-- Estrutura para tabela `tb_cliente`
 --
 
 CREATE TABLE `tb_cliente` (
@@ -66,10 +68,10 @@ CREATE TABLE `tb_cliente` (
   `cpf` varchar(11) NOT NULL,
   `fotoPerfil` varchar(100) DEFAULT NULL,
   `telefone` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `tb_cliente`
+-- Despejando dados para a tabela `tb_cliente`
 --
 
 INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `dt_nasc_cliente`, `email`, `senha`, `cpf`, `fotoPerfil`, `telefone`) VALUES
@@ -79,12 +81,14 @@ INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `dt_nasc_cliente`, `email`
 (14, 'Mateus', '1995-03-02', 'mat@bol', '123', '04864211123', NULL, 0),
 (23, 'Marco', '1997-03-02', 'marco@bol', 'baru', '04864211124', NULL, 0),
 (24, 'klei', '0000-00-00', 'keli', 'klei', '048', NULL, 0),
-(25, 'teste2', '0000-00-00', 'teste2', 'teste2', '', NULL, 0);
+(25, 'teste2', '0000-00-00', 'teste2', 'teste2', '', NULL, 0),
+(27, 'Ana', '1988-05-23', 'ana@ana.ana', 'ananan', '162.419.488', NULL, 1332311061),
+(28, 'nia', '1994-09-24', 'nia@nia.nia', '264272', '377.304.538', NULL, 13991213195);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_comentarios`
+-- Estrutura para tabela `tb_comentarios`
 --
 
 CREATE TABLE `tb_comentarios` (
@@ -95,10 +99,10 @@ CREATE TABLE `tb_comentarios` (
   `curtidas` int(11) NOT NULL,
   `descurtidas` int(11) NOT NULL,
   `ok` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tb_comentarios`
+-- Despejando dados para a tabela `tb_comentarios`
 --
 
 INSERT INTO `tb_comentarios` (`id`, `nome`, `foto`, `comentario`, `curtidas`, `descurtidas`, `ok`) VALUES
@@ -109,19 +113,19 @@ INSERT INTO `tb_comentarios` (`id`, `nome`, `foto`, `comentario`, `curtidas`, `d
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_ordem_servico`
+-- Estrutura para tabela `tb_ordem_servico`
 --
 
 CREATE TABLE `tb_ordem_servico` (
   `cd_ordem_servico` int(11) NOT NULL,
   `cd_cliente` bigint(20) DEFAULT NULL,
   `cd_servico` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_raca`
+-- Estrutura para tabela `tb_raca`
 --
 
 CREATE TABLE `tb_raca` (
@@ -129,12 +133,12 @@ CREATE TABLE `tb_raca` (
   `nm_raca` varchar(100) DEFAULT NULL,
   `qt_peso` int(11) DEFAULT NULL,
   `sg_porte` char(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_servico`
+-- Estrutura para tabela `tb_servico`
 --
 
 CREATE TABLE `tb_servico` (
@@ -143,10 +147,10 @@ CREATE TABLE `tb_servico` (
   `dt_checkin` date DEFAULT NULL,
   `dt_checkout` date DEFAULT NULL,
   `statusReserva` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `tb_servico`
+-- Despejando dados para a tabela `tb_servico`
 --
 
 INSERT INTO `tb_servico` (`cd_servico`, `cd_cliente`, `dt_checkin`, `dt_checkout`, `statusReserva`) VALUES
@@ -155,12 +159,13 @@ INSERT INTO `tb_servico` (`cd_servico`, `cd_cliente`, `dt_checkin`, `dt_checkout
 (4, '2', '2023-11-13', '2023-11-15', ''),
 (12, '', '2023-12-07', '2023-12-14', ''),
 (13, '', '2023-12-20', '2023-12-27', 'Aguardando'),
-(14, '12', '2023-12-06', '2023-12-13', '');
+(14, '12', '2023-12-06', '2023-12-13', ''),
+(15, '12', '2023-12-01', '2023-12-08', 'Aguardando');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_vacinas`
+-- Estrutura para tabela `tb_vacinas`
 --
 
 CREATE TABLE `tb_vacinas` (
@@ -170,10 +175,10 @@ CREATE TABLE `tb_vacinas` (
   `ic_gripe` tinyint(1) DEFAULT NULL,
   `ic_giardia` tinyint(1) DEFAULT NULL,
   `cd_cao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `tb_vacinas`
+-- Despejando dados para a tabela `tb_vacinas`
 --
 
 INSERT INTO `tb_vacinas` (`cd_vacina`, `ic_v8_v10`, `ic_antirrabica`, `ic_gripe`, `ic_giardia`, `cd_cao`) VALUES
@@ -186,63 +191,63 @@ INSERT INTO `tb_vacinas` (`cd_vacina`, `ic_v8_v10`, `ic_antirrabica`, `ic_gripe`
 --
 
 --
--- Índices para tabela `tb_cao`
+-- Índices de tabela `tb_cao`
 --
 ALTER TABLE `tb_cao`
   ADD PRIMARY KEY (`cd_cao`);
 
 --
--- Índices para tabela `tb_cliente`
+-- Índices de tabela `tb_cliente`
 --
 ALTER TABLE `tb_cliente`
   ADD PRIMARY KEY (`cd_cliente`);
 
 --
--- Índices para tabela `tb_comentarios`
+-- Índices de tabela `tb_comentarios`
 --
 ALTER TABLE `tb_comentarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `tb_ordem_servico`
+-- Índices de tabela `tb_ordem_servico`
 --
 ALTER TABLE `tb_ordem_servico`
   ADD PRIMARY KEY (`cd_ordem_servico`);
 
 --
--- Índices para tabela `tb_raca`
+-- Índices de tabela `tb_raca`
 --
 ALTER TABLE `tb_raca`
   ADD PRIMARY KEY (`cd_raca`);
 
 --
--- Índices para tabela `tb_servico`
+-- Índices de tabela `tb_servico`
 --
 ALTER TABLE `tb_servico`
   ADD PRIMARY KEY (`cd_servico`);
 
 --
--- Índices para tabela `tb_vacinas`
+-- Índices de tabela `tb_vacinas`
 --
 ALTER TABLE `tb_vacinas`
   ADD PRIMARY KEY (`cd_vacina`),
   ADD KEY `tb_vacinas_ibfk_1` (`cd_cao`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `tb_cao`
 --
 ALTER TABLE `tb_cao`
-  MODIFY `cd_cao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `cd_cao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `tb_cliente`
 --
 ALTER TABLE `tb_cliente`
-  MODIFY `cd_cliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `cd_cliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de tabela `tb_comentarios`
@@ -254,7 +259,7 @@ ALTER TABLE `tb_comentarios`
 -- AUTO_INCREMENT de tabela `tb_servico`
 --
 ALTER TABLE `tb_servico`
-  MODIFY `cd_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `cd_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `tb_vacinas`
@@ -263,11 +268,11 @@ ALTER TABLE `tb_vacinas`
   MODIFY `cd_vacina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `tb_vacinas`
+-- Restrições para tabelas `tb_vacinas`
 --
 ALTER TABLE `tb_vacinas`
   ADD CONSTRAINT `tb_vacinas_ibfk_1` FOREIGN KEY (`cd_cao`) REFERENCES `tb_cao` (`cd_cao`);

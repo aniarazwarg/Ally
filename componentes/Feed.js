@@ -18,7 +18,7 @@ export function Feed({ navigation, route }) {
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
-    // fetch('http://192.168.0.11/api/usuarios')
+    // fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
       
