@@ -112,7 +112,7 @@ export function Feed({ navigation, route }) {
             )}
             {cd_cliente !== null && (
               <TouchableOpacity style={styles.servico}
-                onPress={() => navigation.navigate('Calendario')}>
+                onPress={() => navigation.navigate('Calendario', {cd_cliente: cd_cliente})}>
                 <Image source={require('../assets/hotel.png')}
                   style={styles.logoServicos}
                 />

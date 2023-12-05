@@ -27,11 +27,14 @@ LocaleConfig.locales['fr'] = {
 
 LocaleConfig.defaultLocale = 'fr';
 
-export function Calendario({ navigation }) {
+export function Calendario({ navigation, route }) {
 
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [markedDates, setMarkedDates] = useState({});
+  const [statusReserva, setStatusReserva] = useState('Aguardando');
+  const { cd_cliente } = route.params || { cd_cliente: null };
+
 
   const onDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
@@ -55,25 +58,29 @@ export function Calendario({ navigation }) {
     }
   };
 
-  const agendar = () => {
-    fetch('http://localhost/api/agendar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        dt_checkin: selectedStartDate,
-        dt_checkout: selectedEndDate,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    const agendar = () => {
+      fetch('http://localhost/api/agendar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cd_cliente: cd_cliente,
+          dt_checkin: selectedStartDate,
+          dt_checkout: selectedEndDate,
+          statusReserva: statusReserva,
+        }),
       })
-      .catch((error) => {
-        console.error('Erro:', error);
-      });
-  };
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error('Erro:', error);
+        });
+    };
+
+    console.log(cd_cliente)
 
   function validaAgendamento() {
     // alert("Seu pedido de reserva foi enviado com sucesso! ");

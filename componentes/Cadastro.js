@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import validator from 'validator';
+// import validator from 'validator';
 
 
 
@@ -110,20 +110,20 @@ export function Cadastro({ navigation }) {
 
   // validacao de email
 
-  function validaEmail() {
-    if (validator.isEmail(email)) {
-      // console.log('Valid email!')
-      if (users.some(user => user.email === email)) {
-        console.log('email ja utilizado')
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      // console.log('Enter valid Email!')
-      return false;
-    }
-  }
+  // function validaEmail() {
+  //   if (validator.isEmail(email)) {
+  //     // console.log('Valid email!')
+  //     if (users.some(user => user.email === email)) {
+  //       console.log('email ja utilizado')
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   } else {
+  //     // console.log('Enter valid Email!')
+  //     return false;
+  //   }
+  // }
 
   // handles
 
