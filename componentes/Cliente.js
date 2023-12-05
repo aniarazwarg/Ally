@@ -10,6 +10,7 @@ export function Cliente({ navigation, route }) {
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
     const [nasc, setNasc] = useState('');
+    const [nascBanco, setNascBanco] = useState('')
     const [users, setUsers] = useState([]);
     const [nomePet, setNomePet] = useState('')
     const [pelagem, setPelagem] = useState('')
@@ -38,6 +39,10 @@ export function Cliente({ navigation, route }) {
     const [visibleNasc, setVisibleNasc] = useState(false);
     const showModalNasc = () => setVisibleNasc(true);
     const hideModalNasc = () => setVisibleNasc(false);
+    
+    const [visiblePet, setVisiblePet] = useState(false);
+    const showModalPet = () => setVisiblePet(true);
+    const hideModalPet = () => setVisiblePet(false);
 
     const handleTelefoneChange = (text) => {
         setTelefone(text);
@@ -51,6 +56,10 @@ export function Cliente({ navigation, route }) {
     const handleNascChange = (text) => {
         const formatado = formatDateString(text);
         setNasc(formatado);
+        setNascBanco(formatado.split('/').reverse().join('-'))
+    };
+    const handlePetChange = (text) => {
+        setNomePet(text);
     };
 
     // Formata data
@@ -137,6 +146,32 @@ export function Cliente({ navigation, route }) {
         }
     };
 
+    const updatePet = async (cd_cliente, newData) => {
+        try {
+            const response = await fetch(`http://localhost/api/atualizaPets/${cd_cliente}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newData), // Os dados de atualização
+            });
+
+            if (response.status === 200) {
+                console.log('Registro atualizado com sucesso.');
+                console.log(newData)
+            } else {
+                console.error('Erro ao atualizar registro.');
+            }
+        } catch (error) {
+            console.error('Erro de rede:', error);
+        }
+    };
+
+
+    function salvar() {
+        updateCliente(cd_cliente, {nome, nascBanco, email, cpf, telefone})
+        updatePet(cd_cliente, {nomePet, pelagem, raca, peso, antirrabica, v8, gripe, giardia})
+    }
 
 useEffect(() => {
     getUsers();
@@ -191,7 +226,16 @@ return (
                     <Text style={styles.textoBotao}>Concluir</Text>
                 </TouchableOpacity>
             </Modal>
-
+            <Modal visible={visiblePet} onDismiss={hideModalPet} contentContainerStyle={containerStyle}>
+                <TextInput
+                    value={nomePet}
+                    placeholder="Nome do pet"
+                    style={{ textAlign: 'center', borderWidth: 1, padding: 10, borderRadius: 20, marginBottom: 10 }}
+                    onChangeText={handlePetChange} />
+                <TouchableOpacity style={styles.botaoEditar} onPress={hideModalPet}>
+                    <Text style={styles.textoBotao}>Concluir</Text>
+                </TouchableOpacity>
+            </Modal>
         </Portal>
 
         <View style={styles.container}>
@@ -232,7 +276,7 @@ return (
                 <View><Text style={{ fontSize: 20, alignSelf: 'center', marginTop: 10, fontWeight: 'bold' }}>Pets</Text></View>
                 <View style={styles.dados}>
                     <Text style={styles.textDados}>{nomePet}</Text>
-                    <TouchableOpacity style={styles.botaoEditar} onPress={showModalCpf}>
+                    <TouchableOpacity style={styles.botaoEditar} onPress={showModalPet}>
                         <Text style={{ color: 'white' }}>Editar</Text>
                     </TouchableOpacity>
                 </View>
@@ -242,7 +286,7 @@ return (
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.botaoVoltar}>
                         <Text style={{ color: 'white' }}>Voltar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => updateCliente(cd_cliente, {nome, nasc, email, cpf, telefone})} style={styles.botaoVoltar}>
+                    <TouchableOpacity onPress={() => salvar()} style={styles.botaoVoltar}>
                         <Text style={{ color: 'white' }}>Salvar</Text>
                     </TouchableOpacity>
                 </View>

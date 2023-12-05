@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import validator from 'validator';
 import { Modal, Portal,  PaperProvider } from 'react-native-paper';
 
+// import validator from 'validator';
 
 
 
@@ -112,20 +113,20 @@ export function Cadastro({ navigation }) {
 
   // validacao de email
 
-  function validaEmail() {
-    if (validator.isEmail(email)) {
-      // console.log('Valid email!')
-      if (users.some(user => user.email === email)) {
-        console.log('email ja utilizado')
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      // console.log('Enter valid Email!')
-      return false;
-    }
-  }
+  // function validaEmail() {
+  //   if (validator.isEmail(email)) {
+  //     // console.log('Valid email!')
+  //     if (users.some(user => user.email === email)) {
+  //       console.log('email ja utilizado')
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   } else {
+  //     // console.log('Enter valid Email!')
+  //     return false;
+  //   }
+  // }
 
   // handles
 

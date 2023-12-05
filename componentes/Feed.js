@@ -109,13 +109,24 @@ export function Feed({ navigation, route }) {
           {/* Logo serviços */}
           {(cd_cliente != null ) && (
           <View style={styles.servicos}>
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Calendario')}>
-              <Image source={require('../assets/hotel.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Hotel</Text>
-            </TouchableOpacity>
+            {cd_cliente == null && (
+              <TouchableOpacity style={styles.servico}
+                onPress={() => navigation.navigate('Login')}>
+                <Image source={require('../assets/hotel.png')}
+                  style={styles.logoServicos}
+                />
+                <Text style={styles.textServicos}>Hotel</Text>
+              </TouchableOpacity>
+            )}
+            {cd_cliente !== null && (
+              <TouchableOpacity style={styles.servico}
+                onPress={() => navigation.navigate('Calendario', {cd_cliente: cd_cliente})}>
+                <Image source={require('../assets/hotel.png')}
+                  style={styles.logoServicos}
+                />
+                <Text style={styles.textServicos}>Hotel</Text>
+              </TouchableOpacity>
+            )}
             <TouchableOpacity style={styles.servico}
               onPress={() => navigation.navigate('Passeio')}>
               <Image source={require('../assets/passeio.png')}
