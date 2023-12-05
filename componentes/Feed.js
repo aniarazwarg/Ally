@@ -1,75 +1,103 @@
 import * as React from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar } from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar, ImageBackground } from "react-native";
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export function Feed({ navigation, route }) {
 
+  
   const [visible, setVisible] = React.useState(false);
   const [nome, setNome] = React.useState(null);
+  const [fotoPerfil, setFotoPerfil] = React.useState(null);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
+  // const foto = require(fotoPerfil)
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
+    // fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
+      
   }
 
-  function validaCliente() {
-    users.forEach((user) => {
-      if (user.cd_cliente == cd_cliente) {
-        setNome(user.nm_cliente)
-        console.log(nome)
-      }
-    });
-  }
-  
-  
-  console.log(cd_cliente)
-  console.log(users)
-  React.useEffect(() => {
+
+ 
+
+  if (users.length === 0 && cd_cliente !== null) {
     getUsers();
-    validaCliente();
-  }, [])
+    
+  }
+ 
+  React.useEffect(() => { 
+    users.forEach((user) => {
+      if (cd_cliente == user.cd_cliente) {
+        setNome(user.nm_cliente)
+        setFotoPerfil(user.fotoPerfil) 
+        console.log(user.fotoPerfil) 
+        console.log(user.nm_cliente) 
+
+      }
+      
+    })
+  }, [users]);
+ 
 
   return (
 
     <PaperProvider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text>Não imprementado</Text>
+          <Text>Não implementado</Text>
         </Modal>
       </Portal>
-
 
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
+<ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
           {/* Header */}
           <View style={styles.header}>
             <View style={styles.headerConteudo}>
               <View>
+                 {(cd_cliente == null ) && (
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
+    
                   <Image source={require('../assets/menu-bar.png')}
                     style={styles.logosHeader}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity>)}
               </View>
               <View>
-                {nome !== null && (
+                {cd_cliente !== null && (
                   <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
                 )}
               </View>
               <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
-                  <Image source={require('../assets/icon_usuario.png')}
-                    style={styles.logosHeader} />
-                </TouchableOpacity>
+                {cd_cliente == null && (
+                  <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Image source={require('../assets/icon_usuario.png')}
+                      style={styles.logosHeader2} />
+                  </TouchableOpacity>
+                )}
+                {cd_cliente !== null && (
+                  <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
+                    {(fotoPerfil !== null && fotoPerfil !== "" ) && (
+                      <Image source={'../assets/' + fotoPerfil}
+                        style={styles.logosHeader2} />
+                    )}
+
+                    {(fotoPerfil == null || fotoPerfil == "") && (
+                      <Image source={require('../assets/icon_usuario.png')}
+                        style={styles.logosHeader2} />
+                    )}
+
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           </View>
@@ -79,14 +107,26 @@ export function Feed({ navigation, route }) {
               style={styles.logoBrothers} />
           </View>
           {/* Logo serviços */}
+          {(cd_cliente != null ) && (
           <View style={styles.servicos}>
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Calendario')}>
-              <Image source={require('../assets/hotel.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Hotel</Text>
-            </TouchableOpacity>
+            {cd_cliente == null && (
+              <TouchableOpacity style={styles.servico}
+                onPress={() => navigation.navigate('Login')}>
+                <Image source={require('../assets/hotel.png')}
+                  style={styles.logoServicos}
+                />
+                <Text style={styles.textServicos}>Hotel</Text>
+              </TouchableOpacity>
+            )}
+            {cd_cliente !== null && (
+              <TouchableOpacity style={styles.servico}
+                onPress={() => navigation.navigate('Calendario', {cd_cliente: cd_cliente})}>
+                <Image source={require('../assets/hotel.png')}
+                  style={styles.logoServicos}
+                />
+                <Text style={styles.textServicos}>Hotel</Text>
+              </TouchableOpacity>
+            )}
             <TouchableOpacity style={styles.servico}
               onPress={() => navigation.navigate('Passeio')}>
               <Image source={require('../assets/passeio.png')}
@@ -108,7 +148,7 @@ export function Feed({ navigation, route }) {
               />
               <Text style={styles.textServicos}>Agility</Text>
             </TouchableOpacity>
-          </View>
+          </View>)}
           {/* Noticias */}
           <View style={styles.noticias}>
             <Text style={styles.textTopicos}>Notícias:</Text>
@@ -131,7 +171,7 @@ export function Feed({ navigation, route }) {
             <View style={styles.comentariosHeader}>
               <Text style={styles.textTopicos}>Comentários:</Text>
               <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
-                <Text>Leia mais {'>'}</Text>
+                <Text >Leia mais {'>'}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.comentarios}>
@@ -209,17 +249,17 @@ export function Feed({ navigation, route }) {
               style={styles.inputComentario}
             />
              <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
-                <Text>Enviar Comentário</Text>
+                <Text > Enviar Comentário</Text>
               </TouchableOpacity>
-          </View>
+          </View></ImageBackground>
         </ScrollView>
       </View>
 
-
+  
     </PaperProvider>
 
 
-
+  
   );
 };
 
@@ -227,10 +267,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2EAD0',
+    
     paddingTop: StatusBar.currentHeight,
   },
   scrollView: {
-
+    
   },
   header: {
     zIndex: 1,
@@ -248,12 +289,21 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40
   },
+  logosHeader2: {
+    width: 40,
+    height: 40,
+    borderRadius: 40
+  },
   imagem: {
     alignItems: 'center',
   },
   logoBrothers: {
-    height: 150,
+    height: 120,
     width: '90%',
+    backgroundColor: '#F6F1EB',
+    borderRadius: 20,
+    margin: 10,
+    
   },
   servicos: {
     flexDirection: 'row',
@@ -315,7 +365,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 3,
     paddingHorizontal: 15,
-    borderRadius: 10
+    borderRadius: 10,
+    backgroundColor:'#F2EAD0',
+    color:'white'
+
   },
   comentarios: {
     flexDirection: 'row',
@@ -364,5 +417,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 10,
     width:'35%',
+    backgroundColor:'#F2EAD0',
+    color:'white'
   },
 });

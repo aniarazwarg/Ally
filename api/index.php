@@ -2,17 +2,22 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use Tuupola\Middleware\CorsMiddleware;
 
 require './vendor/autoload.php';
 
 $app = new \Slim\App;
 
-$app->add(new CorsMiddleware([
-    "origin" => ["*"], // Domínio da origem permitida
-    "methods" => ["GET", "POST", "PUT", "DELETE"], // Métodos HTTP permitidos
-    "headers.allow" => ["Content-Type", "Authorization", "Accept"], // Headers permitidos
-]));
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+});
+
+$app->add(function ($req, $res, $next) {
+    $response = $next($req, $res);
+    return $response
+            ->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+});
 
 $app->get('/comentarios', 'getComentarios');
 $app->put('/curtidas/{id}', 'getCurtidas');
@@ -61,13 +66,15 @@ function getCadastrar(Request $request, Response $response, array $args) {
 
     $dataCadastro = $request->getParsedBody();    
     $db = getConn();
-    $stmt = $db->prepare('INSERT INTO tb_cliente (nm_cliente, dt_nasc_cliente, email, senha, cpf) VALUES (:nome, :nasc, :email, :senha, :cpf)');
+    $stmt = $db->prepare('INSERT INTO tb_cliente (nm_cliente, dt_nasc_cliente, email, senha, cpf, fotoPerfil, telefone) VALUES (:nome, :nasc, :email, :senha, :cpf, :fotoPerfil, :telefone)');
     $stmt->execute([
         ':nome' => $dataCadastro['nome'],
         ':nasc' => $dataCadastro['nasc'],
         ':email' => $dataCadastro['email'],
         ':senha' => $dataCadastro['senha'],
         ':cpf' => $dataCadastro['cpf'],
+        ':fotoPerfil' => $dataCadastro['fotoPerfil'],
+        ':telefone' => $dataCadastro['telefone'],
     ]);
     return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
 };
@@ -75,10 +82,10 @@ function getAdicionarPet(Request $request, Response $response, array $args) {
 
     $dataAdicionarPet = $request->getParsedBody();    
     $db = getConn();
-    $stmt = $db->prepare('INSERT INTO tb_cao (nm_cao, nm_raca, ds_porte, ds_pelagem, ds_peso) VALUES (:nome, :raça, :porte, :cor, :peso)');
+    $stmt = $db->prepare('INSERT INTO tb_cao (nm_cao, nm_raca, ds_porte, ds_pelagem, ds_peso) VALUES (:nome, :raca, :porte, :cor, :peso)');
     $stmt->execute([
         ':nome' => $dataAdicionarPet['nome'],
-        ':raça' => $dataAdicionarPet['raça'],
+        ':raca' => $dataAdicionarPet['raca'],
         ':porte' => $dataAdicionarPet['porte'],
         ':cor' => $dataAdicionarPet['cor'],
         ':peso' => $dataAdicionarPet['peso'], 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, View, Button, TouchableOpacity, Pressable, Platform } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
+import { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { Modal, Portal,  PaperProvider, Snackbar } from 'react-native-paper';
 
 LocaleConfig.locales['fr'] = {
 
@@ -27,11 +28,19 @@ LocaleConfig.locales['fr'] = {
 
 LocaleConfig.defaultLocale = 'fr';
 
-export function Calendario({ navigation }) {
+export function Calendario({ navigation, route }) {
 
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [markedDates, setMarkedDates] = useState({});
+  const [statusReserva, setStatusReserva] = useState('Aguardando');
+  const { cd_cliente } = route.params || { cd_cliente: null };
+
+
+  const [visible2, setVisible2] = React.useState(false);
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
+
 
   const onDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
@@ -55,37 +64,43 @@ export function Calendario({ navigation }) {
     }
   };
 
-  const agendar = () => {
-    fetch('http://localhost/api/agendar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        dt_checkin: selectedStartDate,
-        dt_checkout: selectedEndDate,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    const agendar = () => {
+      fetch('http://localhost/api/agendar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cd_cliente: cd_cliente,
+          dt_checkin: selectedStartDate,
+          dt_checkout: selectedEndDate,
+          statusReserva: statusReserva,
+        }),
       })
-      .catch((error) => {
-        console.error('Erro:', error);
-      });
-  };
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error('Erro:', error);
+        });
+    };
+
+    console.log(cd_cliente)
 
   function validaAgendamento() {
-    // alert("Seu pedido de reserva foi enviado com sucesso! ");
+    onToggleSnackBar();
     agendar();
     // navigation.navigate('Home');
   };
 
-  
+
 
 
   return (
+    <PaperProvider>
     <View style={styles.container}>
+      <ImageBackground style={{ width: '100%', height: '100%', }}  source={require('../assets/pegadas2.jpg')}>
       <View>
         <Text style={styles.header}>Agendamento no Hotel</Text>
       </View>
@@ -97,7 +112,8 @@ export function Calendario({ navigation }) {
           style={{
             borderWidth: 1,
             borderColor: 'gray',
-            margin: 25
+            margin: 25,
+            borderRadius: 10,
           }}
           theme={{
             backgroundColor: '#ffffff',
@@ -107,7 +123,8 @@ export function Calendario({ navigation }) {
             selectedDayTextColor: '#ffffff',
             todayTextColor: '#00adf5',
             dayTextColor: '#2d4150',
-            textDisabledColor: '#d9e'
+            textDisabledColor: '#d9e',
+            
             }}
         />
       </View>
@@ -129,12 +146,21 @@ export function Calendario({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
           <Text style={styles.textButton}>Agendar</Text>
         </TouchableOpacity>
-        {/* <Text style={styles.texto}>
-          xx/xx horário especial de funcionamento.
-          ( 10 às 16h ) para check in
-        </Text> */}
-      </View>
+        </View>
+        <View style={{ marginHorizontal: 25, marginTop: 10 }}>
+          <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.textButton}>Voltar</Text>
+          </TouchableOpacity>
+      </View></ImageBackground>
     </View>
+    <Snackbar
+    visible={visible2}
+    onDismiss={onDismissSnackBar}
+    duration={700}
+    >
+   Seu pedido de reserva foi enviado com sucesso!
+  </Snackbar>
+</PaperProvider>
   );
 }
 
@@ -190,20 +216,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#273A73',
-    width: '40%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
-    shadowRadius: 10,
+    
   },
   button2: {
+    alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#6FAA9C',
-    width: '40%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
-    marginTop: 20,
-    shadowRadius: 10,
+   
   },
   texto: {
     textAlign: 'center',
@@ -217,12 +243,19 @@ const styles = StyleSheet.create({
     color: '#273A73',
     fontSize: 20,
   },
-  header: {
+  header: { 
     textAlign: 'center',
     flex: 0,
-    fontSize: 26,
+    fontSize: 30,
     margin: 20,
-    marginBottom: 0
+    marginBottom: 0,
+    fontWeight: 'bold',
+
+    height: 120,
+    width: '90%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+  
   },
   textButton: {
     color: 'white',

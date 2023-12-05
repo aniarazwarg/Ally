@@ -36,9 +36,10 @@ export function Comentarios({ navigation }) {
         }
     };
 
-    dataComentarios();
+    
 
     useEffect(() => {
+        dataComentarios();
         comentarios.forEach((comentario) => {
             if (id !== null && comentario.ok == 0 && id == comentario.id) {
                 updateCurtidas(id, { curtidas, descurtidas, ok });
@@ -47,7 +48,7 @@ export function Comentarios({ navigation }) {
                 updateCurtidas(id, { curtidas, descurtidas, ok });
             }
         });
-    }, [curtidas, descurtidas, id]);
+    }, [,]);
 
 
     return (
@@ -71,7 +72,7 @@ export function Comentarios({ navigation }) {
                 <View style={styles.comentarios}>
                     {comentarios.map((comentario) => (
                         <View key={comentario.id}>
-                             <Text>{comentario.id}</Text>
+                             
                             <View style={styles.comentarioCard}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -87,44 +88,7 @@ export function Comentarios({ navigation }) {
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        {/* like */}
-                                        <TouchableOpacity onPress={() => {
-                                            setId(comentario.id);
-                                            setCurtidas(comentario.curtidas + 1);
-                                            setDescurtidas(comentario.descurtidas);
-                                            setOk(1);
-                                            if (comentario.ok == 1) {
-                                                setCurtidas(comentario.curtidas - 1);
-                                                setDescurtidas(comentario.descurtidas);
-                                                setOk(0);
-                                            }
-                                        }}>
-                                            <Image
-                                                source={require('../assets/like.png')}
-                                                style={{ width: 20, height: 20, marginRight: 10 }} />
-                                        </TouchableOpacity>
-                                        {/* like */}
-                                        <Text>{comentario.curtidas}</Text>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                                        {/* deslike */}
-                                        <TouchableOpacity onPress={() => {
-                                            setId(comentario.id); 
-                                            setDescurtidas(comentario.descurtidas + 1); 
-                                            setCurtidas(comentario.curtidas) 
-                                            setOk(1);
-                                            if (comentario.ok == 1) {
-                                                setDescurtidas(comentario.descurtidas - 1);
-                                                setCurtidas(comentario.curtidas);
-                                                setOk(0);
-                                            }
-                                            }}>
-                                            <Image
-                                                source={require('../assets/dislike.png')}
-                                                style={{ width: 20, height: 20, marginRight: 10 }} />
-                                        </TouchableOpacity>
-                                        {/* deslike */}
-                                        <Text>{comentario.descurtidas}</Text>
+             
                                     </View>
                                 </View>
                             </View>

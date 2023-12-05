@@ -17,7 +17,7 @@ export function Adestramento({ navigation }) {
     <PaperProvider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text>Tela não imprementada</Text>
+          <Text>Tela não implementada</Text>
         </Modal>
       </Portal>
 
