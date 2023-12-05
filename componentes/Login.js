@@ -39,6 +39,7 @@ export function Login({ navigation }) {
         showModalAlertSucesso();
       } else {
         onToggleSnackBar();
+        showModalAlertErro();
       }
     } catch (error) {
       console.error("Erro durante a validação do usuário:", error);
@@ -48,9 +49,16 @@ export function Login({ navigation }) {
 
   function NavigateLogin() {
     const user = users.find(user => user.email === email);
+    const admin = users.find(user => user.email === 'admin');
 
     if (user) {
       navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+      hideModalAlertSucesso();
+      setEmail('')
+      setSenha('')
+    }
+    if (admin) {
+      navigation.navigate('Admin')
     }
   }
 
@@ -68,11 +76,11 @@ export function Login({ navigation }) {
   return (
     <PaperProvider>
       <Portal>
-        <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} >
+        <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin}  >
           <Text style={styles.modal}>Login Feito com Sucesso</Text>
         </Modal>
         <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} >
-          <Text>Ocorreu um Errro ;-; </Text>
+          <Text style={styles.modal}>Ocorrreu um Errro. </Text>
         </Modal>
       </Portal>
       <View style={styles.container}>
@@ -114,6 +122,12 @@ export function Login({ navigation }) {
             <TouchableOpacity onPress={() => navigation.navigate('RecuperacaoSenha')}>
               <Text style={styles.texto}>Esqueceu a senha?</Text>
             </TouchableOpacity>
+          </View>
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.buttonEntrar} onPress={() => navigation.navigate('Feed')}>
+              <Text style={styles.textButton}>Voltar</Text>
+            </TouchableOpacity>
+           
           </View>
           {/* {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
@@ -194,5 +208,13 @@ const styles = StyleSheet.create({
     width: '60%',
     backgroundColor: '#F6F1EB',
     borderRadius: 20
+  },
+  modal:{
+    fontSize:40,
+    textAlign:'center',
+    borderWidth:2,
+    borderColor:'black',
+    borderRadius:10,
+    backgroundColor:'white',
   },
 });

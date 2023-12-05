@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar } from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar, ImageBackground } from "react-native";
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -10,18 +10,23 @@ export function Feed({ navigation, route }) {
   const [fotoPerfil, setFotoPerfil] = React.useState(null);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = { backgroundColor: 'white', padding: 20 };
+  const containerStyle = { backgroundColor: 'white', padding: 20, width: '80%', borderRadius: 40, alignSelf: 'center' };
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
   // const foto = require(fotoPerfil)
 
   function getUsers() {
     fetch('http://localhost/api/usuarios')
-    // fetch('http://192.168.0.11/api/usuarios')
+      // fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
 
+  function sair() {
+    navigation.navigate('Feed', { cd_cliente: null })
+    hideModal();
+    setNome('')
+  }
 
   console.log(nome, cd_cliente)
 
@@ -37,218 +42,212 @@ export function Feed({ navigation, route }) {
 
       }
     })
-  }, [users])
+  }, [users, cd_cliente])
 
   return (
 
     <PaperProvider>
       <Portal>
-        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text>Não imprementado</Text>
+        <Modal visible={visible} onDismiss={sair} contentContainerStyle={containerStyle}>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', textAlign: 'center' }}>Volte sempre!</Text>
         </Modal>
       </Portal>
 
 
       <View style={styles.container}>
-        <ScrollView style={styles.scrollView}
-          stickyHeaderIndices={[0]}
-          stickyHeaderHiddenOnScroll>
-          {/* Header */}
-          <View style={styles.header}>
-            <View style={styles.headerConteudo}>
-              <View>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                  <Image source={require('../assets/menu-bar.png')}
-                    style={styles.logosHeader}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View>
-                {nome !== null && (
-                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
-                )}
-                {nome == null && (
-                  <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo!</Text>
-                )}
+        <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas2.jpg')}>
+          <ScrollView style={styles.scrollView}
+            stickyHeaderIndices={[0]}
+            stickyHeaderHiddenOnScroll>
+            {/* Header */}
+            <View style={styles.header}>
+              <View style={styles.headerConteudo}>
+                {(cd_cliente == null) && (
+                  <View>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                      <Image source={require('../assets/menu-bar.png')}
+                        style={styles.logosHeader} />
+                    </TouchableOpacity>
+                  </View>)}
+                {(cd_cliente !== null) && (
+                  <View>
+                    <TouchableOpacity onPress={showModal}>
+                      <Text style={{ fontWeight: 'bold' }}>Sair</Text>
+                    </TouchableOpacity>
+                  </View>)}
+                <View>
+                  {cd_cliente !== null && (
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo, {nome}!</Text>
+                  )}
+                  {cd_cliente == null && (
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Bem vindo!</Text>
+                  )}
 
-              </View>
-              <View>
-                {cd_cliente == null && (
-                  <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Image source={require('../assets/icon_usuario.png')}
-                      style={styles.logosHeader2} />
-                  </TouchableOpacity>
-                )}
-                {cd_cliente !== null && (
-                  <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
-                    {(fotoPerfil !== null && fotoPerfil !== "" ) && (
-                      <Image source={'../assets/' + fotoPerfil}
-                        style={styles.logosHeader2} />
-                    )}
-                    {(fotoPerfil == null || fotoPerfil == "") && (
+                </View>
+                <View>
+                  {cd_cliente == null && (
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                       <Image source={require('../assets/icon_usuario.png')}
                         style={styles.logosHeader2} />
-                    )}
-                  </TouchableOpacity>
-                )}
+                    </TouchableOpacity>
+                  )}
+                  {cd_cliente !== null && (
+                    <TouchableOpacity onPress={() => navigation.navigate('Perfil', { cd_cliente: cd_cliente })}>
+                      {(fotoPerfil !== null && fotoPerfil !== "") && (
+                        <Image source={'../assets/' + fotoPerfil}
+                          style={styles.logosHeader2} />
+                      )}
+                      {(fotoPerfil == null || fotoPerfil == "") && (
+                        <Image source={require('../assets/icon_usuario.png')}
+                          style={styles.logosHeader2} />
+                      )}
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
             </View>
-          </View>
-          {/* Logo Brothers */}
-          <View style={styles.imagem}>
-            <Image source={require('../assets/Logo_Brothers.png')}
-              style={styles.logoBrothers} />
-          </View>
-          {/* Logo serviços */}
-          <View style={styles.servicos}>
-            {cd_cliente == null && (
+            {/* Logo Brothers */}
+            <View style={styles.imagem}>
+              <Image source={require('../assets/Logo_Brothers.png')}
+                style={styles.logoBrothers} />
+            </View>
+            {/* Logo serviços */}
+            <View style={styles.servicos}>
+              {cd_cliente == null && (
+                <TouchableOpacity style={styles.servico}
+                  onPress={() => navigation.navigate('Login')}>
+                  <Image source={require('../assets/hotel.png')}
+                    style={styles.logoServicos}
+                  />
+                  <Text style={styles.textServicos}>Hotel</Text>
+                </TouchableOpacity>
+              )}
+              {cd_cliente !== null && (
+                <TouchableOpacity style={styles.servico}
+                  onPress={() => navigation.navigate('Calendario', { cd_cliente: cd_cliente })}>
+                  <Image source={require('../assets/hotel.png')}
+                    style={styles.logoServicos}
+                  />
+                  <Text style={styles.textServicos}>Hotel</Text>
+                </TouchableOpacity>
+              )}
               <TouchableOpacity style={styles.servico}
-                onPress={() => navigation.navigate('Login')}>
-                <Image source={require('../assets/hotel.png')}
+                onPress={() => navigation.navigate('Passeio')}>
+                <Image source={require('../assets/passeio.png')}
                   style={styles.logoServicos}
                 />
-                <Text style={styles.textServicos}>Hotel</Text>
+                <Text style={styles.textServicos}>Passeio</Text>
               </TouchableOpacity>
-            )}
-            {cd_cliente !== null && (
               <TouchableOpacity style={styles.servico}
-                onPress={() => navigation.navigate('Calendario', {cd_cliente: cd_cliente})}>
-                <Image source={require('../assets/hotel.png')}
+                onPress={() => navigation.navigate('Adestramento')}>
+                <Image source={require('../assets/adestrar.png')}
                   style={styles.logoServicos}
                 />
-                <Text style={styles.textServicos}>Hotel</Text>
+                <Text style={styles.textServicos}>Adestramento</Text>
               </TouchableOpacity>
-            )}
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Passeio')}>
-              <Image source={require('../assets/passeio.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Passeio</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Adestramento')}>
-              <Image source={require('../assets/adestrar.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Adestramento</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.servico}
-              onPress={() => navigation.navigate('Agility')}>
-              <Image source={require('../assets/agility.png')}
-                style={styles.logoServicos}
-              />
-              <Text style={styles.textServicos}>Agility</Text>
-            </TouchableOpacity>
-          </View>
-          {/* Noticias */}
-          <View style={styles.noticias}>
-            <Text style={styles.textTopicos}>Notícias:</Text>
-            <View style={styles.noticia}>
-              <Image source={require('../assets/favicon.png')}
-                style={styles.logo3} />
-              <Text style={styles.text2}>Vagas para o feriado!</Text>
-            </View>
-            <View style={styles.noticia}>
-              <Image source={require('../assets/favicon.png')}
-                style={styles.logo3} />
-              <View>
-                <Text style={styles.text2}>Live no Instagram</Text>
-                <Text style={styles.text3}>Novidades pra vocês!</Text>
-              </View>
-            </View>
-          </View>
-          {/* Comentários */}
-          <View>
-            <View style={styles.comentariosHeader}>
-              <Text style={styles.textTopicos}>Comentários:</Text>
-              <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
-                <Text>Leia mais {'>'}</Text>
+              <TouchableOpacity style={styles.servico}
+                onPress={() => navigation.navigate('Agility')}>
+                <Image source={require('../assets/agility.png')}
+                  style={styles.logoServicos}
+                />
+                <Text style={styles.textServicos}>Agility</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.comentarios}>
-              <View style={styles.comentarioCard}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Image
-                      source={require('../assets/icon_usuario.png')}
-                      style={{ width: 30, height: 30 }}
-                    />
-                    <Text style={styles.nomeUsuario}>Maria</Text>
-                  </View>
-                  <Image
-                    source={require('../assets/avaliacao.png')}
-                    style={{ width: 50, height: 20 }}
-                  />
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={styles.textoComentario}>Adorei a experiência que o Bob Marley teve com vocês!</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/like.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/dislike.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
-                </View>
+            {/* Noticias */}
+            <View style={styles.noticias}>
+              <Text style={styles.textTopicos}>Notícias:</Text>
+              <View style={styles.noticia}>
+                <Image source={require('../assets/favicon.png')}
+                  style={styles.logo3} />
+                <Text style={styles.text2}>Vagas para o feriado!</Text>
               </View>
-              <View style={styles.comentarioCard}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Image
-                      source={require('../assets/icon_usuario.png')}
-                      style={{ width: 30, height: 30 }}
-                    />
-                    <Text style={styles.nomeUsuario}>José</Text>
-                  </View>
-                  <Image
-                    source={require('../assets/avaliacao.png')}
-                    style={{ width: 50, height: 20 }}
-                  />
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={styles.textoComentario}>Adestradores nota 10!!!</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/like.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../assets/dislike.png')}
-                      style={{ width: 20, height: 20 }} />
-                  </TouchableOpacity>
+              <View style={styles.noticia}>
+                <Image source={require('../assets/favicon.png')}
+                  style={styles.logo3} />
+                <View>
+                  <Text style={styles.text2}>Live no Instagram</Text>
+                  <Text style={styles.text3}>Novidades pra vocês!</Text>
                 </View>
               </View>
             </View>
-          </View>
-          {/* Digita comentário */}
-          <View style={styles.digiteComentario}>
-            <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
-            <TextInput
-              placeholder="Digite o comentário"
-              style={styles.inputComentario}
-            />
-            <TextInput
-              placeholder="Informe seu email ou whatsapp"
-              style={styles.inputComentario}
-            />
-            <TouchableOpacity style={styles.enviarComentario} onPress={showModal}>
-              <Text>Enviar Comentário</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+            {/* Comentários */}
+            <View>
+              <View style={styles.comentariosHeader}>
+                <Text style={styles.textTopicos}>Comentários:</Text>
+                <TouchableOpacity style={styles.leiaMais} onPress={() => navigation.navigate("Comentarios")}>
+                  <Text>Leia mais {'>'}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.comentarios}>
+                <View style={styles.comentarioCard}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Image
+                        source={require('../assets/icon_usuario.png')}
+                        style={{ width: 30, height: 30 }}
+                      />
+                      <Text style={styles.nomeUsuario}>Maria</Text>
+                    </View>
+                    <Image
+                      source={require('../assets/avaliacao.png')}
+                      style={{ width: 50, height: 20 }}
+                    />
+                  </View>
+                  <View style={{ alignItems: 'center' }}>
+                    <Text style={styles.textoComentario}>Adorei a experiência que o Bob Marley teve com vocês!</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../assets/like.png')}
+                        style={{ width: 20, height: 20 }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../assets/dislike.png')}
+                        style={{ width: 20, height: 20 }} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={styles.comentarioCard}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Image
+                        source={require('../assets/icon_usuario.png')}
+                        style={{ width: 30, height: 30 }}
+                      />
+                      <Text style={styles.nomeUsuario}>José</Text>
+                    </View>
+                    <Image
+                      source={require('../assets/avaliacao.png')}
+                      style={{ width: 50, height: 20 }}
+                    />
+                  </View>
+                  <View style={{ alignItems: 'center' }}>
+                    <Text style={styles.textoComentario}>Adestradores nota 10!!!</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../assets/like.png')}
+                        style={{ width: 20, height: 20 }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../assets/dislike.png')}
+                        style={{ width: 20, height: 20 }} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </View>
+            {/* Digita comentário */}
+          </ScrollView>
+        </ImageBackground >
       </View>
 
 
-    </PaperProvider>
+    </PaperProvider >
 
 
 
