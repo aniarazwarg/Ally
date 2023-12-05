@@ -141,7 +141,7 @@ export function Calendario({ navigation }) {
         </TouchableOpacity>
         </View>
         <View style={{ marginHorizontal: 25, marginTop: 10 }}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Home')}>
             <Text style={styles.textButton}>Voltar</Text>
           </TouchableOpacity>
       </View></ImageBackground>
@@ -209,20 +209,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#273A73',
-    width: '40%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
-    shadowRadius: 10,
+    
   },
   button2: {
+    alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#6FAA9C',
-    width: '40%',
+    width: '50%',
     padding: 10,
     borderRadius: 20,
-    marginTop: 20,
-    shadowRadius: 10,
+   
   },
   texto: {
     textAlign: 'center',
@@ -236,13 +236,19 @@ const styles = StyleSheet.create({
     color: '#273A73',
     fontSize: 20,
   },
-  header: {
+  header: { 
     textAlign: 'center',
     flex: 0,
     fontSize: 30,
     margin: 20,
     marginBottom: 0,
     fontWeight: 'bold',
+
+    height: 120,
+    width: '90%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+  
   },
   textButton: {
     color: 'white',

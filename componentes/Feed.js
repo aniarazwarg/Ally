@@ -36,12 +36,12 @@ export function Feed({ navigation, route }) {
     users.forEach((user) => {
       if (cd_cliente == user.cd_cliente) {
         setNome(user.nm_cliente)
-        setFotoPerfil(user.fotoPerfil)
-         
+        setFotoPerfil(user.fotoPerfil) 
+        console.log(user.fotoPerfil) 
+        console.log(user.nm_cliente) 
+
       }
-      else{
-         
-      }
+      
     })
   }, [users]);
  
@@ -90,10 +90,12 @@ export function Feed({ navigation, route }) {
                       <Image source={'../assets/' + fotoPerfil}
                         style={styles.logosHeader2} />
                     )}
+
                     {(fotoPerfil == null || fotoPerfil == "") && (
                       <Image source={require('../assets/icon_usuario.png')}
                         style={styles.logosHeader2} />
                     )}
+
                   </TouchableOpacity>
                 )}
               </View>
