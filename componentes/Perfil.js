@@ -4,9 +4,9 @@ import { Modal, Portal, Button, PaperProvider } from 'react-native-paper';
 
 export function Perfil({ navigation, route }) {
 
-    const [telefone, setTelefone] = useState('(13) 99779-7442')
-    const [email, setEmail] = useState('exemplo@exemplo.com.br')
-    const [endereco, setEndereco] = useState('Rua Exemplo, 999')
+    const [telefone, setTelefone] = useState()
+    const [email, setEmail] = useState()
+   
     const [users, setUsers] = useState([])
     const [nome, setNome] = useState(null)
     const [fotoPerfil, setFotoPerfil] = useState(null)
@@ -30,6 +30,54 @@ export function Perfil({ navigation, route }) {
 
     const { cd_cliente } = route.params || { cd_cliente: null };
 
+
+    // Função update email
+  const updateEmail = () => {
+    fetch(`http://localhost/api/updateEmail/${cd_cliente}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email, // Updated email value
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+      
+        console.log(data);
+        hideModalEmail(); 
+      })
+      .catch(error => {
+       
+        console.error('Error:', error);
+      });
+  };
+
+     // Função update telefone
+  const updateTelefone = () => {
+    fetch(`http://localhost/api/updateTelefone/${cd_cliente}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        telefone: telefone, 
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        
+        console.log(data);
+        hideModalTel(); 
+      })
+      .catch(error => {
+       
+        console.error('Error:', error);
+      });
+  };
+
+
     function getUsers() {
         fetch('http://localhost/api/usuarios')
             .then((response) => response.json())
@@ -44,6 +92,9 @@ export function Perfil({ navigation, route }) {
         users.forEach((user) => {
             if (cd_cliente == user.cd_cliente) {
                 setNome(user.nm_cliente)
+                
+                setTelefone(user.telefone)
+                setEmail(user.email)
                 setFotoPerfil(user.fotoPerfil)
                 console.log(user.fotoPerfil)
             }
@@ -55,43 +106,41 @@ export function Perfil({ navigation, route }) {
 
         <PaperProvider>
         <Portal>
-         {/* Modal Telefone */}
-          <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
-                    <TextInput  
-                        placeholder="Altere o Telefone"
-                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20,}}               
-                        />
-                    
-            
-                <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalTel}>
-                        <Text style={styles.textoBotao}>Voltar</Text>
-                    </TouchableOpacity>
-          </Modal>
          {/* Modal Email */}
+      <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
+        <TextInput
+          placeholder="Altere o Email"
+          style={{ textAlign: 'center', borderWidth: 1, padding: 14, borderRadius: 20 }}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
 
-          <Modal visible={visibleEmail} onDismiss={hideModalEmail} contentContainerStyle={containerStyle}>
-          <TextInput  
-                        placeholder="Altere o Email"
-                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} 
-                          />
-                  
-            
-                <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalEmail}>
-                        <Text style={styles.textoBotao}>Voltar</Text>
-                    </TouchableOpacity>
-          </Modal>
+        <TouchableOpacity style={styles.botaoEditar2} onPress={updateEmail}>
+          <Text style={styles.textoBotao}>Atualizar Email</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalEmail}>
+          <Text style={styles.textoBotao}>Voltar</Text>
+        </TouchableOpacity>
+      </Modal>
 
-          <Modal visible={visibleEnd} onDismiss={hideModalEnd} contentContainerStyle={containerStyle}>
-          <TextInput  
-                        placeholder="Altere o Endereço"
-                        style={{ textAlign: 'center', borderWidth: 1, padding: 14,borderRadius:20 }} 
-                          />
-                   
-            
-                <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalEnd}>
-                        <Text style={styles.textoBotao}>Voltar</Text>
-                    </TouchableOpacity>
-          </Modal>
+      {/* Modal Telefone */}
+      <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
+        <TextInput
+          placeholder="Altere o Telefone"
+          style={{ textAlign: 'center', borderWidth: 1, padding: 14, borderRadius: 20 }}
+          value={telefone}
+          onChangeText={(text) => setTelefone(text)}
+        />
+
+        <TouchableOpacity style={styles.botaoEditar2} onPress={updateTelefone}>
+          <Text style={styles.textoBotao}>Atualizar Telefone</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.botaoEditar2} onPress={hideModalTel}>
+          <Text style={styles.textoBotao}>Voltar</Text>
+        </TouchableOpacity>
+      </Modal>
+
+       
 
         </Portal>
 
@@ -118,12 +167,7 @@ export function Perfil({ navigation, route }) {
                         <Text style={styles.textoBotao} onPress={showModalEmail}>Editar</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.campo}>
-                    <Text style={styles.informacao}>Endereço: {endereco}</Text>
-                    <TouchableOpacity style={styles.botaoEditar}>
-                        <Text style={styles.textoBotao} onPress={showModalEnd}>Editar</Text>
-                    </TouchableOpacity>
-                </View>
+                
             </View>
             <View style={styles.campoPets}>
                 <Text style={styles.nomeText}>Meus pets</Text>
