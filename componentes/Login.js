@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { Modal, Portal, PaperProvider, Button, Snackbar } from 'react-native-paper';
 
 export function Login({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [users, setUsers] = useState([]);
+
+  const [visibleAlertErro, setVisibleAlertErro] = React.useState(false);
+  const showModalAlertErro = () => setVisibleAlertErro(true);
+  const hideModalAlertErro = () => setVisibleAlertErro(false);
+
+  const [visibleAlertSucesso, setVisibleAlertSucesso] = React.useState(false);
+  const showModalAlertSucesso = () => setVisibleAlertSucesso(true);
+  const hideModalAlertSucesso = () => setVisibleAlertSucesso(false);
+
+  const [visible2, setVisible2] = React.useState(false);
+
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
+
+  const containerStyle = { backgroundColor: 'white', padding: 20 };
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -15,16 +31,27 @@ export function Login({ navigation }) {
   };
 
   function validaUsuario() {
-    users.forEach((user) => {
-      if (user.email === email && user.senha === senha) {
-        alert("Login realizado com sucesso!");
-        navigation.navigate('Feed', { cd_cliente: user.cd_cliente });
-        setEmail('');
-        setSenha('');
+    //alert importante para a futura validação abaixo
+    const $validacao = users.find(user => user.email === email);
+
+    try {
+      if ($validacao && $validacao.email === email && $validacao.senha === senha) {
+        showModalAlertSucesso();
       } else {
-        console.log(email, senha)
+        onToggleSnackBar();
       }
-    })
+    } catch (error) {
+      console.error("Erro durante a validação do usuário:", error);
+      onToggleSnackBar();
+    }
+  }
+
+  function NavigateLogin() {
+    const user = users.find(user => user.email === email);
+
+    if (user) {
+      navigation.navigate('Feed', { cd_cliente: user.cd_cliente, nm_cliente: user.nm_cliente });
+    }
   }
 
 
@@ -34,58 +61,66 @@ export function Login({ navigation }) {
       .then((json) => setUsers(json))
   }
 
-
   useEffect(() => {
     getUsers();
-  }, [users])
-
+  }, [,])
 
   return (
-    <View style={styles.container}>
-      {/* Imagem */}
-      <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas.jpg')}>
-        <View style={styles.imagem}>
-          <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
-        </View>
-        {/* Formulário de login */}
-        <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor={'#596AA1'}
-            onChangeText={handleEmailChange}
-            value={email}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Senha"
-            placeholderTextColor={'#596AA1'}
-            secureTextEntry={true}
-            onChangeText={handleSenhaChange}
-            value={senha}
-          />
-        </View>
-        {/* Botão entrar/cadastrar*/}
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.buttonEntrar} onPress={(validaUsuario)}>
-            <Text style={styles.textButton}>Entrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonCadastrar} onPress={() => navigation.navigate('Cadastro')}>
-            <Text style={styles.textButton}>Cadastrar</Text>
-          </TouchableOpacity>
-        </View>
+    <PaperProvider>
+      <Portal>
+        <Modal visible={visibleAlertSucesso} onDismiss={NavigateLogin} >
+          <Text style={styles.modal}>Login Feito com Sucesso</Text>
+        </Modal>
+        <Modal visible={visibleAlertErro} onDismiss={hideModalAlertErro} >
+          <Text>Ocorreu um Errro ;-; </Text>
+        </Modal>
+      </Portal>
+      <View style={styles.container}>
+        {/* Imagem */}
+        <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} source={require('../assets/pegadas.jpg')}>
+          <View style={styles.imagem}>
+            <Image style={styles.logoBrothers} source={require('../assets/Logo_Brothers.png')} />
+          </View>
+          {/* Formulário de login */}
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor={'#596AA1'}
+              onChangeText={handleEmailChange}
+              value={email}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              placeholderTextColor={'#596AA1'}
+              secureTextEntry={true}
+              onChangeText={handleSenhaChange}
+              value={senha}
+            />
+          </View>
+          {/* Botão entrar/cadastrar*/}
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.buttonEntrar} onPress={(validaUsuario)}>
+              <Text style={styles.textButton}>Entrar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonCadastrar} onPress={() => navigation.navigate('Cadastro')}>
+              <Text style={styles.textButton}>Cadastrar</Text>
+            </TouchableOpacity>
+          </View>
 
-        {/* Esqueceu a senha */}
-        <View style={styles.link}>
-          <TouchableOpacity onPress={() => navigation.navigate('RecuperacaoSenha')}>
-            <Text style={styles.texto}>Esqueceu a senha?</Text>
-          </TouchableOpacity>
-        </View>
-        {/* {users.map((user) => (
+          {/* Esqueceu a senha */}
+          <View style={styles.link}>
+            <TouchableOpacity onPress={() => navigation.navigate('RecuperacaoSenha')}>
+              <Text style={styles.texto}>Esqueceu a senha?</Text>
+            </TouchableOpacity>
+          </View>
+          {/* {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
         ))} */}
-      </ImageBackground>
-    </View>
+        </ImageBackground>
+      </View>
+    </PaperProvider>
   );
 }
 
