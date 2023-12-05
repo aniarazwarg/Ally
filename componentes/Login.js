@@ -33,7 +33,7 @@ export function Login({ navigation }) {
   function validaUsuario() {
     //alert importante para a futura validação abaixo
 
-
+    getUsers();
     try {
       if ($validacao && $validacao.email === email && $validacao.senha === senha) {
         showModalAlertSucesso();
@@ -42,8 +42,10 @@ export function Login({ navigation }) {
         showModalAlertErro();
       }
     } catch (error) {
+      getUsers();
       console.error("Erro durante a validação do usuário:", error);
       onToggleSnackBar();
+      
     }
   }
 
