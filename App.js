@@ -63,7 +63,7 @@ function MyDrawer() {
 function Admin() {
   return (
     <Drawer.Navigator initialRouteName='Reservas'>
-      <Drawer.Screen name='MenuAdmin' component={MenuAdmin}/>
+      <Drawer.Screen name='Início' component={MenuAdmin}/>
       <Drawer.Screen name='Clientes' component={Clientes}/>
       <Drawer.Screen name='Reservas' component={Reservas}/>
      </Drawer.Navigator>
