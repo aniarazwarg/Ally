@@ -45,7 +45,7 @@ export function Login({ navigation }) {
       getUsers();
       console.error("Erro durante a validação do usuário:", error);
       onToggleSnackBar();
-      
+
     }
   }
 
@@ -73,7 +73,8 @@ export function Login({ navigation }) {
 
 
   function getUsers() {
-    fetch('http://192.168.26.94/api/usuarios')
+    // fetch('http://192.168.26.94/api/usuarios')
+    fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }

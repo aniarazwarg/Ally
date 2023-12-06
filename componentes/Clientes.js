@@ -6,7 +6,7 @@ export function Clientes({ navigation, route }) {
     const [users, setUsers] = useState([])
 
     function getUsers() {
-        fetch('http://192.168.26.94/api/usuarios')
+        fetch('http://localhost/api/usuarios')
             // fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
