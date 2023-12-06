@@ -221,7 +221,6 @@ export function Cadastro({ navigation }) {
   //Função cadastro
 
   const enviarDados = () => {
-    // fetch('http://localhost/api/cadastro', {
     fetch('http://192.168.26.94/api/cadastro', {
       method: 'POST',
       headers: {
@@ -240,6 +239,7 @@ export function Cadastro({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        getUsers(); // Recarrega os dados dos usuários após o cadastro
       })
       .catch((error) => {
         console.error('Erro:', error);
