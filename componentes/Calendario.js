@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { Modal, Portal,  PaperProvider, Snackbar } from 'react-native-paper';
+import { Modal, Portal,  PaperProvider, Snackbar, Button } from 'react-native-paper';
+
 
 
 
@@ -37,12 +38,11 @@ export function Calendario({ navigation, route }) {
   const [markedDates, setMarkedDates] = useState({});
   const [statusReserva, setStatusReserva] = useState('Aguardando');
   const { cd_cliente } = route.params || { cd_cliente: null };
-
-
+  const [hoje, setHoje] = useState(new Date().toJSON().slice(0, 10))
+ 
   const [visible2, setVisible2] = React.useState(false);
   const onToggleSnackBar = () => setVisible2(!visible2);
   const onDismissSnackBar = () => setVisible2(false);
-
 
   const onDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
@@ -97,8 +97,12 @@ export function Calendario({ navigation, route }) {
   };
 
 
+function teste(){
 
+  alert(hoje)
 
+}
+ 
   return (
     <PaperProvider>
     <View style={styles.container}>
@@ -108,6 +112,7 @@ export function Calendario({ navigation, route }) {
       </View>
       <View>
         <Calendar
+          minDate={hoje}
           onDayPress={onDayPress}
           markedDates={markedDates}
           enableSwipeMonths={true}
@@ -130,7 +135,7 @@ export function Calendario({ navigation, route }) {
             }}
         />
       </View>
-
+<Button onPress={teste}>aaaa</Button>
       <View>
         <TextInput
           placeholder='Check in'
