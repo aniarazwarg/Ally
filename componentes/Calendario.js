@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { Modal, Portal,  PaperProvider, Snackbar } from 'react-native-paper';
 
+
+
 LocaleConfig.locales['fr'] = {
 
   monthNames: [
@@ -128,17 +130,18 @@ export function Calendario({ navigation, route }) {
             }}
         />
       </View>
+
       <View>
         <TextInput
           placeholder='Check in'
           style={styles.input}
-          value={selectedStartDate !== null ? selectedStartDate : ''}
+          value={selectedStartDate == null ? selectedStartDate : selectedStartDate.split('-').reverse().join('/')}
           keyboardType="numeric"
         />
         <TextInput
           placeholder='Check out'
           style={styles.input}
-          value={selectedEndDate !== null ? selectedEndDate : ''}
+          value={selectedEndDate == null ? selectedEndDate : selectedEndDate.split('-').reverse().join('/')}
           keyboardType="numeric"
         />
       </View>
