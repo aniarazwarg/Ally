@@ -46,7 +46,7 @@ const [login, setLogin] = useState(0);
       getUsers();
       console.error("Erro durante a validação do usuário:", error);
       onToggleSnackBar();
-      
+
     }
   }
 
