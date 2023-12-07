@@ -17,7 +17,7 @@ export function ConexaoBanco({ navigation }) {
 
 
     const handleInsertData = () => {
-        fetch('http://192.168.26.94/api/inserir', {
+        fetch('http://localhost/api/inserir', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export function ConexaoBanco({ navigation }) {
 
     const deleteRecord = async (id) => {
         try {
-            const response = await fetch(`http://192.168.26.94/api/deletar/${id}`, {
+            const response = await fetch(`http://localhost/api/deletar/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
@@ -58,7 +58,7 @@ export function ConexaoBanco({ navigation }) {
 
     const updateRecord = async (id, newData) => {
         try {
-            const response = await fetch(`http://192.168.26.94/api/alterar/${id}`, {
+            const response = await fetch(`http://localhost/api/alterar/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export function ConexaoBanco({ navigation }) {
     };
 
     function data() {
-        fetch('http://192.168.26.94/api/comentarios')
+        fetch('http://localhost/api/comentarios')
             .then((response) => response.json())
             .then((json) => setCometarios(json))
     }

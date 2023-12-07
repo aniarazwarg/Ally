@@ -39,7 +39,7 @@ export function Login({ navigation }) {
         showModalAlertSucesso();
       } else {
         onToggleSnackBar();
-        showModalAlertErro();
+        
       }
     } catch (error) {
       getUsers();
@@ -57,6 +57,7 @@ export function Login({ navigation }) {
       if ($validacao.email == "admin@admin.com") {
         navigation.navigate('Admin')
         hideModalAlertSucesso();
+        getUsers();
         setEmail('')
         setSenha('')
       }
@@ -73,7 +74,7 @@ export function Login({ navigation }) {
 
 
   function getUsers() {
-    fetch('http://192.168.26.94/api/usuarios')
+    fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
@@ -141,6 +142,15 @@ export function Login({ navigation }) {
           {/* {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
         ))} */}
+
+<Snackbar
+        visible={visible2}
+        onDismiss={onDismissSnackBar}
+        duration={400}
+        >
+       Erro ao acessar conta. Tente Novamente.
+      </Snackbar>
+
         </ImageBackground>
       </View>
     </PaperProvider>

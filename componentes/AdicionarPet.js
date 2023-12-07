@@ -38,7 +38,7 @@ export function AdicionarPet({ navigation, route }) {
   //Função adicionar
 
   const enviarDados = () => {
-    fetch('http://192.168.26.94/api/AdicionarPet', {
+    fetch('http://localhost/api/AdicionarPet', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
