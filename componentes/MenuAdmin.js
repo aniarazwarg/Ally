@@ -1,10 +1,31 @@
 import react, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
 
 export function MenuAdmin({ navigation, route }) {
 
     const [info, setInfo] = useState('')
     const [imagem, setImagem] = useState('')
+
+    const pickImage = async () => {
+        try {
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+
+            if (!result.cancelled) {
+                console.log('Imagem selecionada:', result.uri);
+                // Lógica para lidar com a imagem selecionada aqui
+            } else {
+                console.log('Seleção de imagem cancelada');
+            }
+        } catch (err) {
+            console.log('Erro ao selecionar a imagem:', err);
+        }
+    };
 
     const inserirNoticias = () => {
         // fetch('http://192.168.26.94/api/cadastro', {
@@ -16,7 +37,7 @@ export function MenuAdmin({ navigation, route }) {
             body: JSON.stringify({
                 info: info,
                 imagem: imagem,
-                
+
             }),
         })
             .then((response) => response.json())
@@ -31,8 +52,13 @@ export function MenuAdmin({ navigation, route }) {
     return (
         <View style={styles.container}>
             <View>
-                <TextInput placeholder="Insira a notícia" value={info} onChangeText={(text) => setInfo(text)}/>
-                <TextInput placeholder="Insira a notícia" value={info} onChangeText={(text) => setInfo(text)}/>
+                <TextInput placeholder="Insira a notícia" value={info} onChangeText={(text) => setInfo(text)} />
+                <TouchableOpacity onPress={pickImage}>
+                    <Text>Selecionar arquivo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={inserirNoticias}>
+                    <Text>Enviar</Text>
+                </TouchableOpacity>
             </View>
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate('Clientes')}>
