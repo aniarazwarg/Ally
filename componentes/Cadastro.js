@@ -133,7 +133,7 @@ export function Cadastro({ navigation }) {
       return true;
     } else {
       console.log('E-mail inválido ou já utilizado.');
-      
+
       return false;
     }
   }
@@ -349,27 +349,27 @@ export function Cadastro({ navigation }) {
           </View>
         </View>
         <View style={styles.formulario}>
-  <TextInput
-    style={styles.input}
-    placeholder="Nome"
-    placeholderTextColor={'#273A73'}
-    onChangeText={handleNomeChange}
-    value={nome}
-  />
-  {!validarNome(nome) && <Text style={styles.errorMessage}>Caracteres não permitidos no nome.</Text>}
+          <TextInput
+            style={styles.input}
+            placeholder="Nome"
+            placeholderTextColor={'#273A73'}
+            onChangeText={handleNomeChange}
+            value={nome}
+          />
+          {!validarNome(nome) && <Text style={styles.errorMessage}>Caracteres não permitidos no nome.</Text>}
 
           <TextInput
-    style={styles.input}
-    placeholder="Email"
-    placeholderTextColor={'#273A73'}
-    onChangeText={handleEmailChange}
-    value={email}
-  />
-  {!validaEmail() && (
-    <Text style={styles.errorMessage}>
-      Email inválido ou já utilizado. Tente outro.
-    </Text>
-  )}
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor={'#273A73'}
+            onChangeText={handleEmailChange}
+            value={email}
+          />
+          {!validaEmail() && (
+            <Text style={styles.errorMessage}>
+              Email inválido ou já utilizado. Tente outro.
+            </Text>
+          )}
           <TextInput
             style={styles.input}
             placeholder="Telefone"
@@ -386,10 +386,10 @@ export function Cadastro({ navigation }) {
             value={password}
             onChangeText={handlePasswordChange}
           />
-           {!validarSenha(password) && (
-    <Text style={styles.errorMessage}>
-      Senha deve ter entre 6 e 30 caracteres.
-    </Text>)}
+          {!validarSenha(password) && (
+            <Text style={styles.errorMessage}>
+              Senha deve ter entre 6 e 30 caracteres.
+            </Text>)}
 
           <TextInput
             style={styles.input}
@@ -408,10 +408,10 @@ export function Cadastro({ navigation }) {
             value={cpf}
           />
           {!validarCPF(cpf) && (
-    <Text style={styles.errorMessage}>
-      CPF inválido ou já utilizado. Tente outro.
-    </Text>
-  )}
+            <Text style={styles.errorMessage}>
+              CPF inválido ou já utilizado. Tente outro.
+            </Text>
+          )}
           <TextInput
             style={styles.input}
             placeholder='Data de nascimento'

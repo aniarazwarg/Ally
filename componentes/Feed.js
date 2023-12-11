@@ -62,7 +62,7 @@ export function Feed({ navigation, route }) {
       }
 
     })
-  }, [users]);
+  }, [users, cd_cliente]);
 
 
   return (
@@ -94,7 +94,7 @@ export function Feed({ navigation, route }) {
                 {(cd_cliente !== null) && (
                   <View>
                     <TouchableOpacity onPress={showModal}>
-                      <Text style={{ fontWeight: 'bold' }}>Sair</Text>
+                      <Text style={{ fontWeight: 'bold' , borderWidth: 2, borderRadius: 10,padding: 5, borderColor: 'black', }}>Sair</Text>
                     </TouchableOpacity>
                   </View>)}
                 <View>
