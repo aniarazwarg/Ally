@@ -20,7 +20,7 @@ export function Feed({ navigation, route }) {
   const [comentarios, setComentarios] = React.useState([]);
 
   function dataComentarios() {
-    fetch('http://192.168.26.94/api/comentarios')
+    fetch('http://localhost/api/comentarios')
       .then((response) => response.json())
       .then((json) => {
         // Assuming json is an array of comentarios
@@ -31,7 +31,7 @@ export function Feed({ navigation, route }) {
   }
 
   function getUsers() {
-    fetch('http://192.168.26.94/api/usuarios')
+    fetch('http://localhost/api/usuarios')
       // fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))

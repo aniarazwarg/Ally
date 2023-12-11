@@ -27,6 +27,10 @@ $app->post('/agendar', 'getAgendar');
 $app->post('/AdicionarPet', 'getAdicionarPet');
 $app->post('/vacinas', 'getVacina');
 
+$app->put('/updateEmail/{cd_cliente}', 'updateEmail');
+$app->put('/updateTelefone/{cd_cliente}', 'updateTelefone');
+
+
 
 
 function getConn()
@@ -220,6 +224,34 @@ function getAgendar(Request $request, Response $response, array $args)
     return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
 }
 ;
+
+function updateEmail(Request $request, Response $response, array $args)
+{
+    $db = getConn();
+    $id = $args['cd_cliente'];
+    $newData = $request->getParsedBody();
+    $sql = "UPDATE tb_cliente SET email = :email WHERE cd_cliente = :cd_cliente";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        'cd_cliente' => $id,
+        ':email' => $newData['email'],
+    ]);
+    return $response->withStatus(200)->withJson(['message' => 'Email atualizado com sucesso']);
+}
+
+function updateTelefone(Request $request, Response $response, array $args)
+{
+    $db = getConn();
+    $id = $args['cd_cliente'];
+    $newData = $request->getParsedBody();
+    $sql = "UPDATE tb_cliente SET telefone = :telefone WHERE cd_cliente = :cd_cliente";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        'cd_cliente' => $id,
+        ':telefone' => $newData['telefone'],
+    ]);
+    return $response->withStatus(200)->withJson(['message' => 'Telefone atualizado com sucesso']);
+};
 
 
 $app->run();
