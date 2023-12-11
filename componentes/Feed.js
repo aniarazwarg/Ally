@@ -10,6 +10,9 @@ export function Feed({ navigation, route }) {
   const [visible, setVisible] = React.useState(false);
   const [nome, setNome] = React.useState(null);
   const [fotoPerfil, setFotoPerfil] = React.useState(null);
+  const [Comentario, setComentario] = React.useState('');
+  const [email, setEmail] = React.useState('');
+
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
@@ -50,6 +53,42 @@ export function Feed({ navigation, route }) {
 
   }
 
+  const handleEmailChange = (text) => {
+    setEmail(text);
+  };
+  const handleComentarioChange = (text) => {
+    setComentario(text);
+  };
+
+  const enviarComentario = () => {
+   if (cd_cliente != null && Comentario != null && Comentario.length >= 3 ){
+     fetch('http://localhost/api/postComentario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nome: nome,
+        comentario: Comentario,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        getUsers(); // Recarrega os dados dos usuários após o cadastro
+      })
+      .catch((error) => {
+        console.error('Erro:', error);
+      });
+   } else {
+    alert('ERRO')
+   }
+
+   
+  };
+
+
+
   React.useEffect(() => {
     dataComentarios()
     users.forEach((user) => {
@@ -75,10 +114,11 @@ export function Feed({ navigation, route }) {
       </Portal>
 
       <View style={styles.container}>
+           <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas2.jpg')}>
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
-          <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas2.jpg')}>
+       
             {/* Header */}
             <View style={styles.header}>
               <View style={styles.headerConteudo}>
@@ -234,21 +274,21 @@ export function Feed({ navigation, route }) {
               </View>
             </View>
             {/* Digita comentário */}
+           {(cd_cliente != null) && (
             <View style={styles.digiteComentario}>
+               
               <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
               <TextInput
                 placeholder="Digite o comentário"
                 style={styles.inputComentario}
+                onChangeText={handleComentarioChange}
+                value={Comentario}
               />
-              <TextInput
-                placeholder="Informe seu email ou whatsapp"
-                style={styles.inputComentario}
-              />
-              <TouchableOpacity style={styles.enviarComentario}>
+              <TouchableOpacity style={styles.enviarComentario} onPress={enviarComentario}>
                 <Text > Enviar Comentário</Text>
               </TouchableOpacity>
-            </View></ImageBackground>
-        </ScrollView>
+            </View>)}
+        </ScrollView></ImageBackground>
       </View>
 
 
@@ -305,12 +345,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginHorizontal: 20,
+    
   },
   servico: {
     borderWidth: 1,
     borderRadius: 10,
     padding: 3,
     borderColor: '#C0C0C0',
+    backgroundColor: '#F6F1EB',
   },
   logoServicos: {
     height: 80,

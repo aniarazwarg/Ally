@@ -135,7 +135,7 @@ function teste(){
             }}
         />
       </View>
-<Button onPress={teste}>aaaa</Button>
+{/* <Button onPress={teste}>aaaa</Button> */}
       <View>
         <TextInput
           placeholder='Check in'
