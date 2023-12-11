@@ -62,7 +62,7 @@ function MyDrawer() {
 
 function Admin() {
   return (
-    <Drawer.Navigator initialRouteName='Reservas'>
+    <Drawer.Navigator initialRouteName='Início'>
       <Drawer.Screen name='Início' component={MenuAdmin}/>
       <Drawer.Screen name='Clientes' component={Clientes}/>
       <Drawer.Screen name='Reservas' component={Reservas}/>
@@ -76,7 +76,7 @@ export default function App() {
   return (
     // estrutura do app
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName='Admin' screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Passeio' component={Passeio} />
         <Stack.Screen name='RecuperacaoSenha' component={RecuperacaoSenha} />
         <Stack.Screen name='Home' component={MyDrawer} />
