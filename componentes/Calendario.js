@@ -39,7 +39,7 @@ export function Calendario({ navigation, route }) {
   const [statusReserva, setStatusReserva] = useState('Aguardando');
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [hoje, setHoje] = useState(new Date().toJSON().slice(0, 10))
- 
+  const [erro, setErro] = React.useState(false);
   const [visible2, setVisible2] = React.useState(false);
   const onToggleSnackBar = () => setVisible2(!visible2);
   const onDismissSnackBar = () => setVisible2(false);
@@ -67,7 +67,10 @@ export function Calendario({ navigation, route }) {
   };
 
     const agendar = () => {
-      fetch('http://localhost/api/agendar', {
+      try {
+       
+        setErro(false);
+        fetch('http://localhost/api/agendar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,13 +89,27 @@ export function Calendario({ navigation, route }) {
         .catch((error) => {
           console.error('Erro:', error);
         });
-    };
+    
+    
+      } catch (error) {
+        setErro(true)
+      }
+      }
+      
 
     console.log(cd_cliente)
 
   function validaAgendamento() {
+    if(selectedStartDate !=null && selectedEndDate !=null && selectedStartDate !='' && selectedEndDate !=''){
+      setErro(false);
     onToggleSnackBar();
     agendar();
+    setSelectedStartDate('');
+    setSelectedEndDate('');
+    }
+    else{
+      setErro(true)
+    }
     // navigation.navigate('Home');
   };
 
@@ -149,6 +166,11 @@ function teste(){
           value={selectedEndDate == null ? selectedEndDate : selectedEndDate.split('-').reverse().join('/')}
           keyboardType="numeric"
         />
+        {erro && (
+            <Text style={styles.errorMessage}>
+              *Erro no agendamento
+            </Text>
+          )}
       </View>
       <View style={{ marginHorizontal: 25, marginTop: 10 }}>
         <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
@@ -191,6 +213,11 @@ const styles = StyleSheet.create({
     marginTop: 100,
     textAlign: 'center',
     fontSize: 20,
+  },
+  errorMessage:{
+    color: 'red' ,
+    fontSize:15,
+    alignSelf:'center',
   },
   input: {
     alignSelf: 'center',
