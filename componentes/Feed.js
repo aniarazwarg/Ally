@@ -95,6 +95,7 @@ export function Feed({ navigation, route }) {
       .then((data) => {
         console.log(data);
         getUsers(); // Recarrega os dados dos usuários após o cadastro
+        setComentario('')
       })
       .catch((error) => {
         console.error('Erro:', error);
