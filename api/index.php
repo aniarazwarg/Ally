@@ -155,28 +155,54 @@ function getCadastrar(Request $request, Response $response, array $args)
     return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
 }
 ;
+
 function getAdicionarPet(Request $request, Response $response, array $args)
 {
+    try {
+        $uploadedFiles = $request->getUploadedFiles();
+        $uploadedFile = $uploadedFiles['imagemPet'] ?? null;
+        if ($uploadedFile && $uploadedFile->getError() === UPLOAD_ERR_OK) {
+            $uploadPath = 'C:\Users\Aluno\Documents\GitHub\Ally\assets';
 
-    $dataAdicionarPet = $request->getParsedBody();
-    $db = getConn();
-    $stmt = $db->prepare('INSERT INTO tb_cao (nm_cao, nm_raca, ds_porte, ds_pelagem, ds_peso, cd_cliente, ic_v8_v10, ic_antirrabica, ic_gripe, ic_giardia) VALUES (:nome, :raca, :porte, :cor, :peso, :cd_cliente, :v8, :antirrabica, :gripe, :giardia)');
-    $stmt->execute([
-        ':nome' => $dataAdicionarPet['nome'],
-        ':raca' => $dataAdicionarPet['raca'],
-        ':porte' => $dataAdicionarPet['porte'],
-        ':cor' => $dataAdicionarPet['cor'],
-        ':peso' => $dataAdicionarPet['peso'],
-        'cd_cliente' => $dataAdicionarPet['cd_cliente'],
-        ':v8' => $dataAdicionarPet['v8'],
-        ':antirrabica' => $dataAdicionarPet['antirrabica'],
-        ':gripe' => $dataAdicionarPet['gripe'],
-        ':giardia' => $dataAdicionarPet['giardia'],
-    ]);
-    return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
+            // Decodificar a string base64 para obter os dados binários
+            $base64Image = $request->getParsedBody()['imagemPet'];
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+
+            // Use o nome original do arquivo ou gere um nome único, como você preferir
+            $filename = uniqid() . '_pet.png';
+            file_put_contents($uploadPath . DIRECTORY_SEPARATOR . $filename, $imageData);
+
+            $db = getConn();
+            $stmt = $db->prepare('INSERT INTO tb_cao (nm_cao, nm_raca, ds_porte, ds_pelagem, ds_peso, cd_cliente, ic_v8_v10, ic_antirrabica, ic_gripe, ic_giardia, imagemPet) VALUES (:nome, :raca, :porte, :cor, :peso, :cd_cliente, :v8, :antirrabica, :gripe, :giardia, :imagemPet)');
+            $stmt->execute([
+                ':nome' => $dataAdicionarPet['nome'],
+                ':raca' => $dataAdicionarPet['raca'],
+                ':porte' => $dataAdicionarPet['porte'],
+                ':cor' => $dataAdicionarPet['cor'],
+                ':peso' => $dataAdicionarPet['peso'],
+                ':cd_cliente' => $dataAdicionarPet['cd_cliente'],
+                ':v8' => $dataAdicionarPet['v8'],
+                ':antirrabica' => $dataAdicionarPet['antirrabica'],
+                ':gripe' => $dataAdicionarPet['gripe'],
+                ':giardia' => $dataAdicionarPet['giardia'],
+                ':imagemPet' => $filename,
+            ]);
+
+            return $response->withJson(['success' => 'Pet adicionado com sucesso']);
+        } else {
+            // Exiba informações sobre o erro de upload
+            return $response->withStatus(400)->withJson(['error' => 'Erro no upload de imagem', 'details' => $uploadedFile->getError()]);
+        }
+    } catch (Exception $e) {
+        // Captura exceções gerais e imprime detalhes
+        return $response->withStatus(500)->withJson(['error' => 'Erro interno no servidor', 'details' => $e->getMessage()]);
+    }
 }
 ;
-
 
 function getUsuarios(Request $request, Response $response, array $args)
 {

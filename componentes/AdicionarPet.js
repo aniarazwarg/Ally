@@ -1,7 +1,8 @@
-import react from "react";
-import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity } from "react-native";
-import Checkbox from 'expo-checkbox';
 import React, { useState } from "react";
+import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity } from "react-native";
+import ImagePicker from 'react-native-image-picker';
+import Checkbox from 'expo-checkbox';
+import { Platform } from 'react-native';
 
 export function AdicionarPet({ navigation, route }) {
 
@@ -15,6 +16,7 @@ export function AdicionarPet({ navigation, route }) {
   const [antirrabica, setAntirrabica] = useState(false);
   const [gripe, setGripe] = useState(false);
   const [giardia, setGiardia] = useState(false);
+  const [imagemPet, setImagemPet] = useState(null); // Novo estado para armazenar a imagem do pet
   const { cd_cliente } = route.params || { cd_cliente: null };
 
   const handleNomeChange = (text) => {
@@ -33,8 +35,52 @@ export function AdicionarPet({ navigation, route }) {
     setPeso(text);
   };
 
+  const handleImagePicker = () => {
+    if (Platform.OS === 'web') {
+      // Para a web, use um input do tipo file
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+  
+      input.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            // Atualize o estado com a imagem selecionada
+            setImagemPet(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+  
+      // Disparar o clique no input
+      input.click();
+    } else {
+      // Para plataformas móveis, continue usando a biblioteca react-native-image-picker
+      const options = {
+        title: 'Selecione uma imagem do seu pet',
+        storageOptions: {
+          skipBackup: true,
+          path: 'images',
+        },
+      };
+  
+      ImagePicker.showImagePicker(options, (response) => {
+        if (response.didCancel) {
+          console.log('Usuário cancelou o picker de imagem');
+        } else if (response.error) {
+          console.log('Erro ao escolher a imagem:', response.error);
+        } else {
+          // Atualize o estado com a imagem selecionada
+          setImagemPet(response.uri);
+        }
+      });
+    }
+  }
 
-
+  console.log(imagemPet)
+  console.log()
   //Função adicionar
 
   const enviarDados = () => {
@@ -55,6 +101,8 @@ export function AdicionarPet({ navigation, route }) {
         antirrabica: antirrabica,
         gripe: gripe,
         giardia: giardia,
+        imagemPet: imagemPet,
+
       }),
     })
       .then((response) => response.json())
@@ -64,7 +112,7 @@ export function AdicionarPet({ navigation, route }) {
       .catch((error) => {
         console.error('Erro:', error);
       });
-  };
+  }
 
   
   function AdicionarPet() {
@@ -80,6 +128,16 @@ export function AdicionarPet({ navigation, route }) {
       <View style={{ marginTop: 30 }}>
         <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
       </View>
+      <View style={styles.container}>
+      
+      <TouchableOpacity style={styles.button} onPress={handleImagePicker}>
+        <Text style={styles.textButton}>Selecionar Imagem do Pet</Text>
+      </TouchableOpacity>
+      {imagemPet && (
+        <Image source={imagemPet} style={{ width: 100, height: 100, borderRadius: 10, marginTop: 10 }} />
+      )}
+      
+    </View>
       <View style={{ alignItems: 'center', width: '85%', marginTop: 20 }}>
         <TextInput
           style={styles.input}
