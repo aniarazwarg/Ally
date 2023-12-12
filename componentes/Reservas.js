@@ -24,7 +24,7 @@ export function Reservas({ navigation, route }) {
         fetch('http://localhost/api/reservas')
             // fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
-            .then((json) => setReservas(json))
+            .then((json) => setReservas(json.reverse()))
     }
 
     function getUsers() {

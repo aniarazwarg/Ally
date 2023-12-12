@@ -299,7 +299,7 @@ export function Feed({ navigation, route }) {
               />
                 {erro && (
             <Text style={styles.errorMessage}>
-              *Comentario inválido
+              *Comentário inválido
             </Text>
           )}
               <TouchableOpacity style={styles.enviarComentario} onPress={enviarComentario}>
@@ -337,6 +337,7 @@ const styles = StyleSheet.create({
   },
   errorMessage:{
     color: 'red' ,
+    fontSize:15,
   },
   header: {
     zIndex: 1,
