@@ -1,6 +1,0 @@
-{
-    "require": {
-        "slim/slim": "3.*",
-        "tuupola/cors-middleware": "^1.4"
-    }
-}

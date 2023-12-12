@@ -55,6 +55,7 @@ function MyDrawer() {
       />
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="Cadastro" component={Cadastro} />
+
      
     </Drawer.Navigator>
   )
@@ -66,6 +67,7 @@ function Admin() {
       <Drawer.Screen name='Início' component={MenuAdmin}/>
       <Drawer.Screen name='Clientes' component={Clientes}/>
       <Drawer.Screen name='Reservas' component={Reservas}/>
+      <Drawer.Screen name='Sair' component={MyDrawer}/>
      </Drawer.Navigator>
   )
 }

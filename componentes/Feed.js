@@ -15,6 +15,7 @@ export function Feed({ navigation, route }) {
   const containerStyle = { backgroundColor: 'white', padding: 20 };
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
+  const [noticias, setNoticias] = React.useState([]);
   // const foto = require(fotoPerfil)
 
   const [comentarios, setComentarios] = React.useState([]);
@@ -35,8 +36,20 @@ export function Feed({ navigation, route }) {
       // fetch('http://localhost/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
-
   }
+
+  function getNoticias() {
+    fetch('http://localhost/api/noticias')
+      // fetch('http://localhost/api/usuarios')
+      .then((response) => response.json())
+      .then((json) => {
+        const limitedNoticias = json.reverse().slice(0, 2);
+        setNoticias(limitedNoticias)
+      }
+      )
+  }
+
+  console.log(noticias)
 
   function sair() {
     navigation.navigate('Feed', { cd_cliente: null })
@@ -47,11 +60,11 @@ export function Feed({ navigation, route }) {
 
   if (users.length === 0 && cd_cliente !== null) {
     getUsers();
-
   }
 
   React.useEffect(() => {
     dataComentarios()
+    getNoticias();
     users.forEach((user) => {
       if (cd_cliente == user.cd_cliente) {
         setNome(user.nm_cliente)
@@ -181,19 +194,13 @@ export function Feed({ navigation, route }) {
             {/* Noticias */}
             <View style={styles.noticias}>
               <Text style={styles.textTopicos}>Notícias:</Text>
-              <View style={styles.noticia}>
-                <Image source={require('../assets/favicon.png')}
-                  style={styles.logo3} />
-                <Text style={styles.text2}>Vagas para o feriado!</Text>
-              </View>
-              <View style={styles.noticia}>
-                <Image source={require('../assets/favicon.png')}
-                  style={styles.logo3} />
-                <View>
-                  <Text style={styles.text2}>Live no Instagram</Text>
-                  <Text style={styles.text3}>Novidades pra vocês!</Text>
+              {noticias.map((noticia) => (
+                <View key={noticia.cd_noticia} style={styles.noticia}>
+                  <Image source={{ uri: noticia.img_noticia }}
+                    style={styles.logo3} />
+                  <Text style={styles.text2}>{noticia.ds_noticia}</Text>
                 </View>
-              </View>
+              ))}
             </View>
             {/* Comentários */}
             <View>
