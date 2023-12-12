@@ -1,7 +1,8 @@
 import * as React from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar, ImageBackground } from "react-native";
-import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
+import { Modal, Portal, Text, Snackbar ,Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 
 export function Feed({ navigation, route }) {
@@ -19,8 +20,12 @@ export function Feed({ navigation, route }) {
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
   // const foto = require(fotoPerfil)
-
+  const [erro, setErro] = React.useState(false);
   const [comentarios, setComentarios] = React.useState([]);
+
+  const [visible2, setVisible2] = React.useState(false);
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
 
   function dataComentarios() {
     fetch('http://localhost/api/comentarios')
@@ -61,7 +66,9 @@ export function Feed({ navigation, route }) {
   };
 
   const enviarComentario = () => {
-   if (cd_cliente != null && Comentario != null && Comentario.length >= 3 ){
+    try {
+      if (cd_cliente != null && Comentario != null && Comentario.length >= 3 ){
+    setErro(false);
      fetch('http://localhost/api/postComentario', {
       method: 'POST',
       headers: {
@@ -80,9 +87,15 @@ export function Feed({ navigation, route }) {
       .catch((error) => {
         console.error('Erro:', error);
       });
+      onToggleSnackBar();
    } else {
-    alert('ERRO')
+    setErro(true)
    }
+    } catch (error) {
+      setErro(true)
+
+    }
+   
 
    
   };
@@ -284,11 +297,24 @@ export function Feed({ navigation, route }) {
                 onChangeText={handleComentarioChange}
                 value={Comentario}
               />
+                {erro && (
+            <Text style={styles.errorMessage}>
+              *Comentario inválido
+            </Text>
+          )}
               <TouchableOpacity style={styles.enviarComentario} onPress={enviarComentario}>
                 <Text > Enviar Comentário</Text>
               </TouchableOpacity>
             </View>)}
-        </ScrollView></ImageBackground>
+
+        </ScrollView>
+            <Snackbar
+        visible={visible2}
+        onDismiss={onDismissSnackBar}
+        duration={400}
+        >
+      Comentario enviado com sucesso!
+      </Snackbar></ImageBackground>
       </View>
 
 
@@ -308,6 +334,9 @@ const styles = StyleSheet.create({
   },
   scrollView: {
 
+  },
+  errorMessage:{
+    color: 'red' ,
   },
   header: {
     zIndex: 1,
