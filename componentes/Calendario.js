@@ -106,6 +106,7 @@ export function Calendario({ navigation, route }) {
     agendar();
     setSelectedStartDate('');
     setSelectedEndDate('');
+    setMarkedDates('');
     }
     else{
       setErro(true)
