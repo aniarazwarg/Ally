@@ -15,17 +15,15 @@ $app->add(new CorsMiddleware([
 ]));
 
 $app->get('/comentarios', 'getComentarios');
-$app->get('/usuarios', 'getUsuarios');
-$app->get('/reservas', 'getReservas');
-$app->get('/pets/{cd_cliente}', 'getPets');
 $app->put('/curtidas/{id}', 'getCurtidas');
-$app->put('/atualizaCadastro/{cd_cliente}', 'getAtualizaCadastro');
-$app->put('/atualizaReserva/{cd_cliente}', 'getAtualizaReserva');
-$app->put('/atualizaPets/{cd_cliente}', 'getAtualizaPets');
 $app->post('/cadastro', 'getCadastrar');
+$app->get('/usuarios', 'getUsuarios');
+$app->get('/noticias', 'getNoticias');
 $app->post('/agendar', 'getAgendar');
 $app->post('/AdicionarPet', 'getAdicionarPet');
 $app->post('/vacinas', 'getVacina');
+$app->post('/inserirNoticia', 'getInserirNoticia');
+
 
 $app->put('/updateEmail/{cd_cliente}', 'updateEmail');
 $app->put('/updateTelefone/{cd_cliente}', 'updateTelefone');
@@ -35,37 +33,31 @@ $app->put('/updateTelefone/{cd_cliente}', 'updateTelefone');
 
 function getConn()
 {
-    return new PDO(
-        'mysql:host=localhost:3306;dbname=ally_db',
-        'root',
-        '',
-        array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
+    return new PDO('mysql:host=localhost:3306;dbname=ally_db',
+    'root',
+    '',
+    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
     );
-}
-;
+};
 
-function getComentarios(Request $request, Response $response, array $args)
-{
+function getComentarios(Request $request, Response $response, array $args) {
     $sql = "SELECT * FROM tb_comentarios";
     $stmt = getConn()->query($sql);
     $comentarios = $stmt->fetchAll(PDO::FETCH_OBJ);
     $response->getBody()->write(json_encode($comentarios));
     return $response;
-}
-;
-function getReservas(Request $request, Response $response, array $args)
-{
-    $sql = "SELECT * FROM tb_servico";
+};
+
+function getNoticias(Request $request, Response $response, array $args) {
+    $sql = "SELECT * FROM tb_noticias";
     $stmt = getConn()->query($sql);
-    $servicos = $stmt->fetchAll(PDO::FETCH_OBJ);
-    $response->getBody()->write(json_encode($servicos));
+    $noticias = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $response->getBody()->write(json_encode($noticias));
     return $response;
-}
-;
+};
 
-function getCurtidas(Request $request, Response $response, array $args)
-{
-
+function getCurtidas(Request $request, Response $response, array $args) {
+    
     $db = getConn();
     $id = $args['id'];
     $newData = $request->getParsedBody();
@@ -79,73 +71,11 @@ function getCurtidas(Request $request, Response $response, array $args)
     ]);
     return $response->withStatus(200)->withJson(['message' => 'Registro atualizado com sucesso']);
 
-}
-;
-function getAtualizaCadastro (Request $request, Response $response, array $args)
-{
+};
 
-    $db = getConn();
-    $id = $args['cd_cliente'];
-    $newData = $request->getParsedBody();
-    $sql = "UPDATE tb_cliente SET nm_cliente = :nome, dt_nasc_cliente = :nasc, email = :email, cpf = :cpf, telefone = :telefone WHERE cd_cliente = :cd_cliente";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([
-        'cd_cliente' => $id,
-        ':nome' => $newData['nome'],
-        ':nasc' => $newData['nascBanco'],
-        ':email' => $newData['email'],
-        ':cpf' => $newData['cpf'],
-        ':telefone' => $newData['telefone'],
-    ]);
-    return $response->withStatus(200)->withJson(['message' => 'Registro atualizado com sucesso']);
+function getCadastrar(Request $request, Response $response, array $args) {
 
-}
-;
-function getAtualizaReserva (Request $request, Response $response, array $args)
-{
-
-    $db = getConn();
-    $id = $args['cd_cliente'];
-    $newData = $request->getParsedBody();
-    $sql = "UPDATE tb_servico SET statusReserva = :statusReserva WHERE cd_cliente = :cd_cliente";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([
-        'cd_cliente' => $id,
-        ':statusReserva' => $newData['statusReserva'],
-    ]);
-    return $response->withStatus(200)->withJson(['message' => 'Registro atualizado com sucesso']);
-
-}
-;
-
-function getAtualizaPets (Request $request, Response $response, array $args)
-{
-
-    $db = getConn();
-    $id = $args['cd_cliente'];
-    $newData = $request->getParsedBody();
-    $sql = "UPDATE tb_cao SET nm_cao = :nomePet, ds_pelagem = :pelagem, nm_raca = :raca, ds_peso = :peso, ic_antirrabica = :antirrabica, ic_v8_v10 = :v8, ic_gripe = :gripe, ic_giardia = :giardia WHERE cd_cliente = :cd_cliente";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([
-        'cd_cliente' => $id,
-        ':nomePet' => $newData['nomePet'],
-        ':pelagem' => $newData['pelagem'],
-        ':raca' => $newData['raca'],
-        ':peso' => $newData['peso'],
-        ':antirrabica' => $newData['antirrabica'],
-        ':v8' => $newData['v8'],
-        ':gripe' => $newData['gripe'],
-        ':giardia' => $newData['giardia'],
-    ]);
-    return $response->withStatus(200)->withJson(['message' => 'Registro atualizado com sucesso']);
-
-}
-;
-
-function getCadastrar(Request $request, Response $response, array $args)
-{
-
-    $dataCadastro = $request->getParsedBody();
+    $dataCadastro = $request->getParsedBody();    
     $db = getConn();
     $stmt = $db->prepare('INSERT INTO tb_cliente (nm_cliente, dt_nasc_cliente, email, senha, cpf, telefone) VALUES (:nome, :nasc, :email, :senha, :cpf, :telefone)');
     $stmt->execute([
@@ -157,12 +87,26 @@ function getCadastrar(Request $request, Response $response, array $args)
         ':telefone' => $dataCadastro['telefone'],
     ]);
     return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
-}
-;
-function getAdicionarPet(Request $request, Response $response, array $args)
-{
+};
+function getInserirNoticia(Request $request, Response $response, array $args) {
 
-    $dataAdicionarPet = $request->getParsedBody();
+    $dataNoticia = $request->getParsedBody();    
+    if (empty($dataNoticia['noticia']) || empty($dataNoticia['imagem'])) {
+        // Retorna uma resposta com erro caso um dos campos esteja vazio ou nulo
+        return $response->withStatus(400)->withJson(['error' => 'Campos "noticia" ou "imagem" não podem estar vazios']);
+    }
+
+    $db = getConn();
+    $stmt = $db->prepare('INSERT INTO tb_noticias (ds_noticia, img_noticia) VALUES (:noticia, :imagem)');
+    $stmt->execute([
+        ':noticia' => $dataNoticia['noticia'],
+        ':imagem' => $dataNoticia['imagem'],
+    ]);
+    return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
+};
+function getAdicionarPet(Request $request, Response $response, array $args) {
+
+    $dataAdicionarPet = $request->getParsedBody();    
     $db = getConn();
     $stmt = $db->prepare('INSERT INTO tb_cao (nm_cao, nm_raca, ds_porte, ds_pelagem, ds_peso, cd_cliente, ic_v8_v10, ic_antirrabica, ic_gripe, ic_giardia) VALUES (:nome, :raca, :porte, :cor, :peso, :cd_cliente, :v8, :antirrabica, :gripe, :giardia)');
     $stmt->execute([
@@ -178,52 +122,71 @@ function getAdicionarPet(Request $request, Response $response, array $args)
         ':giardia' => $dataAdicionarPet['giardia'],
     ]);
     return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
-}
-;
+};
 
 
-function getUsuarios(Request $request, Response $response, array $args)
-{
+function getUsuarios(Request $request, Response $response, array $args) {
     $sql = "SELECT * FROM tb_cliente";
     $stmt = getConn()->query($sql);
     $usuarios = $stmt->fetchAll(PDO::FETCH_OBJ);
     $response->getBody()->write(json_encode($usuarios));
     return $response;
-}
-;
+};
 
-function getPets(Request $request, Response $response, array $args)
-{
-    $cd_cliente = $args['cd_cliente'];
-    $sql = "SELECT * FROM tb_cao WHERE cd_cliente = :cd_cliente";
-    $stmt = getConn()->prepare($sql);
-
-    $stmt->execute([
-        'cd_cliente' => $cd_cliente
-    ]);
-
-    $pets = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-    $response->getBody()->write(json_encode($pets));
-
-    return $response;
-}
-
-function getAgendar(Request $request, Response $response, array $args)
-{
+function getAgendar(Request $request, Response $response, array $args) {
     $db = getConn();
     $dataReserva = $request->getParsedBody();
-    $sql = 'INSERT INTO tb_servico (cd_cliente, dt_checkin, dt_checkout, statusReserva) VALUES (:cd_cliente, :dt_checkin, :dt_checkout, :statusReserva)';
+    $sql = 'INSERT INTO tb_servico (dt_checkin, dt_checkout) VALUES (:dt_checkin, :dt_checkout)';
     $stmt = $db->prepare($sql);
     $stmt->execute([
-        ':cd_cliente' => $dataReserva['cd_cliente'],
         ':dt_checkin' => $dataReserva['dt_checkin'],
         ':dt_checkout' => $dataReserva['dt_checkout'],
-        ':statusReserva' => $dataReserva['statusReserva'],
     ]);
     return $response->withStatus(200)->withJson(['message' => 'Dados inseridos com sucesso']);
+};
+
+function getcadastrarPizza(Request $request, Response $response, array $args)
+{
+    try {
+        $uploadedFiles = $request->getUploadedFiles();
+        $uploadedFile = $uploadedFiles['imagem'];
+
+        // Verifique se um arquivo foi realmente enviado
+        if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
+            return $response->withJson(['error' => 'Erro no upload de imagem'], 500);
+        }
+
+        $uploadPath = 'C:\Users\Aluno\Documents\GitHub\PizzaRuth\src\assets';
+
+        // Verifique se o diretório de upload existe, se não, crie-o
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+
+        // Use o nome original do arquivo
+        $filename = $uploadedFile->getClientFilename();
+        $uploadedFile->moveTo($uploadPath . DIRECTORY_SEPARATOR . $filename);
+
+        $db = getConn();
+        $data = $request->getParsedBody();
+
+        $stmt = $db->prepare('INSERT INTO pizzas (sabor, descricao, imagem, preco, categoria) VALUES (:sabor, :descricao, :imagem, :preco, :categoria)');
+        $stmt->bindParam(':sabor', $data['sabor']);
+        $stmt->bindParam(':descricao', $data['descricao']);
+        $stmt->bindParam(':imagem', $filename);
+        $stmt->bindParam(':preco', $data['preco']);
+        $stmt->bindParam(':categoria', $data['categoria']); // Nova linha para a categoria
+
+        if ($stmt->execute()) {
+            return $response->withJson(['message' => 'Produto cadastrado com sucesso']);
+        } else {
+            return $response->withJson(['error' => 'Erro ao cadastrar produto - Falha na execução da instrução SQL'], 500);
+        }
+    } catch (PDOException $e) {
+        return $response->withJson(['error' => 'Erro ao cadastrar produto - ' . $e->getMessage()], 500);
+    }
 }
-;
+
 
 function updateEmail(Request $request, Response $response, array $args)
 {

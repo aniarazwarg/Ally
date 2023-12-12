@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05-Dez-2023 às 02:46
--- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.6
+-- Tempo de geração: 07-Nov-2023 às 18:23
+-- Versão do servidor: 10.4.27-MariaDB
+-- versão do PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,20 +36,8 @@ CREATE TABLE `tb_cao` (
   `cd_cliente` bigint(20) DEFAULT NULL,
   `nm_raca` varchar(100) DEFAULT NULL,
   `ds_porte` varchar(100) NOT NULL,
-  `ds_peso` varchar(100) NOT NULL,
-  `ic_v8_v10` tinyint(1) NOT NULL,
-  `ic_antirrabica` tinyint(1) NOT NULL,
-  `ic_gripe` tinyint(1) NOT NULL,
-  `ic_giardia` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_cao`
---
-
-INSERT INTO `tb_cao` (`cd_cao`, `ds_idade`, `nm_cao`, `id_sexo`, `ds_pelagem`, `cd_cliente`, `nm_raca`, `ds_porte`, `ds_peso`, `ic_v8_v10`, `ic_antirrabica`, `ic_gripe`, `ic_giardia`) VALUES
-(3, NULL, 'Caramelo', NULL, 'Caramelo', 12, 'Lhasa Apso', 'Pequeno', '5', 0, 0, 0, 0),
-(19, NULL, 'Choco', NULL, 'Marrom', 10, 'Labrador', 'Grande', '31', 1, 1, 0, 1);
+  `ds_peso` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -63,23 +51,21 @@ CREATE TABLE `tb_cliente` (
   `dt_nasc_cliente` date DEFAULT NULL,
   `email` varchar(30) NOT NULL,
   `senha` varchar(30) NOT NULL,
-  `cpf` varchar(11) NOT NULL,
-  `fotoPerfil` varchar(100) DEFAULT NULL,
-  `telefone` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `cpf` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_cliente`
 --
 
-INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `dt_nasc_cliente`, `email`, `senha`, `cpf`, `fotoPerfil`, `telefone`) VALUES
-(10, 'Antonio', '1966-04-04', 'antonio@gmail.com', 'barubaru97', '0698742561', NULL, 13998856721),
-(12, 'João', '1999-05-05', 'teste', 'teste', '0123', 'fotoPerfil12.jpg', 997797442),
-(13, 'Lucas', '0000-00-00', 'teste1', 'teste', '98564211365', 'fotoPerfil13.jpg', 11988556644),
-(14, 'Mateus', '1995-03-02', 'mat@bol', '123', '04864211123', NULL, 0),
-(23, 'Marco', '1997-03-02', 'marco@bol', 'baru', '04864211124', NULL, 0),
-(24, 'klei', '0000-00-00', 'keli', 'klei', '048', NULL, 0),
-(25, 'teste2', '0000-00-00', 'teste2', 'teste2', '', NULL, 0);
+INSERT INTO `tb_cliente` (`cd_cliente`, `nm_cliente`, `dt_nasc_cliente`, `email`, `senha`, `cpf`) VALUES
+(10, 'Luca Barata', '0000-00-00', 'luca_barata@hotmail.com', 'barubaru97', '04864211124'),
+(12, 'João', '1998-02-03', 'teste', 'teste', '0123'),
+(13, 'Lucas', '1999-05-09', 'teste1', 'teste', '1234'),
+(14, 'Mateus', '1995-03-02', 'mat@bol', '123', '04864211123'),
+(15, 'nia', '1994-01-01', 'nia', 'nia', 'nia'),
+(16, '', '0000-00-00', '', '', ''),
+(17, '', '0000-00-00', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -95,7 +81,7 @@ CREATE TABLE `tb_comentarios` (
   `curtidas` int(11) NOT NULL,
   `descurtidas` int(11) NOT NULL,
   `ok` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_comentarios`
@@ -103,8 +89,8 @@ CREATE TABLE `tb_comentarios` (
 
 INSERT INTO `tb_comentarios` (`id`, `nome`, `foto`, `comentario`, `curtidas`, `descurtidas`, `ok`) VALUES
 (1, 'Maria', '', 'Gostei muito dos serviços oferecidos pela Brothers.', 1, 0, 1),
-(4, 'José', '', 'Profissionais muito competentes e pontuais! Bom demais!', 21, 17, 1),
-(6, 'Ana', '', 'Ótimo serviço! Adorei os passeadores!', 15, 17, 0);
+(4, 'José', '', 'AAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 21, 17, 1),
+(6, 'Ana', '', 'AAAAAAAAAAAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAaaaaaaaaaa', 15, 17, 0);
 
 -- --------------------------------------------------------
 
@@ -116,7 +102,7 @@ CREATE TABLE `tb_ordem_servico` (
   `cd_ordem_servico` int(11) NOT NULL,
   `cd_cliente` bigint(20) DEFAULT NULL,
   `cd_servico` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -129,7 +115,7 @@ CREATE TABLE `tb_raca` (
   `nm_raca` varchar(100) DEFAULT NULL,
   `qt_peso` int(11) DEFAULT NULL,
   `sg_porte` char(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -140,22 +126,20 @@ CREATE TABLE `tb_raca` (
 CREATE TABLE `tb_servico` (
   `cd_servico` int(11) NOT NULL,
   `cd_cliente` varchar(100) NOT NULL,
+  `nm_servico` varchar(45) DEFAULT NULL,
   `dt_checkin` date DEFAULT NULL,
-  `dt_checkout` date DEFAULT NULL,
-  `statusReserva` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `dt_checkout` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_servico`
 --
 
-INSERT INTO `tb_servico` (`cd_servico`, `cd_cliente`, `dt_checkin`, `dt_checkout`, `statusReserva`) VALUES
-(2, '10', '2023-11-03', '2023-11-08', 'Reprovado'),
-(3, '10', '2023-11-03', '2023-11-08', 'Reprovado'),
-(4, '2', '2023-11-13', '2023-11-15', ''),
-(12, '', '2023-12-07', '2023-12-14', ''),
-(13, '', '2023-12-20', '2023-12-27', 'Aguardando'),
-(14, '12', '2023-12-06', '2023-12-13', '');
+INSERT INTO `tb_servico` (`cd_servico`, `cd_cliente`, `nm_servico`, `dt_checkin`, `dt_checkout`) VALUES
+(1, '', NULL, '2023-11-02', '2023-11-09'),
+(2, '', NULL, '2023-11-03', '2023-11-08'),
+(3, '', NULL, '2023-11-03', '2023-11-08'),
+(4, '', NULL, '2023-11-13', '2023-11-15');
 
 -- --------------------------------------------------------
 
@@ -165,21 +149,12 @@ INSERT INTO `tb_servico` (`cd_servico`, `cd_cliente`, `dt_checkin`, `dt_checkout
 
 CREATE TABLE `tb_vacinas` (
   `cd_vacina` int(11) NOT NULL,
-  `ic_v8_v10` tinyint(1) DEFAULT NULL,
-  `ic_antirrabica` tinyint(1) DEFAULT NULL,
-  `ic_gripe` tinyint(1) DEFAULT NULL,
-  `ic_giardia` tinyint(1) DEFAULT NULL,
+  `ic_v8_v10` char(2) DEFAULT NULL,
+  `ic_antirrabica` char(1) DEFAULT NULL,
+  `ic_gripe` char(1) DEFAULT NULL,
+  `ic_giardia` char(1) DEFAULT NULL,
   `cd_cao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_vacinas`
---
-
-INSERT INTO `tb_vacinas` (`cd_vacina`, `ic_v8_v10`, `ic_antirrabica`, `ic_gripe`, `ic_giardia`, `cd_cao`) VALUES
-(1, 1, 1, 0, 0, NULL),
-(2, 1, 1, 0, 0, NULL),
-(3, 0, 1, 1, 1, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Índices para tabelas despejadas
@@ -236,13 +211,13 @@ ALTER TABLE `tb_vacinas`
 -- AUTO_INCREMENT de tabela `tb_cao`
 --
 ALTER TABLE `tb_cao`
-  MODIFY `cd_cao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `cd_cao` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `tb_cliente`
 --
 ALTER TABLE `tb_cliente`
-  MODIFY `cd_cliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `cd_cliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `tb_comentarios`
@@ -254,13 +229,7 @@ ALTER TABLE `tb_comentarios`
 -- AUTO_INCREMENT de tabela `tb_servico`
 --
 ALTER TABLE `tb_servico`
-  MODIFY `cd_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT de tabela `tb_vacinas`
---
-ALTER TABLE `tb_vacinas`
-  MODIFY `cd_vacina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cd_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para despejos de tabelas

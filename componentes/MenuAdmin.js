@@ -4,38 +4,37 @@ import * as ImagePicker from 'expo-image-picker';
 
 export function MenuAdmin({ navigation, route }) {
 
-    const [info, setInfo] = useState('')
+    const [noticia, setNoticia] = useState('')
     const [imagem, setImagem] = useState('')
+    const [noticias, setNoticias] = useState([])
 
     const pickImage = async () => {
-        try {
-            const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            });
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
-            if (!result.cancelled) {
-                console.log('Imagem selecionada:', result.uri);
-                // Lógica para lidar com a imagem selecionada aqui
-            } else {
-                console.log('Seleção de imagem cancelada');
-            }
-        } catch (err) {
-            console.log('Erro ao selecionar a imagem:', err);
+        console.log(result);
+
+        if (!result.canceled) {
+            console.log(result.assets[0].uri)
+            setImagem(result.assets[0].uri);
         }
     };
 
+
     const inserirNoticias = () => {
         // fetch('http://192.168.26.94/api/cadastro', {
-        fetch('http://localhost/api/inserirNoticias', {
+        fetch('http://localhost/api/inserirNoticia', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                info: info,
+                noticia: noticia,
                 imagem: imagem,
 
             }),
@@ -49,23 +48,80 @@ export function MenuAdmin({ navigation, route }) {
             });
     };
 
+
+    function getNoticias() {
+        fetch('http://localhost/api/noticias')
+            // fetch('http://localhost/api/usuarios')
+            .then((response) => response.json())
+            .then((json) => setNoticias(json))
+    }
+
+    useEffect(() => {
+        getNoticias()
+    }, [,]);
+
     return (
         <View style={styles.container}>
-            <View>
-                <TextInput placeholder="Insira a notícia" value={info} onChangeText={(text) => setInfo(text)} />
-                <TouchableOpacity onPress={pickImage}>
-                    <Text>Selecionar arquivo</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 22, marginTop: 10 }}>Postagem de notícias</Text>
+            <View style={styles.inserir}>
+                <TextInput style={{
+                    textAlign: 'center',
+                    marginVertical: 20,
+                    padding: 10,
+                    borderColor: 'black',
+                    borderWidth: 1,
+                    borderRadius: 40,
+                    width: '90%',
+                }} placeholder="Insira a notícia" value={noticia} onChangeText={(text) => setNoticia(text)} />
+                <TouchableOpacity style={{
+                    justifyContent: 'center',
+                    backgroundColor: '#6f9baa',
+                    padding: 10,
+                    paddingHorizontal: 20,
+                    borderRadius: 20,
+                    marginRight: 2
+                }} onPress={pickImage}>
+                    <Text style={{ color: 'white' }}>Selecionar arquivo</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={inserirNoticias}>
-                    <Text>Enviar</Text>
+                <Image source={{ uri: imagem }} style={{ width: 200, height: 200, margin: 15 }} />
+                <TouchableOpacity style={{
+                    justifyContent: 'center',
+                    backgroundColor: '#6FAA9C',
+                    padding: 10,
+                    paddingHorizontal: 20,
+                    borderRadius: 20,
+                    marginRight: 2,
+                    marginTop: 10,
+                    marginBottom: 10
+                }} onPress={inserirNoticias}>
+                    <Text style={{ color: 'white' }}>Enviar</Text>
                 </TouchableOpacity>
             </View>
-            <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Clientes')}>
-                    <Text>Clientes</Text>
+            <View style={{width: '90%', alignItems:'center'}}>
+                <TouchableOpacity style={{
+                    justifyContent: 'center',
+                    backgroundColor: '#6FAA9C',
+                    padding: 10,
+                    paddingHorizontal: 20,
+                    borderRadius: 20,
+                    marginRight: 2,
+                    marginTop: 10,
+                    marginBottom: 10,
+                    width: '100%'
+                }} onPress={() => navigation.navigate('Clientes')}>
+                    <Text style={{textAlign:'center', color:'white'}}>Clientes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Reservas')}>
-                    <Text>Agendamentos</Text>
+                <TouchableOpacity style={{
+                    justifyContent: 'center',
+                    backgroundColor: '#6f9baa',
+                    padding: 10,
+                    paddingHorizontal: 20,
+                    borderRadius: 20,
+                    marginRight: 2,
+                    marginBottom: 10,
+                    width: '100%'
+                }} onPress={() => navigation.navigate('Reservas')}>
+                    <Text style={{textAlign:'center', color:'white'}}>Agendamentos</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -98,5 +154,22 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         alignItems: 'center'
     },
+    inserir: {
+        width: '90%',
+        backgroundColor: '#FCF6D7',
+        borderRadius: 20,
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    inputInserir: {
+        width: '90%',
+        backgroundColor: '#FCF6D7',
+        borderRadius: 20,
+        marginTop: 10,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 5
+    }
 })
 
