@@ -2,6 +2,7 @@ import react from "react";
 import { StyleSheet, View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import Checkbox from 'expo-checkbox';
 import React, { useState } from "react";
+import { Modal, Portal, Snackbar ,Button, PaperProvider } from 'react-native-paper';
 
 export function AdicionarPet({ navigation, route }) {
 
@@ -15,6 +16,19 @@ export function AdicionarPet({ navigation, route }) {
   const [antirrabica, setAntirrabica] = useState(false);
   const [gripe, setGripe] = useState(false);
   const [giardia, setGiardia] = useState(false);
+
+  const [nomeErro, setNomeErro] = useState(false);
+  const [racaErro, setRacaErro] = useState(false);
+  const [porteErro, setPorteErro] = useState(false);
+  const [corErro, setCorErro] = useState(false);
+  const [pesoErro, setPesoErro] = useState(false);
+  
+  
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = { backgroundColor: 'white', padding: 20 };
+
   const { cd_cliente } = route.params || { cd_cliente: null };
 
   const handleNomeChange = (text) => {
@@ -33,36 +47,89 @@ export function AdicionarPet({ navigation, route }) {
     setPeso(text);
   };
 
+function Validar() {
+ if(nome != null && nome != '' && nome.length >=3){
+  setNomeErro(false)
+ }
+ else{
+  setNomeErro(true)
+ };
 
+ if(raca != null && raca != '' && raca.length >=3){
+  setRacaErro(false)
+ }
+ else{
+  setRacaErro(true)
+};
+
+if(porte != null && porte != '' && porte.length >=5){
+  setPorteErro(false)
+ }
+ else{
+  setPorteErro(true)
+};
+
+if(cor != null && cor != '' && cor.length >=3){
+  setCorErro(false)
+ }
+ else{
+  setCorErro(true)
+};
+if(peso != null && peso != '' && peso.length >=3 ){
+  setPesoErro(false)
+ }
+ else{
+  setPesoErro(true)
+};
+
+
+
+
+ 
+}
 
   //Função adicionar
 
   const enviarDados = () => {
-    fetch('http://localhost/api/AdicionarPet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nome: nome,
-        raca: raca,
-        porte: porte,
-        cor: cor,
-        peso: peso,
-        cd_cliente: cd_cliente,
-        v8: v8,
-        antirrabica: antirrabica,
-        gripe: gripe,
-        giardia: giardia,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('Erro:', error);
-      });
+    Validar();
+    
+    try {
+if(nomeErro == false && racaErro == false && porteErro == false && corErro == false &&  pesoErro == false ){
+  fetch('http://localhost/api/AdicionarPet', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nome: nome,
+            raca: raca,
+            porte: porte,
+            cor: cor,
+            peso: peso,
+            cd_cliente: cd_cliente,
+            v8: v8,
+            antirrabica: antirrabica,
+            gripe: gripe,
+            giardia: giardia,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error('Erro:', error);
+          });
+
+        showModal();
+    }
+    
+  
+
+    } catch (error) {
+      console.error('Erro:', error);
+    }
+   
   };
 
   
@@ -71,10 +138,13 @@ export function AdicionarPet({ navigation, route }) {
     // navigation.navigate('Home')
   }
 
-
-
-
   return (
+    <PaperProvider>
+      <Portal>
+        <Modal visible={visible} onDismiss={ navigation.goBack() } contentContainerStyle={containerStyle}>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', textAlign: 'center' }}>Pet cadastrado!</Text>
+        </Modal>
+      </Portal>
     <View style={styles.container}>
       <View style={{ marginTop: 30 }}>
         <Image style={styles.logoUser} source={require('../assets/icon_usuario.png')}></Image>
@@ -87,6 +157,11 @@ export function AdicionarPet({ navigation, route }) {
           onChangeText={handleNomeChange}
           value={nome}
         />
+         {nomeErro && (
+            <Text style={styles.errorMessage}>
+              *Nome inválido
+            </Text>
+          )}
         <TextInput
           style={styles.input}
           placeholder="Raça"
@@ -94,6 +169,11 @@ export function AdicionarPet({ navigation, route }) {
           onChangeText={handleRacaChange}
           value={raca}
         />
+         {racaErro && (
+            <Text style={styles.errorMessage}>
+              *Raça inválida
+            </Text>
+          )}
         <TextInput
           style={styles.input}
           placeholder="Porte"
@@ -101,6 +181,11 @@ export function AdicionarPet({ navigation, route }) {
           onChangeText={handlePorteChange}
           value={porte}
         />
+         {porteErro && (
+            <Text style={styles.errorMessage}>
+              *Porte inválido
+            </Text>
+          )}
         <TextInput
           style={styles.input}
           placeholder="Cor"
@@ -108,6 +193,11 @@ export function AdicionarPet({ navigation, route }) {
           onChangeText={handleCorChange}
           value={cor}
         />
+         {corErro && (
+            <Text style={styles.errorMessage}>
+              *Cor inválida
+            </Text>
+          )}
         <TextInput
           style={styles.input}
           placeholder="Peso"
@@ -115,6 +205,11 @@ export function AdicionarPet({ navigation, route }) {
           onChangeText={handlePesoChange}
           value={peso}
         />
+         {pesoErro && (
+            <Text style={styles.errorMessage}>
+              *Peso inválida
+            </Text>
+          )}
         <View style={styles.vacinas}>
           <View>
             <Text style={{ alignSelf: 'center', fontSize: 15, color: '#273A73' }}>Vacinas</Text>
@@ -146,6 +241,7 @@ export function AdicionarPet({ navigation, route }) {
               value={giardia}
               onValueChange={setGiardia}
             />
+             
           </View>
 
         </View>
@@ -174,6 +270,7 @@ export function AdicionarPet({ navigation, route }) {
 
       </View>
     </View>
+    </PaperProvider>
   );
 }
 
@@ -182,6 +279,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#F2EAD0',
+  },
+  errorMessage:{
+    color: 'red' ,
+    fontSize:15,
+    alignSelf:'center',
   },
   logoUser: {
     width: 200,

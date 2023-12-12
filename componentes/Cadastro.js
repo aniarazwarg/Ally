@@ -289,7 +289,7 @@ export function Cadastro({ navigation }) {
     } else {
       if (!validarCPF(cpf)) {
         console.log('CPF inválido.')
-        setCpfInvalidMsg('CPF inválido ou já utilizado. Tente outro.')
+        setCpfInvalidMsg('*CPF inválido ou já utilizado. Tente outro.')
       }
       if (!validaEmail()) {
         console.log('Email inválido.')
@@ -297,11 +297,11 @@ export function Cadastro({ navigation }) {
       }
       if (!validarNome(nome)) {
         console.log('Nome inválido')
-        setNomeInvalidMsg('Nome não pode conter caracteres especiais ou números.')
+        setNomeInvalidMsg('*Nome não pode conter caracteres especiais ou números.')
       }
       if (!validarSenha(password)) {
         console.log('Senha inválida')
-        setSenhaInvalidMsg('Email ou senha incorretos. Tente novamente.')
+        setSenhaInvalidMsg('*Email ou senha incorretos. Tente novamente.')
       }
     }
     // validaEmail();
