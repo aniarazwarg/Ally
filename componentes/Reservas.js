@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Text, Button } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Text, Button, StatusBar } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Modal, Portal, PaperProvider } from 'react-native-paper';
 
@@ -9,7 +9,6 @@ export function Reservas({ navigation, route }) {
     const [reservas, setReservas] = useState([])
     const [users, setUsers] = useState([])
     const [statusReserva, setStatusReserva] = useState('Aprovado')
-    const [render, setRender] = useState('');
 
     const [visible, setVisible] = useState(false);
     const showModal = () => setVisible(true);
@@ -17,19 +16,21 @@ export function Reservas({ navigation, route }) {
 
     const [visibleRejeitado, setVisibleRejeitado] = useState(false);
     const showModalRejeitado = () => setVisibleRejeitado(true);
-    const hideModalRejeitado = () => setVisibleRejeitado(false);
+    const hideModalRejeitado = () => { setVisibleRejeitado(false); renderiza() }
     const containerStyle = { backgroundColor: 'white', padding: 20, width: '80%', alignSelf: 'center', borderRadius: 40, justifyContent: 'center', alignItems: 'center' };
 
 
+
+
     function getReservas() {
-        fetch('http://localhost/api/reservas')
+        fetch('http://192.168.0.11/api/reservas')
             // fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setReservas(json.reverse()))
     }
 
     function getUsers() {
-        fetch('http://localhost/api/usuarios')
+        fetch('http://192.168.0.11/api/usuarios')
             // fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
@@ -37,21 +38,21 @@ export function Reservas({ navigation, route }) {
 
     async function deletarReserva(id) {
         try {
-          await fetch(`http://localhost/api/deletarReserva/${id}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+            await fetch(`http://192.168.0.11/api/deletarReserva/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      }
+    }
 
     const updateReserva = async (cd_cliente, statusReserva) => {
         try {
             const newData = { statusReserva };
-            const response = await fetch(`http://localhost/api/atualizaReserva/${cd_cliente}`, {
+            const response = await fetch(`http://192.168.0.11/api/atualizaReserva/${cd_cliente}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,6 +63,7 @@ export function Reservas({ navigation, route }) {
             if (response.status === 200) {
                 console.log('Registro atualizado com sucesso.');
                 console.log(newData)
+                getReservas();
             } else {
                 console.error('Erro ao atualizar registro.');
             }
@@ -70,9 +72,6 @@ export function Reservas({ navigation, route }) {
         }
     };
 
-    function renderiza() {
-        setRender('')
-    }
 
 
     useEffect(() => {
@@ -92,42 +91,42 @@ export function Reservas({ navigation, route }) {
                     <Button title="OK" onPress={hideModalRejeitado} />
                 </Modal>
             </Portal>
-            <ScrollView style={{ backgroundColor: '#F2EAD0'}}>
-            <View style={styles.header}>
-              <View style={styles.headerConteudo}>
-             
-                  <View>
-                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
-
-                      <Image source={require('../assets/menu-bar.png')}
-                        style={styles.logosHeader}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <View>
-               
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Reservas</Text>
-                 
-                </View>
-                  <View>
-                    <TouchableOpacity  onPress={() => navigation.navigate('Home', {screen: 'Feed'})}>
-                      <Text style={{ fontWeight: 'bold' , borderWidth: 2, borderRadius: 10,padding: 5, borderColor: 'black', }}>Sair</Text>
-                    </TouchableOpacity>
-                  </View>
-              
-               
-              </View>
-            </View>
+            <ScrollView style={{ backgroundColor: '#F2EAD0' }}>
                 <View style={styles.container}>
-                    {reservas.map((reserva) => (reserva.statusReserva ==  'Aguardando') &&(
+                    <View style={styles.header}>
+                        <View style={styles.headerConteudo}>
+
+                            <View>
+                                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+
+                                    <Image source={require('../assets/menu-bar.png')}
+                                        style={styles.logosHeader}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+
+                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Reservas</Text>
+
+                            </View>
+                            <View>
+                                <TouchableOpacity onPress={() => navigation.navigate('Home', { screen: 'Feed' })}>
+                                    <Text style={{ fontWeight: 'bold', borderWidth: 2, borderRadius: 10, padding: 5, borderColor: 'black', }}>Sair</Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+                        </View>
+                    </View>
+                    {reservas.map((reserva) => (reserva.statusReserva == 'Aguardando') && (
                         <View key={reserva.cd_servico} style={{ borderRadius: 40, borderWidth: 2, padding: 20, width: '80%', margin: 5 }}>
                             <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}> {reserva.dt_checkin.split('-').reverse().join('/')} - {reserva.dt_checkout.split('-').reverse().join('/')}</Text>
                             <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>Cliente: {reserva.cd_cliente}</Text>
                             <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>Status reserva: {reserva.statusReserva}</Text>
                             <TouchableOpacity onPress={() => navigation.navigate('Cliente', { cd_cliente: reserva.cd_cliente })} style={styles.botaoVer}>
-                                <Text style={{ color: 'white'}}>Ver cliente</Text>
+                                <Text style={{ color: 'white' }}>Ver cliente</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => { updateReserva(reserva.cd_cliente, 'Aprovado'); getReservas();showModal()}} style={styles.botaoAceitar}>
+                            <TouchableOpacity onPress={() => { updateReserva(reserva.cd_cliente, 'Aprovado'); getReservas(); showModal(); }} style={styles.botaoAceitar}>
                                 <Text style={{ color: 'white' }}>Aceitar</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.botaoNegar}>
@@ -147,6 +146,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: '#F2EAD0',
+        paddingTop: StatusBar.currentHeight,
     },
     botaoVer: {
         backgroundColor: '#6FAA9C',
@@ -187,5 +187,5 @@ const styles = StyleSheet.create({
     logosHeader: {
         width: 40,
         height: 40
-      },
+    },
 })

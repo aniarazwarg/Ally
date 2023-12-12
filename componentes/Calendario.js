@@ -68,9 +68,8 @@ export function Calendario({ navigation, route }) {
 
     const agendar = () => {
       try {
-       
         setErro(false);
-        fetch('http://localhost/api/agendar', {
+        fetch('http://192.168.0.11/api/agendar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

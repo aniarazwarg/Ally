@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput, StatusBar } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 
 export function MenuAdmin({ navigation, route }) {
@@ -28,7 +28,7 @@ export function MenuAdmin({ navigation, route }) {
 
     const inserirNoticias = () => {
         // fetch('http://192.168.26.94/api/cadastro', {
-        fetch('http://localhost/api/inserirNoticias', {
+        fetch('http://192.168.0.11/api/inserirNoticias', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,8 +50,8 @@ export function MenuAdmin({ navigation, route }) {
 
 
     function getNoticias() {
-        fetch('http://localhost/api/noticias')
-            // fetch('http://localhost/api/usuarios')
+        fetch('http://192.168.0.11/api/noticias')
+            // fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setNoticias(json))
     }
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: '#F2EAD0',
+        paddingTop: StatusBar.currentHeight,
     },
     header: {
         zIndex: 1,

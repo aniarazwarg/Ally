@@ -29,7 +29,7 @@ export function Feed({ navigation, route }) {
   const onDismissSnackBar = () => setVisible2(false);
 
   function dataComentarios() {
-    fetch('http://localhost/api/comentarios')
+    fetch('http://192.168.0.11/api/comentarios')
       .then((response) => response.json())
       .then((json) => {
         // Assuming json is an array of comentarios
@@ -40,15 +40,15 @@ export function Feed({ navigation, route }) {
   }
 
   function getUsers() {
-    fetch('http://localhost/api/usuarios')
-      // fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.0.11/api/usuarios')
+      // fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
 
   function getNoticias() {
-    fetch('http://localhost/api/noticias')
-      // fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.0.11/api/noticias')
+      // fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => {
         const limitedNoticias = json.reverse().slice(0, 2);
@@ -81,7 +81,7 @@ export function Feed({ navigation, route }) {
     try {
       if (cd_cliente != null && Comentario != null && Comentario.length >= 3 ){
     setErro(false);
-     fetch('http://localhost/api/postComentario', {
+     fetch('http://192.168.0.11/api/postComentario', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

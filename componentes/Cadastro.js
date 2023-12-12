@@ -212,7 +212,7 @@ export function Cadastro({ navigation }) {
   //funcao getUsers
 
   function getUsers() {
-    fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.0.11/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
@@ -221,7 +221,7 @@ export function Cadastro({ navigation }) {
   //Função cadastro
 
   const enviarDados = () => {
-    fetch('http://localhost/api/cadastro', {
+    fetch('http://192.168.0.11/api/cadastro', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

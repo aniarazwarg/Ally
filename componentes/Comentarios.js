@@ -10,14 +10,14 @@ export function Comentarios({ navigation }) {
 
 
     function dataComentarios() {
-        fetch('http://localhost/api/comentarios')
+        fetch('http://192.168.0.11/api/comentarios')
             .then((response) => response.json())
             .then((json) => setComentarios(json))
     }
 
     const updateCurtidas = async (id, newData) => {
         try {
-            const response = await fetch(`http://localhost/api/curtidas/${id}`, {
+            const response = await fetch(`http://192.168.0.11/api/curtidas/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -63,7 +63,7 @@ function MyDrawer() {
 
 function Admin() {
   return (
-    <Drawer.Navigator initialRouteName='Reservas' screenOptions={{
+    <Drawer.Navigator initialRouteName='Início' screenOptions={{
       headerShown: false,
       swipeEnabled: false,
       drawerHideStatusBarOnOpen: true,

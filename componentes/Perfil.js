@@ -35,13 +35,13 @@ export function Perfil({ navigation, route }) {
     const containerStyle = { backgroundColor: 'white', padding: 20 };
 
     function getUsers() {
-        fetch('http://localhost/api/usuarios')
+        fetch('http://192.168.0.11/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
     }
 
     function getReservas() {
-        fetch('http://localhost/api/reservas')
+        fetch('http://192.168.0.11/api/reservas')
             .then((response) => response.json())
             .then((json) => setReservas(json))
     }
@@ -56,7 +56,7 @@ export function Perfil({ navigation, route }) {
 
 
     const updateEmail = () => {
-        fetch(`http://localhost/api/updateEmail/${cd_cliente}`, {
+        fetch(`http://192.168.0.11/api/updateEmail/${cd_cliente}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export function Perfil({ navigation, route }) {
 
     // Função update telefone
     const updateTelefone = () => {
-        fetch(`http://localhost/api/updateTelefone/${cd_cliente}`, {
+        fetch(`http://192.168.0.11/api/updateTelefone/${cd_cliente}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -133,9 +133,9 @@ export function Perfil({ navigation, route }) {
             <Portal>
                 <Modal visible={visibleTel} onDismiss={hideModalTel} contentContainerStyle={containerStyle}>
                     <TextInput
-                        onChangeText={(text) => setTelefone(text)}
                         placeholder="Altere o Telefone"
                         value={telefone}
+                        onChangeText={(text) => setTelefone(text)}
                         style={{ textAlign: 'center', borderWidth: 1, padding: 14, borderRadius: 20, }}
                     />
                     <TouchableOpacity style={styles.botaoEditar2} onPress={updateTelefone}>
