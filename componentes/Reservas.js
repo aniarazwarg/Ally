@@ -9,6 +9,7 @@ export function Reservas({ navigation, route }) {
     const [reservas, setReservas] = useState([])
     const [users, setUsers] = useState([])
     const [statusReserva, setStatusReserva] = useState('Aprovado')
+    const [render, setRender] = useState('');
 
     const [visible, setVisible] = useState(false);
     const showModal = () => setVisible(true);
@@ -69,6 +70,9 @@ export function Reservas({ navigation, route }) {
         }
     };
 
+    function renderiza() {
+        setRender('')
+    }
 
 
     useEffect(() => {

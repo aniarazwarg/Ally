@@ -28,7 +28,7 @@ export function MenuAdmin({ navigation, route }) {
 
     const inserirNoticias = () => {
         // fetch('http://192.168.26.94/api/cadastro', {
-        fetch('http://localhost/api/inserirNoticia', {
+        fetch('http://localhost/api/inserirNoticias', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +62,31 @@ export function MenuAdmin({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontWeight: 'bold', fontSize: 22, marginTop: 10 }}>Postagem de notícias</Text>
+            <View style={styles.header}>
+                <View style={styles.headerConteudo}>
+
+                    <View>
+                        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+
+                            <Image source={require('../assets/menu-bar.png')}
+                                style={styles.logosHeader}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Postagem de notícias</Text>
+
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={() => navigation.navigate('Home', { screen: 'Feed' })}>
+                            <Text style={{ fontWeight: 'bold', borderWidth: 2, borderRadius: 10, padding: 5, borderColor: 'black', }}>Sair</Text>
+                        </TouchableOpacity>
+                    </View>
+
+
+                </View>
+            </View>
             <View style={styles.inserir}>
                 <TextInput style={{
                     textAlign: 'center',
@@ -97,7 +121,7 @@ export function MenuAdmin({ navigation, route }) {
                     <Text style={{ color: 'white' }}>Enviar</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{width: '90%', alignItems:'center'}}>
+            <View style={{ width: '90%', alignItems: 'center' }}>
                 <TouchableOpacity style={{
                     justifyContent: 'center',
                     backgroundColor: '#6FAA9C',
@@ -109,7 +133,7 @@ export function MenuAdmin({ navigation, route }) {
                     marginBottom: 10,
                     width: '100%'
                 }} onPress={() => navigation.navigate('Clientes')}>
-                    <Text style={{textAlign:'center', color:'white'}}>Clientes</Text>
+                    <Text style={{ textAlign: 'center', color: 'white' }}>Clientes</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{
                     justifyContent: 'center',
@@ -121,7 +145,7 @@ export function MenuAdmin({ navigation, route }) {
                     marginBottom: 10,
                     width: '100%'
                 }} onPress={() => navigation.navigate('Reservas')}>
-                    <Text style={{textAlign:'center', color:'white'}}>Agendamentos</Text>
+                    <Text style={{ textAlign: 'center', color: 'white' }}>Agendamentos</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -170,6 +194,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 5
-    }
+    },
+    header: {
+        zIndex: 1,
+        backgroundColor: '#F2EAD0',
+        width: '100%'
+    },
+    headerConteudo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        alignItems: 'center'
+    },
+    logosHeader: {
+        width: 40,
+        height: 40
+      },
 })
 

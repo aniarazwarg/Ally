@@ -39,7 +39,7 @@ function MyDrawer() {
       }}
       backBehavior='none'
     >
-       <Drawer.Screen name="Feed" component={Feed} options={{
+      <Drawer.Screen name="Feed" component={Feed} options={{
         drawerItemStyle: {
           backgroundColor: "#C1BBA6",
           width: '100%',
@@ -56,19 +56,25 @@ function MyDrawer() {
       <Drawer.Screen name="Login" component={Login} />
       <Drawer.Screen name="Cadastro" component={Cadastro} />
 
-     
+
     </Drawer.Navigator>
   )
 }
 
 function Admin() {
   return (
-    <Drawer.Navigator initialRouteName='Início'>
-      <Drawer.Screen name='Início' component={MenuAdmin}/>
-      <Drawer.Screen name='Clientes' component={Clientes}/>
-      <Drawer.Screen name='Reservas' component={Reservas}/>
-      <Drawer.Screen name='Sair' component={MyDrawer}/>
-     </Drawer.Navigator>
+    <Drawer.Navigator initialRouteName='Reservas' screenOptions={{
+      headerShown: false,
+      swipeEnabled: false,
+      drawerHideStatusBarOnOpen: true,
+      drawerStyle: {
+        backgroundColor: "#F2EAD0",
+      }
+    }}>
+      <Drawer.Screen name='Início' component={MenuAdmin} />
+      <Drawer.Screen name='Clientes' component={Clientes} />
+      <Drawer.Screen name='Reservas' component={Reservas} />
+    </Drawer.Navigator>
   )
 }
 
@@ -87,11 +93,11 @@ export default function App() {
         <Stack.Screen name='Calendario' component={Calendario} />
         <Stack.Screen name='Adestramento' component={Adestramento} />
         <Stack.Screen name='Agility' component={Agility} />
-        <Stack.Screen name='Comentarios' component={Comentarios}/>
-        <Stack.Screen name='Admin' component={Admin}/>
-        <Stack.Screen name='Cliente' component={Cliente}/>
-        <Stack.Screen name='Pets' component={Pets}/>
-        
+        <Stack.Screen name='Comentarios' component={Comentarios} />
+        <Stack.Screen name='Admin' component={Admin} />
+        <Stack.Screen name='Cliente' component={Cliente} />
+        <Stack.Screen name='Pets' component={Pets} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
