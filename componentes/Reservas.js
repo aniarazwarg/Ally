@@ -34,6 +34,19 @@ export function Reservas({ navigation, route }) {
             .then((json) => setUsers(json))
     }
 
+    async function deletarReserva(id) {
+        try {
+          await fetch(`http://localhost/api/deletarReserva/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
     const updateReserva = async (cd_cliente, statusReserva) => {
         try {
             const newData = { statusReserva };
@@ -86,18 +99,19 @@ export function Reservas({ navigation, route }) {
                     </View>
                 </View>
                 <View style={styles.container}>
-                    {reservas.map((reserva) => (
+                    {reservas.map((reserva) => (reserva.statusReserva ==  'Aguardando') &&(
                         <View key={reserva.cd_servico} style={{ borderRadius: 40, borderWidth: 2, padding: 20, width: '80%', margin: 5 }}>
                             <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}> {reserva.dt_checkin.split('-').reverse().join('/')} - {reserva.dt_checkout.split('-').reverse().join('/')}</Text>
                             <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>Cliente: {reserva.cd_cliente}</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>Status reserva: {reserva.statusReserva}</Text>
                             <TouchableOpacity onPress={() => navigation.navigate('Cliente', { cd_cliente: reserva.cd_cliente })} style={styles.botaoVer}>
-                                <Text style={{ color: 'white' }}>Ver cliente</Text>
+                                <Text style={{ color: 'white'}}>Ver cliente</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => { updateReserva(reserva.cd_cliente, 'Aprovado'); showModal() }} style={styles.botaoAceitar}>
+                            <TouchableOpacity onPress={() => { updateReserva(reserva.cd_cliente, 'Aprovado'); getReservas();showModal()}} style={styles.botaoAceitar}>
                                 <Text style={{ color: 'white' }}>Aceitar</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.botaoNegar}>
-                                <Text onPress={() => { updateReserva(reserva.cd_cliente, 'Reprovado'); showModalRejeitado() }} style={{ color: 'white' }}>Recusar</Text>
+                                <Text onPress={() => { updateReserva(reserva.cd_cliente, 'Reprovado'); getReservas(); showModalRejeitado(); }} style={{ color: 'white' }}>Recusar</Text>
                             </TouchableOpacity>
                         </View>
                     ))}
