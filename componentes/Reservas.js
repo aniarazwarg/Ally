@@ -88,16 +88,32 @@ export function Reservas({ navigation, route }) {
                     <Button title="OK" onPress={hideModalRejeitado} />
                 </Modal>
             </Portal>
-            <ScrollView>
-                <View style={styles.header}>
-                    <View style={styles.headerConteudo}>
-                        <View>
-                            <TouchableOpacity onPress={() => navigation.navigate('Home', {screen: 'Feed'})}>
-                                <Text style={{ fontWeight: 'bold' }}>Sair</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+            <ScrollView style={{ backgroundColor: '#F2EAD0'}}>
+            <View style={styles.header}>
+              <View style={styles.headerConteudo}>
+             
+                  <View>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
+
+                      <Image source={require('../assets/menu-bar.png')}
+                        style={styles.logosHeader}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View>
+               
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Reservas</Text>
+                 
                 </View>
+                  <View>
+                    <TouchableOpacity  onPress={() => navigation.navigate('Home', {screen: 'Feed'})}>
+                      <Text style={{ fontWeight: 'bold' , borderWidth: 2, borderRadius: 10,padding: 5, borderColor: 'black', }}>Sair</Text>
+                    </TouchableOpacity>
+                  </View>
+              
+               
+              </View>
+            </View>
                 <View style={styles.container}>
                     {reservas.map((reserva) => (reserva.statusReserva ==  'Aguardando') &&(
                         <View key={reserva.cd_servico} style={{ borderRadius: 40, borderWidth: 2, padding: 20, width: '80%', margin: 5 }}>
@@ -164,4 +180,8 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         alignItems: 'center'
     },
+    logosHeader: {
+        width: 40,
+        height: 40
+      },
 })
