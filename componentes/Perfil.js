@@ -35,13 +35,13 @@ export function Perfil({ navigation, route }) {
     const containerStyle = { backgroundColor: 'white', padding: 20 };
 
     function getUsers() {
-        fetch('http://192.168.0.11/api/usuarios')
+        fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
     }
 
     function getReservas() {
-        fetch('http://192.168.0.11/api/reservas')
+        fetch('http://192.168.26.94/api/reservas')
             .then((response) => response.json())
             .then((json) => setReservas(json))
     }
@@ -56,7 +56,7 @@ export function Perfil({ navigation, route }) {
 
 
     const updateEmail = () => {
-        fetch(`http://192.168.0.11/api/updateEmail/${cd_cliente}`, {
+        fetch(`http://192.168.26.94/api/updateEmail/${cd_cliente}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export function Perfil({ navigation, route }) {
 
     // Função update telefone
     const updateTelefone = () => {
-        fetch(`http://192.168.0.11/api/updateTelefone/${cd_cliente}`, {
+        fetch(`http://192.168.26.94/api/updateTelefone/${cd_cliente}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

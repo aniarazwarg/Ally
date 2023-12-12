@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 export function MenuAdmin({ navigation, route }) {
 
     const [noticia, setNoticia] = useState('')
-    const [imagem, setImagem] = useState('')
+    const [imagem, setImagem] = useState(null)
     const [noticias, setNoticias] = useState([])
 
     const pickImage = async () => {
@@ -28,7 +28,7 @@ export function MenuAdmin({ navigation, route }) {
 
     const inserirNoticias = () => {
         // fetch('http://192.168.26.94/api/cadastro', {
-        fetch('http://192.168.0.11/api/inserirNoticias', {
+        fetch('http://192.168.26.94/api/inserirNoticias', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -42,6 +42,8 @@ export function MenuAdmin({ navigation, route }) {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
+                setNoticia('');
+                setImagem('');
             })
             .catch((error) => {
                 console.error('Erro:', error);
@@ -50,8 +52,8 @@ export function MenuAdmin({ navigation, route }) {
 
 
     function getNoticias() {
-        fetch('http://192.168.0.11/api/noticias')
-            // fetch('http://192.168.0.11/api/usuarios')
+        fetch('http://192.168.26.94/api/noticias')
+            // fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setNoticias(json))
     }

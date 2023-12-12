@@ -23,22 +23,22 @@ export function Reservas({ navigation, route }) {
 
 
     function getReservas() {
-        fetch('http://192.168.0.11/api/reservas')
-            // fetch('http://192.168.0.11/api/usuarios')
+        fetch('http://192.168.26.94/api/reservas')
+            // fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setReservas(json.reverse()))
     }
 
     function getUsers() {
-        fetch('http://192.168.0.11/api/usuarios')
-            // fetch('http://192.168.0.11/api/usuarios')
+        fetch('http://192.168.26.94/api/usuarios')
+            // fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
     }
 
     async function deletarReserva(id) {
         try {
-            await fetch(`http://192.168.0.11/api/deletarReserva/${id}`, {
+            await fetch(`http://192.168.26.94/api/deletarReserva/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export function Reservas({ navigation, route }) {
     const updateReserva = async (cd_cliente, statusReserva) => {
         try {
             const newData = { statusReserva };
-            const response = await fetch(`http://192.168.0.11/api/atualizaReserva/${cd_cliente}`, {
+            const response = await fetch(`http://192.168.26.94/api/atualizaReserva/${cd_cliente}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
