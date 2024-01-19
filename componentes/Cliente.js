@@ -76,8 +76,8 @@ export function Cliente({ navigation, route }) {
     };
 
     function getUsers() {
-        fetch('http://localhost/api/usuarios')
-            // fetch('http://192.168.0.11/api/usuarios')
+        fetch('http://192.168.26.94/api/usuarios')
+            // fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
     }
@@ -100,8 +100,8 @@ export function Cliente({ navigation, route }) {
     }
 
     function getPets() {
-        fetch(`http://localhost/api/pets/${cd_cliente}`)
-            // fetch('http://192.168.0.11/api/usuarios')
+        fetch(`http://192.168.26.94/api/pets/${cd_cliente}`)
+            // fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setPets(json))
     }
@@ -127,7 +127,7 @@ export function Cliente({ navigation, route }) {
 
     const updateCliente = async (cd_cliente, newData) => {
         try {
-            const response = await fetch(`http://localhost/api/atualizaCadastro/${cd_cliente}`, {
+            const response = await fetch(`http://192.168.26.94/api/atualizaCadastro/${cd_cliente}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ export function Cliente({ navigation, route }) {
 
     const updatePet = async (cd_cliente, newData) => {
         try {
-            const response = await fetch(`http://localhost/api/atualizaPets/${cd_cliente}`, {
+            const response = await fetch(`http://192.168.26.94/api/atualizaPets/${cd_cliente}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

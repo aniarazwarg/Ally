@@ -2,7 +2,10 @@ import React from 'react';
 import { StyleSheet, TextInput, Image, Text, View, TouchableOpacity, Pressable, Platform, ImageBackground } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { Modal, Portal,  PaperProvider, Snackbar } from 'react-native-paper';
+import { Modal, Portal,  PaperProvider, Snackbar, Button } from 'react-native-paper';
+
+
+
 
 LocaleConfig.locales['fr'] = {
 
@@ -35,12 +38,11 @@ export function Calendario({ navigation, route }) {
   const [markedDates, setMarkedDates] = useState({});
   const [statusReserva, setStatusReserva] = useState('Aguardando');
   const { cd_cliente } = route.params || { cd_cliente: null };
-
-
+  const [hoje, setHoje] = useState(new Date().toJSON().slice(0, 10))
+  const [erro, setErro] = React.useState(false);
   const [visible2, setVisible2] = React.useState(false);
   const onToggleSnackBar = () => setVisible2(!visible2);
   const onDismissSnackBar = () => setVisible2(false);
-
 
   const onDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
@@ -65,7 +67,9 @@ export function Calendario({ navigation, route }) {
   };
 
     const agendar = () => {
-      fetch('http://localhost/api/agendar', {
+      try {
+        setErro(false);
+        fetch('http://192.168.26.94/api/agendar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,19 +88,37 @@ export function Calendario({ navigation, route }) {
         .catch((error) => {
           console.error('Erro:', error);
         });
-    };
+    
+    
+      } catch (error) {
+        setErro(true)
+      }
+      }
+      
 
     console.log(cd_cliente)
 
   function validaAgendamento() {
+    if(selectedStartDate !=null && selectedEndDate !=null && selectedStartDate !='' && selectedEndDate !=''){
+      setErro(false);
     onToggleSnackBar();
     agendar();
+    setSelectedStartDate('');
+    setSelectedEndDate('');
+    }
+    else{
+      setErro(true)
+    }
     // navigation.navigate('Home');
   };
 
 
+function teste(){
 
+  alert(hoje)
 
+}
+ 
   return (
     <PaperProvider>
     <View style={styles.container}>
@@ -106,6 +128,7 @@ export function Calendario({ navigation, route }) {
       </View>
       <View>
         <Calendar
+          minDate={hoje}
           onDayPress={onDayPress}
           markedDates={markedDates}
           enableSwipeMonths={true}
@@ -128,19 +151,25 @@ export function Calendario({ navigation, route }) {
             }}
         />
       </View>
+{/* <Button onPress={teste}>aaaa</Button> */}
       <View>
         <TextInput
           placeholder='Check in'
           style={styles.input}
-          value={selectedStartDate !== null ? selectedStartDate : ''}
+          value={selectedStartDate == null ? selectedStartDate : selectedStartDate.split('-').reverse().join('/')}
           keyboardType="numeric"
         />
         <TextInput
           placeholder='Check out'
           style={styles.input}
-          value={selectedEndDate !== null ? selectedEndDate : ''}
+          value={selectedEndDate == null ? selectedEndDate : selectedEndDate.split('-').reverse().join('/')}
           keyboardType="numeric"
         />
+        {erro && (
+            <Text style={styles.errorMessage}>
+              *Erro no agendamento
+            </Text>
+          )}
       </View>
       <View style={{ marginHorizontal: 25, marginTop: 10 }}>
         <TouchableOpacity style={styles.button} onPress={validaAgendamento}>
@@ -183,6 +212,11 @@ const styles = StyleSheet.create({
     marginTop: 100,
     textAlign: 'center',
     fontSize: 20,
+  },
+  errorMessage:{
+    color: 'red' ,
+    fontSize:15,
+    alignSelf:'center',
   },
   input: {
     alignSelf: 'center',

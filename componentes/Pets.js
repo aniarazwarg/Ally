@@ -20,8 +20,8 @@ export function Pets({ navigation, route }) {
 
 
     function getPets() {
-        fetch(`http://localhost/api/pets/${cd_cliente}`)
-            // fetch('http://192.168.0.11/api/usuarios')
+        fetch(`http://192.168.26.94/api/pets/${cd_cliente}`)
+            // fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setPets(json))
     }

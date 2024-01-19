@@ -46,7 +46,7 @@ export function Passeio({ navigation }) {
           <Text style={styles.texto}>
             Para realizar o agendamento deste serviço
             entre em contato com o Whatsapp:
-            (13)999999999
+            (13) 99687-0770
           </Text>
           {/* Botão Voltar */}
           <TouchableOpacity style={styles.buttonCadastrar} onPress={() => navigation.navigate('Home')}>

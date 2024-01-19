@@ -1,7 +1,8 @@
 import * as React from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, StatusBar, ImageBackground } from "react-native";
-import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
+import { Modal, Portal, Text, Snackbar ,Button, PaperProvider } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 
 export function Feed({ navigation, route }) {
@@ -10,17 +11,25 @@ export function Feed({ navigation, route }) {
   const [visible, setVisible] = React.useState(false);
   const [nome, setNome] = React.useState(null);
   const [fotoPerfil, setFotoPerfil] = React.useState(null);
+  const [Comentario, setComentario] = React.useState('');
+  const [email, setEmail] = React.useState('');
+
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: 'white', padding: 20 };
   const { cd_cliente } = route.params || { cd_cliente: null };
   const [users, setUsers] = React.useState([]);
+  const [noticias, setNoticias] = React.useState([]);
   // const foto = require(fotoPerfil)
-
+  const [erro, setErro] = React.useState(false);
   const [comentarios, setComentarios] = React.useState([]);
 
+  const [visible2, setVisible2] = React.useState(false);
+  const onToggleSnackBar = () => setVisible2(!visible2);
+  const onDismissSnackBar = () => setVisible2(false);
+
   function dataComentarios() {
-    fetch('http://localhost/api/comentarios')
+    fetch('http://192.168.26.94/api/comentarios')
       .then((response) => response.json())
       .then((json) => {
         // Assuming json is an array of comentarios
@@ -31,12 +40,24 @@ export function Feed({ navigation, route }) {
   }
 
   function getUsers() {
-    fetch('http://localhost/api/usuarios')
-      // fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.26.94/api/usuarios')
+      // fetch('http://192.168.26.94/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
-
   }
+
+  function getNoticias() {
+    fetch('http://192.168.26.94/api/noticias')
+      // fetch('http://192.168.26.94/api/usuarios')
+      .then((response) => response.json())
+      .then((json) => {
+        const limitedNoticias = json.reverse().slice(0, 2);
+        setNoticias(limitedNoticias)
+      }
+      )
+  }
+
+  console.log(noticias)
 
   function sair() {
     navigation.navigate('Feed', { cd_cliente: null })
@@ -47,11 +68,56 @@ export function Feed({ navigation, route }) {
 
   if (users.length === 0 && cd_cliente !== null) {
     getUsers();
-
   }
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+  };
+  const handleComentarioChange = (text) => {
+    setComentario(text);
+  };
+
+  const enviarComentario = () => {
+    try {
+      if (cd_cliente != null && Comentario != null && Comentario.length >= 3 ){
+    setErro(false);
+     fetch('http://192.168.26.94/api/postComentario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nome: nome,
+        comentario: Comentario,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        getUsers(); // Recarrega os dados dos usuários após o cadastro
+        setComentario('')
+      })
+      .catch((error) => {
+        console.error('Erro:', error);
+      });
+      onToggleSnackBar();
+   } else {
+    setErro(true)
+   }
+    } catch (error) {
+      setErro(true)
+
+    }
+   
+
+   
+  };
+
+
 
   React.useEffect(() => {
     dataComentarios()
+    getNoticias();
     users.forEach((user) => {
       if (cd_cliente == user.cd_cliente) {
         setNome(user.nm_cliente)
@@ -62,7 +128,7 @@ export function Feed({ navigation, route }) {
       }
 
     })
-  }, [users]);
+  }, [users, cd_cliente]);
 
 
   return (
@@ -75,10 +141,11 @@ export function Feed({ navigation, route }) {
       </Portal>
 
       <View style={styles.container}>
+           <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas2.jpg')}>
         <ScrollView style={styles.scrollView}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll>
-          <ImageBackground style={{ width: '100%', height: '100%', }} source={require('../assets/pegadas2.jpg')}>
+       
             {/* Header */}
             <View style={styles.header}>
               <View style={styles.headerConteudo}>
@@ -94,7 +161,7 @@ export function Feed({ navigation, route }) {
                 {(cd_cliente !== null) && (
                   <View>
                     <TouchableOpacity onPress={showModal}>
-                      <Text style={{ fontWeight: 'bold' }}>Sair</Text>
+                      <Text style={{ fontWeight: 'bold' , borderWidth: 2, borderRadius: 10,padding: 5, borderColor: 'black', }}>Sair</Text>
                     </TouchableOpacity>
                   </View>)}
                 <View>
@@ -181,19 +248,13 @@ export function Feed({ navigation, route }) {
             {/* Noticias */}
             <View style={styles.noticias}>
               <Text style={styles.textTopicos}>Notícias:</Text>
-              <View style={styles.noticia}>
-                <Image source={require('../assets/favicon.png')}
-                  style={styles.logo3} />
-                <Text style={styles.text2}>Vagas para o feriado!</Text>
-              </View>
-              <View style={styles.noticia}>
-                <Image source={require('../assets/favicon.png')}
-                  style={styles.logo3} />
-                <View>
-                  <Text style={styles.text2}>Live no Instagram</Text>
-                  <Text style={styles.text3}>Novidades pra vocês!</Text>
+              {noticias.map((noticia) => (
+                <View key={noticia.cd_noticia} style={styles.noticia}>
+                  <Image source={{ uri: noticia.img_noticia }}
+                    style={styles.logo3} />
+                  <Text style={styles.text2}>{noticia.ds_noticia}</Text>
                 </View>
-              </View>
+              ))}
             </View>
             {/* Comentários */}
             <View>
@@ -234,21 +295,34 @@ export function Feed({ navigation, route }) {
               </View>
             </View>
             {/* Digita comentário */}
+           {(cd_cliente != null) && (
             <View style={styles.digiteComentario}>
+               
               <Text style={styles.textTopicos}>Envie sua mensagem:</Text>
               <TextInput
                 placeholder="Digite o comentário"
                 style={styles.inputComentario}
+                onChangeText={handleComentarioChange}
+                value={Comentario}
               />
-              <TextInput
-                placeholder="Informe seu email ou whatsapp"
-                style={styles.inputComentario}
-              />
-              <TouchableOpacity style={styles.enviarComentario}>
+                {erro && (
+            <Text style={styles.errorMessage}>
+              *Comentário inválido
+            </Text>
+          )}
+              <TouchableOpacity style={styles.enviarComentario} onPress={enviarComentario}>
                 <Text > Enviar Comentário</Text>
               </TouchableOpacity>
-            </View></ImageBackground>
+            </View>)}
+
         </ScrollView>
+            <Snackbar
+        visible={visible2}
+        onDismiss={onDismissSnackBar}
+        duration={400}
+        >
+      Comentario enviado com sucesso!
+      </Snackbar></ImageBackground>
       </View>
 
 
@@ -268,6 +342,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
 
+  },
+  errorMessage:{
+    color: 'red' ,
+    fontSize:15,
   },
   header: {
     zIndex: 1,
@@ -305,12 +383,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginHorizontal: 20,
+    
   },
   servico: {
     borderWidth: 1,
     borderRadius: 10,
     padding: 3,
     borderColor: '#C0C0C0',
+    backgroundColor: '#F6F1EB',
   },
   logoServicos: {
     height: 80,

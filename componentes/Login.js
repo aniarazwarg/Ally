@@ -22,7 +22,7 @@ export function Login({ navigation }) {
   const onDismissSnackBar = () => setVisible2(false);
 
   const containerStyle = { backgroundColor: 'white', padding: 20 };
-
+const [login, setLogin] = useState(0);
   const handleEmailChange = (text) => {
     setEmail(text);
   };
@@ -32,14 +32,15 @@ export function Login({ navigation }) {
   const $validacao = users.find(user => user.email === email);
   function validaUsuario() {
     //alert importante para a futura validação abaixo
-
+    
     getUsers();
     try {
+      
       if ($validacao && $validacao.email === email && $validacao.senha === senha) {
         showModalAlertSucesso();
       } else {
         onToggleSnackBar();
-        showModalAlertErro();
+        
       }
     } catch (error) {
       getUsers();
@@ -52,11 +53,12 @@ export function Login({ navigation }) {
   function NavigateLogin() {
     const user = users.find(user => user.email === email);
     const admin = users.find(user => user.email === 'admin');
-
+    
     if (user) {
       if ($validacao.email == "admin@admin.com") {
         navigation.navigate('Admin')
         hideModalAlertSucesso();
+        getUsers();
         setEmail('')
         setSenha('')
       }
@@ -73,15 +75,14 @@ export function Login({ navigation }) {
 
 
   function getUsers() {
-    // fetch('http://192.168.26.94/api/usuarios')
-    fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.26.94/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
 
   useEffect(() => {
     getUsers();
-  }, [,])
+  }, [,login])
 
   return (
     <PaperProvider>
@@ -142,6 +143,15 @@ export function Login({ navigation }) {
           {/* {users.map((user) => (
           <Text key={user.cd_cliente}>{user.email}</Text>
         ))} */}
+
+<Snackbar
+        visible={visible2}
+        onDismiss={onDismissSnackBar}
+        duration={400}
+        >
+       Erro ao acessar conta. Tente Novamente.
+      </Snackbar>
+
         </ImageBackground>
       </View>
     </PaperProvider>

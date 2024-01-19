@@ -7,7 +7,7 @@ export function Clientes({ navigation, route }) {
 
     function getUsers() {
         fetch('http://localhost/api/usuarios')
-            // fetch('http://192.168.0.11/api/usuarios')
+            // fetch('http://192.168.26.94/api/usuarios')
             .then((response) => response.json())
             .then((json) => setUsers(json))
     }
@@ -17,15 +17,33 @@ export function Clientes({ navigation, route }) {
     }, [,])
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: '#F2EAD0'}}>
+           
+
             <View style={styles.header}>
-                <View style={styles.headerConteudo}>
-                    <View>
-                        <TouchableOpacity onPress={() => navigation.navigate('Home', {screen: 'Feed'})}>
-                            <Text style={{ fontWeight: 'bold' }}>Sair</Text>
-                        </TouchableOpacity>
-                    </View>
+              <View style={styles.headerConteudo}>
+             
+                  <View>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
+
+                      <Image source={require('../assets/menu-bar.png')}
+                        style={styles.logosHeader}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View>
+               
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Clientes</Text>
+                 
                 </View>
+                  <View>
+                    <TouchableOpacity  onPress={() => navigation.navigate('Home', {screen: 'Feed'})}>
+                      <Text style={{ fontWeight: 'bold' , borderWidth: 2, borderRadius: 10,padding: 5, borderColor: 'black', }}>Sair</Text>
+                    </TouchableOpacity>
+                  </View>
+              
+               
+              </View>
             </View>
             <View style={styles.container}>
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -74,6 +92,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         paddingVertical: 5,
         alignItems: 'center'
+      },
+      logosHeader: {
+        width: 40,
+        height: 40
       },
 })
 

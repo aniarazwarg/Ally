@@ -10,14 +10,14 @@ export function Comentarios({ navigation }) {
 
 
     function dataComentarios() {
-        fetch('http://localhost/api/comentarios')
+        fetch('http://192.168.26.94/api/comentarios')
             .then((response) => response.json())
             .then((json) => setComentarios(json))
     }
 
     const updateCurtidas = async (id, newData) => {
         try {
-            const response = await fetch(`http://localhost/api/curtidas/${id}`, {
+            const response = await fetch(`http://192.168.26.94/api/curtidas/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export function Comentarios({ navigation }) {
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <Image
                                             source={require('../assets/icon_usuario.png')}
-                                            style={{ width: 30, height: 30 }}
+                                            style={{ width: 25, height: 25 }}
                                         />
                                         <Text style={styles.nomeUsuario}>{comentario.nome}</Text>
                                     </View>
@@ -133,16 +133,18 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#C0C0C0',
-        height: 180,
+        height: 150,
         justifyContent: 'space-between',
         marginBottom: 20
     },
     nomeUsuario: {
         marginLeft: 10,
+        fontSize: 14,
+
     },
     textoComentario: {
-        fontSize: 13,
-        textAlign: 'justify',
+        fontSize: 17,
+        textAlign: 'start',
         width: "100%"
     },
     comentarios: {

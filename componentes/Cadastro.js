@@ -212,8 +212,7 @@ export function Cadastro({ navigation }) {
   //funcao getUsers
 
   function getUsers() {
-    // fetch('http://192.168.26.94/api/usuarios')
-    fetch('http://localhost/api/usuarios')
+    fetch('http://192.168.26.94/api/usuarios')
       .then((response) => response.json())
       .then((json) => setUsers(json))
   }
@@ -222,8 +221,7 @@ export function Cadastro({ navigation }) {
   //Função cadastro
 
   const enviarDados = () => {
-    // fetch('http://192.168.26.94/api/cadastro', {
-    fetch('http://localhost/api/cadastro', {
+    fetch('http://192.168.26.94/api/cadastro', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -358,7 +356,7 @@ export function Cadastro({ navigation }) {
             onChangeText={handleNomeChange}
             value={nome}
           />
-          {!validarNome(nome) && <Text style={styles.errorMessage}>Caracteres não permitidos no nome.</Text>}
+          {!validarNome(nome) && <Text style={styles.errorMessage}>{nomeInvalidMsg}</Text>}
 
           <TextInput
             style={styles.input}
@@ -369,7 +367,7 @@ export function Cadastro({ navigation }) {
           />
           {!validaEmail() && (
             <Text style={styles.errorMessage}>
-              Email inválido ou já utilizado. Tente outro.
+              {emailInvalidMsg}
             </Text>
           )}
           <TextInput
@@ -390,7 +388,7 @@ export function Cadastro({ navigation }) {
           />
           {!validarSenha(password) && (
             <Text style={styles.errorMessage}>
-              Senha deve ter entre 6 e 30 caracteres.
+              {senhaInvalidMsg}
             </Text>)}
 
           <TextInput
@@ -411,7 +409,7 @@ export function Cadastro({ navigation }) {
           />
           {!validarCPF(cpf) && (
             <Text style={styles.errorMessage}>
-              CPF inválido ou já utilizado. Tente outro.
+              {cpfInvalidMsg}
             </Text>
           )}
           <TextInput
@@ -470,7 +468,7 @@ export function Cadastro({ navigation }) {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalText}>Email inválido ou já utilizado.</Text>
+              <Text style={styles.modalText}>*Email inválido ou já utilizado.</Text>
               <Button title="Fechar" onPress={() => setShowEmailError(false)} />
             </View>
           </View>
@@ -484,7 +482,7 @@ export function Cadastro({ navigation }) {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalText}>CPF inválido ou já utilizado.</Text>
+              <Text style={styles.modalText}>*CPF inválido ou já utilizado.</Text>
               <Button title="Fechar" onPress={() => setShowCpfError(false)} />
             </View>
           </View>
@@ -497,6 +495,9 @@ export function Cadastro({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  errorMessage:{
+    color: 'red' ,
+  },
   container: {
     flex: 1,
     backgroundColor: '#F2EAD0',
